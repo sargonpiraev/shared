@@ -6,7 +6,7 @@ Reusable GitHub Actions for turborepo projects.
 
 | File | Trigger (in consumer) | Jobs |
 |------|----------------------|------|
-| `workflow-call-turborepo-ci.yml` | `push` / `pull_request` | lint, check-types, build (parallel) |
+| `on-push-main.yml` | `push` → `main` | lint, check-types, build (parallel) |
 | `hello.yml` | manual test | hello world |
 
 Pin: `@v1` — not `@main`.
@@ -14,8 +14,8 @@ Pin: `@v1` — not `@main`.
 ## Consumer example
 
 ```yaml
-# .github/workflows/push-main.yml
-name: Push main branch
+# .github/workflows/on-push-main.yml
+name: on-push-main
 
 on:
   push:
@@ -23,7 +23,7 @@ on:
 
 jobs:
   ci:
-    uses: sargonpiraev/shared/.github/workflows/workflow-call-turborepo-ci.yml@v1
+    uses: sargonpiraev/shared/.github/workflows/on-push-main.yml@v1
     secrets: inherit
 ```
 

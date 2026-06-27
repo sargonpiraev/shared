@@ -1,4 +1,4 @@
-name: Turborepo CI (reusable)
+name: on-push-main
 
 on:
   workflow_call:
