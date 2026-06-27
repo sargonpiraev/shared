@@ -9,7 +9,7 @@ Reusable GitHub Actions for turborepo projects.
 | `on-push-main.yml` | `push` → `main` | lint, check-types, build (parallel) |
 | `hello.yml` | manual test | hello world |
 
-Pin: `@v1` — not `@main`.
+Uses `@main` — always latest from shared.
 
 ## Consumer example
 
@@ -23,7 +23,7 @@ on:
 
 jobs:
   ci:
-    uses: sargonpiraev/shared/.github/workflows/on-push-main.yml@v1
+    uses: sargonpiraev/shared/.github/workflows/on-push-main.yml@main
     secrets: inherit
 ```
 
