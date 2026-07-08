@@ -2,7 +2,9 @@
 
 # @sargonpiraev/seodit
 
-![npm version](https://img.shields.io/npm/v/@sargonpiraev%2fseodit) ![npm downloads](https://img.shields.io/npm/dm/@sargonpiraev%2fseodit)
+[![npm version](https://img.shields.io/npm/v/@sargonpiraev%2fseodit)](https://www.npmjs.com/package/@sargonpiraev%2fseodit)
+[![npm downloads](https://img.shields.io/npm/dm/@sargonpiraev%2fseodit)](https://www.npmjs.com/package/@sargonpiraev%2fseodit)
+[![CI](https://github.com/sargonpiraev/shared/actions/workflows/publish-seodit.yml/badge.svg?branch=main)](https://github.com/sargonpiraev/shared/actions/workflows/publish-seodit.yml?query=branch%3Amain)
 
 Playwright-native SEO assertions for Next.js apps
 
@@ -19,10 +21,3 @@ npm install @sargonpiraev/seodit
 - [llms-full.txt](https://sargonpiraev.github.io/shared/seodit/llms-full.txt)
 - [Source](https://github.com/sargonpiraev/shared/tree/main/packages/seodit)
 - [npm](https://www.npmjs.com/package/@sargonpiraev%2fseodit)
-
-## Exports
-
-- `@sargonpiraev/seodit`
-- `@sargonpiraev/seodit/html`
-- `@sargonpiraev/seodit/jsonld`
-- `@sargonpiraev/seodit/playwright`
