@@ -3,6 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const basePath = process.env.DOCS_BASE_PATH ?? ''
 const reactProduction = path.resolve(__dirname, '../../node_modules/react/cjs/react.production.js')
 const reactDevelopment = path.resolve(__dirname, '../../node_modules/react/cjs/react.development.js')
 const reactDomProduction = path.resolve(
@@ -16,16 +17,15 @@ const reactDomDevelopment = path.resolve(
 
 /** @type {import('next').NextConfig} */
 const config = {
+  basePath,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   transpilePackages: ['@sargonpiraev/seodit'],
   outputFileTracingRoot: path.join(__dirname, '../..'),
-  async rewrites() {
-    return [
-      {
-        source: '/docs/:path*.md',
-        destination: '/llms.mdx/docs/:path*',
-      },
-    ]
-  },
   webpack: (webpackConfig, { dev }) => {
     webpackConfig.resolve.alias = {
       ...webpackConfig.resolve.alias,
