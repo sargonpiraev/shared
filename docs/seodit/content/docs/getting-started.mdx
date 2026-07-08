@@ -9,15 +9,7 @@ description: Install seodit and extend your local Playwright expect
 npm install @sargonpiraev/seodit @playwright/test
 ```
 
-### Local `file:` link (polyrepo)
-
-From `apps/webapp` in a consumer monorepo next to `shared/`:
-
-```json
-"@sargonpiraev/seodit": "file:../../../shared/packages/seodit"
-```
-
-Wrong depth (`file:../../shared/...`) creates a broken symlink. After `npm install`, the package `prepare` script builds `dist/` when it is missing. Prefer `npm install @sargonpiraev/seodit` from the registry when possible.
+Install seodit in the app or test package that owns your Playwright configuration. It is a Playwright expect extension, so keep using your app's existing `@playwright/test` import.
 
 ### Agent skill (optional)
 
@@ -31,7 +23,7 @@ npx skills add https://github.com/sargonpiraev/shared/tree/main/packages/seodit/
   -y
 ```
 
-Listed on [skills.sh](https://skills.sh) via install telemetry — there is no manual publish or registry form.
+Run this once in a project where you want your coding agent to have seodit-specific integration guidance.
 
 **Option B — `skills-npm` (version-locked)**
 
@@ -41,7 +33,7 @@ npx skills-npm setup
 npm install @sargonpiraev/seodit
 ```
 
-`prepare` symlinks the skill from `node_modules` after each install. Opt-in only.
+Use this option when you want the skill to follow the npm package version installed in your project.
 
 ## Extend expect
 

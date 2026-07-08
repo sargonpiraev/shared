@@ -1,6 +1,6 @@
 # Seodit Next Example
 
-Minimal Next.js + next-intl fixture used to validate `@sargonpiraev/seodit/next`.
+Minimal Next.js + next-intl app that demonstrates `@sargonpiraev/seodit/next` with colocated Playwright SEO specs.
 
 ## Routes
 
@@ -9,6 +9,8 @@ Minimal Next.js + next-intl fixture used to validate `@sargonpiraev/seodit/next`
 - `/[locale]/anime/[malId]` with fixture `malId=1`
 
 ## Run
+
+From the repository root:
 
 ```bash
 npm install

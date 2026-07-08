@@ -3,43 +3,32 @@ title: Agent skill
 description: Use the seodit Agent Skill in Cursor and other coding agents
 ---
 
-The package ships one Agent Skill named **seodit** — an integration playbook for coding agents. API details and examples live in the docs; the skill tells agents *when* and *how* to wire seodit in a Next.js app.
+The package ships one optional Agent Skill named **seodit**. It gives coding agents a short integration playbook for adding Playwright SEO checks to a Next.js app.
 
-## Skill layout
+API details and examples stay in these docs; the skill only tells agents when to use seodit and which public guides to follow.
 
-```
-packages/seodit/skills/seodit/SKILL.md
-```
+## Discovery metadata
 
-Scaffold once with the official Vercel CLI, then `readme-gen.ts` fills URLs and rules on every build:
-
-```bash
-npm run skill:init   # npx skills init seodit
-npm run readme:gen   # overwrite SKILL.md with deterministic content
-```
-
-Per [agentskills.io](https://agentskills.io/specification), the skill `name` matches the directory (`seodit`). One umbrella skill per npm package is the usual pattern for libraries.
-
-The published `package.json` also exposes discovery metadata:
+The published `package.json` exposes docs and skill metadata:
 
 ```json
 {
-  "llms": "https://…/llms.txt",
-  "llmsFull": "https://…/llms-full.txt",
-  "skills": "https://github.com/…/packages/seodit/skills/seodit",
+  "llms": "https://sargonpiraev.github.io/shared/seodit/llms.txt",
+  "llmsFull": "https://sargonpiraev.github.io/shared/seodit/llms-full.txt",
+  "skills": "https://github.com/sargonpiraev/shared/tree/main/packages/seodit/skills/seodit",
   "agents": {
     "skills": [{ "name": "seodit", "path": "./skills/seodit" }]
   }
 }
 ```
 
-- `llms` / `llmsFull` — AI documentation index (like [Zod](https://github.com/colinhacks/zod))
-- `skills` — git URL for `npx skills add`
-- `agents.skills` — path inside the npm tarball for [skills-npm](https://github.com/antfu/skills-npm) and other discovery tools
+- `llms` / `llmsFull` point agents to machine-readable documentation.
+- `skills` is the git URL for `npx skills add`.
+- `agents.skills` points to the skill inside the npm tarball for tools that discover skills from installed packages.
 
 ## Install the skill
 
-### Option A — `npx skills` (git)
+### Option A - `npx skills`
 
 ```bash
 npx skills add https://github.com/sargonpiraev/shared/tree/main/packages/seodit/skills/seodit \
@@ -47,13 +36,13 @@ npx skills add https://github.com/sargonpiraev/shared/tree/main/packages/seodit/
   -y
 ```
 
-Run once per project. Update later with `npx skills update seodit`.
+Run once per project. Update later with:
 
-### skills.sh listing
+```bash
+npx skills update seodit
+```
 
-There is **no publish command** for [skills.sh](https://skills.sh). The index is built from anonymous install telemetry when users run `npx skills add`. After enough installs, the skill can appear at a URL like `https://skills.sh/sargonpiraev/shared/seodit`. You do not submit a form or open a PR — share the install command in README and docs instead.
-
-### Option B — `skills-npm` (version-locked)
+### Option B - `skills-npm`
 
 ```bash
 npm i -D skills-npm
@@ -61,14 +50,14 @@ npx skills-npm setup
 npm install @sargonpiraev/seodit
 ```
 
-`prepare` symlinks skills from `node_modules` after each install. Opt-in only — consumers who skip `skills-npm` are unaffected.
+Use this option when you want the installed skill to match the `@sargonpiraev/seodit` version in your project.
 
 ## Agent workflow
 
 Tell the agent what to integrate; referencing the skill is optional if the task clearly matches SEO / Playwright / seodit:
 
 ```text
-Integrate @sargonpiraev/seodit in apps/webapp. Add *.seodit.spec.ts for /en and /ru.
+Integrate @sargonpiraev/seodit in this Next.js app. Add Playwright SEO specs for /en and /ru.
 ```
 
 The agent should:
