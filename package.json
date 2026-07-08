@@ -28,12 +28,6 @@
     "node": ">=22"
   },
   "packageManager": "npm@10.9.4",
-  "devEngines": {
-    "packageManager": {
-      "name": "npm",
-      "version": "10.9.4"
-    }
-  },
   "workspaces": [
     "docs/*",
     "packages/*",

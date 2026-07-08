@@ -13,9 +13,6 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/seodit
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,16 +25,16 @@ jobs:
           cache-dependency-path: package-lock.json
           registry-url: https://registry.npmjs.org
 
-      - name: Pin npm version
-        working-directory: .
-        run: npm install -g npm@$(node -p "require('./package.json').devEngines.packageManager.version")
-
       - run: npm ci
-        working-directory: .
 
       - run: npm run build
+        working-directory: packages/seodit
+
       - run: npm test
+        working-directory: packages/seodit
+
       - run: npm run check-types
+        working-directory: packages/seodit
 
       - name: Sync seodit release tag with npm
         working-directory: packages/seodit
@@ -61,10 +58,7 @@ jobs:
           git tag "$TAG"
           git push origin "$TAG"
 
-      - name: Pin npm version for semantic-release
-        working-directory: .
-        run: npm install -g npm@$(node -p "require('./package.json').devEngines.packageManager.version")
-
       - run: npx semantic-release
+        working-directory: packages/seodit
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
