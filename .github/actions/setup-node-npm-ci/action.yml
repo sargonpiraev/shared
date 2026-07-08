@@ -1,12 +1,12 @@
 name: Setup Node + npm ci
-description: Node 22, npm cache, install dependencies
+description: Node 24, npm cache, install dependencies
 
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
-        node-version: "22"
+        node-version: "24"
         cache: npm
 
     - shell: bash

@@ -55,6 +55,9 @@
   "peerDependencies": {
     "@playwright/test": ">=1.51.0"
   },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@repo/typescript-config": "*",

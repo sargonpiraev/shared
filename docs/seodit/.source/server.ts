@@ -1,5 +1,6 @@
 // @ts-nocheck
-import * as __fd_glob_5 from "../content/docs/playwright.mdx?collection=docs"
+import * as __fd_glob_6 from "../content/docs/playwright.mdx?collection=docs"
+import * as __fd_glob_5 from "../content/docs/next.mdx?collection=docs"
 import * as __fd_glob_4 from "../content/docs/index.mdx?collection=docs"
 import * as __fd_glob_3 from "../content/docs/getting-started.mdx?collection=docs"
 import * as __fd_glob_2 from "../content/docs/api.mdx?collection=docs"
@@ -13,4 +14,4 @@ const create = server<typeof Config, import("fumadocs-mdx/runtime/types").Intern
   }
 }>({"doc":{"passthroughs":["extractedReferences"]}});
 
-export const docs = await create.docs("docs", "content/docs", {"meta.json": __fd_glob_0, }, {"agent-skill.mdx": __fd_glob_1, "api.mdx": __fd_glob_2, "getting-started.mdx": __fd_glob_3, "index.mdx": __fd_glob_4, "playwright.mdx": __fd_glob_5, });
+export const docs = await create.docs("docs", "content/docs", {"meta.json": __fd_glob_0, }, {"agent-skill.mdx": __fd_glob_1, "api.mdx": __fd_glob_2, "getting-started.mdx": __fd_glob_3, "index.mdx": __fd_glob_4, "next.mdx": __fd_glob_5, "playwright.mdx": __fd_glob_6, });

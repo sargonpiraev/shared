@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@sargonpiraev%2fseodit)](https://www.npmjs.com/package/@sargonpiraev%2fseodit)
 [![npm downloads](https://img.shields.io/npm/dm/@sargonpiraev%2fseodit)](https://www.npmjs.com/package/@sargonpiraev%2fseodit)
-[![main](https://img.shields.io/github/actions/workflow/status/sargonpiraev/shared/on-main-push-seodit.yml?branch=main&label=main)](https://github.com/sargonpiraev/shared/actions?query=branch%3Amain)
+[![main](https://img.shields.io/github/actions/workflow/status/sargonpiraev/shared/on-push-main-seodit.yml?branch=main&label=main)](https://github.com/sargonpiraev/shared/actions?query=branch%3Amain)
 [![skills.sh](https://skills.sh/b/sargonpiraev/shared)](https://skills.sh/sargonpiraev/shared)
 
 Playwright-native SEO assertions for Next.js apps

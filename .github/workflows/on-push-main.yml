@@ -15,35 +15,35 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-npm-ci
       - run: npm run lint
 
   check-types:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-npm-ci
       - run: npm run check-types
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-npm-ci
       - run: npm run build
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-npm-ci
       - run: npm run test
 
   audit:
     if: ${{ !inputs.skip-audit }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-npm-ci
       - run: npm audit --audit-level=critical

@@ -49,7 +49,7 @@ jobs:
     needs: [base, package-extra]
 ```
 
-Example: `on-main-push-seodit.yml` adds `test-next` beside `base`, then publishes npm + docs in parallel.
+Example: `on-push-main-seodit.yml` adds `test-next` beside `base`, then publishes npm + docs in parallel.
 
 ### npm publish auth
 
@@ -58,8 +58,12 @@ Example: `on-main-push-seodit.yml` adds `test-next` beside `base`, then publishe
 On npmjs.com → `@sargonpiraev/seodit` → Trusted Publisher must match exactly:
 
 - Repository: `sargonpiraev/shared`
-- Workflow filename: `on-main-push-seodit.yml`
+- Workflow filename: `on-push-main-seodit.yml`
 
 ## Extension points
 
 Add optional `workflow_call` inputs to `on-push-main.yml` when a consumer needs them (`skip-audit`, custom test command, etc.). Keep heavy package-specific checks in `on-main-push-<package>.yml`, not in the shared baseline.
+
+## Node.js
+
+CI and local development use **Node.js 24** (see root `.node-version` and `engines` in `package.json`). Workflows use `actions/checkout@v6` and `actions/setup-node@v6` with `node-version: "24"`.

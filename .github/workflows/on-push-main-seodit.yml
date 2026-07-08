@@ -1,4 +1,4 @@
-name: on-main-push-seodit
+name: on-push-main-seodit
 
 on:
   push:
@@ -7,14 +7,14 @@ on:
       - "docs/seodit/**"
       - "packages/seodit/**"
       - "examples/seodit-next/**"
-      - ".github/workflows/on-main-push-seodit.yml"
+      - ".github/workflows/on-push-main-seodit.yml"
       - ".github/workflows/on-push-main.yml"
 
 permissions:
   contents: read
 
 concurrency:
-  group: on-main-push-seodit-${{ github.ref }}
+  group: on-push-main-seodit-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
   test-next:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/setup-node-npm-ci
 
@@ -51,13 +51,13 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: "24"
           cache: npm
           cache-dependency-path: package-lock.json
           registry-url: https://registry.npmjs.org
@@ -108,7 +108,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/setup-node-npm-ci
 
