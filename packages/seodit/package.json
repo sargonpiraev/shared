@@ -58,5 +58,14 @@
   },
   "homepage": "https://sargonpiraev.github.io/shared/seodit/docs",
   "llms": "https://sargonpiraev.github.io/shared/seodit/llms.txt",
-  "llmsFull": "https://sargonpiraev.github.io/shared/seodit/llms-full.txt"
+  "llmsFull": "https://sargonpiraev.github.io/shared/seodit/llms-full.txt",
+  "skills": "https://github.com/sargonpiraev/shared/tree/main/packages/seodit/skills/seodit",
+  "agents": {
+    "skills": [
+      {
+        "name": "seodit",
+        "path": "./skills/seodit"
+      }
+    ]
+  }
 }

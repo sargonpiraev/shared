@@ -8,6 +8,8 @@ type PackageJson = {
   homepage?: string;
   llms?: string;
   llmsFull?: string;
+  skills?: string;
+  agents?: { skills: Array<{ name: string; path: string }> };
   repository?: { url?: string; directory?: string };
 };
 
@@ -139,6 +141,10 @@ writeFileSync(path.join(skillDir, "SKILL.md"), skill);
 packageJson.homepage = docsUrl;
 packageJson.llms = `${siteBase}/llms.txt`;
 packageJson.llmsFull = `${siteBase}/llms-full.txt`;
+packageJson.skills = skillGitUrl;
+packageJson.agents = {
+  skills: [{ name: packageSlug, path: `./skills/${packageSlug}` }],
+};
 writeFileSync(
   path.join(packageDir, "package.json"),
   `${JSON.stringify(packageJson, null, 2)}\n`,

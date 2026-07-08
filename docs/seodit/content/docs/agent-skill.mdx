@@ -20,6 +20,23 @@ npm run readme:gen   # overwrite SKILL.md with deterministic content
 
 Per [agentskills.io](https://agentskills.io/specification), the skill `name` matches the directory (`seodit`). One umbrella skill per npm package is the usual pattern for libraries.
 
+The published `package.json` also exposes discovery metadata:
+
+```json
+{
+  "llms": "https://…/llms.txt",
+  "llmsFull": "https://…/llms-full.txt",
+  "skills": "https://github.com/…/packages/seodit/skills/seodit",
+  "agents": {
+    "skills": [{ "name": "seodit", "path": "./skills/seodit" }]
+  }
+}
+```
+
+- `llms` / `llmsFull` — AI documentation index (like [Zod](https://github.com/colinhacks/zod))
+- `skills` — git URL for `npx skills add`
+- `agents.skills` — path inside the npm tarball for [skills-npm](https://github.com/antfu/skills-npm) and other discovery tools
+
 ## Install the skill
 
 ### Option A — `npx skills` (git)
