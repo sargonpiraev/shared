@@ -28,6 +28,9 @@ jobs:
           cache-dependency-path: package-lock.json
           registry-url: https://registry.npmjs.org
 
+      - run: npm install -g npm@$(node -p "require('./package.json').devEngines.packageManager.version")
+        working-directory: .
+
       - run: npm ci
         working-directory: .
 
