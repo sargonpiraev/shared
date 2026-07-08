@@ -35,6 +35,13 @@ module.exports = {
         message: "chore(seodit): release ${nextRelease.version} [skip ci]",
       },
     ],
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        labels: false,
+        successComment: false,
+        failComment: false,
+      },
+    ],
   ],
 };

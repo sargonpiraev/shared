@@ -51,6 +51,16 @@ jobs:
 
 Example: `on-main-push-seodit.yml` adds `test-next` beside `base`, then publishes npm + docs in parallel.
 
+### npm publish auth
+
+`publish-npm` uses GitHub OIDC (`id-token: write`) and falls back to `NPM_TOKEN` for `@semantic-release/npm`.
+
+Either:
+
+1. **Trusted Publishing (preferred)** — on npmjs.com → `@sargonpiraev/seodit` → Settings → Trusted Publisher → GitHub Actions → repo `sargonpiraev/shared`, workflow `on-main-push-seodit.yml`, environment optional.
+
+2. **Classic token** — add repo secret `NPM_TOKEN` with an Automation token that can publish `@sargonpiraev/seodit`.
+
 ## Extension points
 
 Add optional `workflow_call` inputs to `on-push-main.yml` when a consumer needs them (`skip-audit`, custom test command, etc.). Keep heavy package-specific checks in `on-main-push-<package>.yml`, not in the shared baseline.
