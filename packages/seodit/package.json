@@ -1,7 +1,7 @@
 {
   "name": "@sargonpiraev/seodit",
   "description": "Playwright SEO matchers for Next.js + next-intl apps",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": false,
   "type": "module",
   "publishConfig": {
