@@ -14,7 +14,7 @@ import type { Page } from "@playwright/test";
  * `toHaveMetaDescription(expected)` reads `meta[name="description"]` content.
 
  * ```typescript
- * await expect(page).toHaveMetaDescription(/Anidex/);
+ * await expect(page).toHaveMetaDescription(/Example Store/);
  * ```
 
  */

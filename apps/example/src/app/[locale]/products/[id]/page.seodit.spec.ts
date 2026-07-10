@@ -6,7 +6,7 @@ import { expect, test } from "@/test/seodit";
 
 const routes = createSeoditPageRoutes(routing, import.meta.url, {
   origin: SITE_URL,
-  params: [{ malId: "1" }],
+  params: [{ id: "alpha" }],
 });
 
 for (const route of routes) {
@@ -19,7 +19,7 @@ for (const route of routes) {
     await expect(page).toHaveOpenGraphUrl(route.absoluteUrl());
     await expect(page).toHaveOpenGraphSiteName(SITE_NAME);
     await expect(page).toHaveTwitterCard("summary_large_image");
-    await expect(page).toHaveJsonLd({ "@type": "TVSeries" });
+    await expect(page).toHaveJsonLd({ "@type": "Product" });
     await expect(page).toHaveJsonLd({ "@type": "BreadcrumbList" });
   });
 }

@@ -3,11 +3,11 @@
     "title": "Seodit Example",
     "description": "Minimal Next.js fixture for @sargonpiraev/seodit/next"
   },
-  "anime": {
-    "title": "Anime",
-    "description": "Browse anime in the example catalog"
+  "products": {
+    "title": "Products",
+    "description": "Browse products in the example catalog"
   },
   "detail": {
-    "title": "Cowboy Bebop"
+    "title": "Example product"
   }
 }

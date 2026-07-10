@@ -2,40 +2,44 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { JsonLd } from "@/components/json-ld";
-import { FIXTURE_ANIME, getFixtureAnimeDescription, getFixtureAnimeTitle } from "@/lib/fixtures";
+import {
+  FIXTURE_PRODUCT,
+  getFixtureProductDescription,
+  getFixtureProductTitle,
+} from "@/lib/fixtures";
 import { buildPageMetadata } from "@/lib/metadata";
 
 const metadataBase = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:4100");
 
-type AnimeDetailPageProps = {
-  params: Promise<{ locale: string; malId: string }>;
+type ProductDetailPageProps = {
+  params: Promise<{ locale: string; id: string }>;
 };
 
-export async function generateMetadata({ params }: AnimeDetailPageProps) {
-  const { locale, malId } = await params;
+export async function generateMetadata({ params }: ProductDetailPageProps) {
+  const { locale, id } = await params;
 
-  if (malId !== String(FIXTURE_ANIME.malId)) {
+  if (id !== FIXTURE_PRODUCT.id) {
     return {};
   }
 
   return buildPageMetadata({
     locale,
-    path: `anime/${malId}`,
-    title: getFixtureAnimeTitle(locale),
-    description: getFixtureAnimeDescription(locale),
+    path: `products/${id}`,
+    title: getFixtureProductTitle(locale),
+    description: getFixtureProductDescription(locale),
   });
 }
 
-export default async function AnimeDetailPage({ params }: AnimeDetailPageProps) {
-  const { locale, malId } = await params;
+export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+  const { locale, id } = await params;
 
-  if (malId !== String(FIXTURE_ANIME.malId)) {
+  if (id !== FIXTURE_PRODUCT.id) {
     notFound();
   }
 
   setRequestLocale(locale);
-  const title = getFixtureAnimeTitle(locale);
-  const description = getFixtureAnimeDescription(locale);
+  const title = getFixtureProductTitle(locale);
+  const description = getFixtureProductDescription(locale);
 
   return (
     <main>
@@ -43,9 +47,9 @@ export default async function AnimeDetailPage({ params }: AnimeDetailPageProps) 
         data={[
           {
             "@context": "https://schema.org",
-            "@type": "TVSeries",
+            "@type": "Product",
             name: title,
-            url: new URL(`/${locale}/anime/${malId}`, metadataBase).toString(),
+            url: new URL(`/${locale}/products/${id}`, metadataBase).toString(),
           },
           {
             "@context": "https://schema.org",
@@ -60,14 +64,14 @@ export default async function AnimeDetailPage({ params }: AnimeDetailPageProps) 
               {
                 "@type": "ListItem",
                 position: 2,
-                name: locale === "ru" ? "Аниме" : "Anime",
-                item: new URL(`/${locale}/anime`, metadataBase).toString(),
+                name: locale === "ru" ? "Товары" : "Products",
+                item: new URL(`/${locale}/products`, metadataBase).toString(),
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: title,
-                item: new URL(`/${locale}/anime/${malId}`, metadataBase).toString(),
+                item: new URL(`/${locale}/products/${id}`, metadataBase).toString(),
               },
             ],
           },

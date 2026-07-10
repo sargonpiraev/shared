@@ -65,7 +65,7 @@ function deepPartialMatch(expected: unknown, actual: unknown): boolean {
  *
  *   await expect(page).toHaveJsonLd({
  *     "@type": "Organization",
- *     name: "Anidex",
+ *     name: "Example Store",
  *   });
  * });
  * ```

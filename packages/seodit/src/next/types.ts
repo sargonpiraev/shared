@@ -6,7 +6,7 @@ export interface SeoditNextRouting {
 export type SeoditRouteParams = Record<string, string>;
 
 export interface CreateSeoditPageRoutesOptions {
-  /** Absolute origin for canonical / alternate URLs (e.g. `https://anidex.tv`). */
+  /** Absolute origin for canonical / alternate URLs (e.g. `https://example.com`). */
   origin?: string;
   params?: SeoditRouteParams[];
   appDir?: string;

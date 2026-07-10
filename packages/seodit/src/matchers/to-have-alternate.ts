@@ -14,7 +14,7 @@ import type { Page } from "@playwright/test";
  * `toHaveAlternate(hreflang, expected)` reads `link[rel="alternate"][hreflang="…"]` href.
 
  * ```typescript
- * await expect(page).toHaveAlternate("ru", "https://anidex.tv/ru");
+ * await expect(page).toHaveAlternate("ru", "https://example.com/ru");
  * ```
 
  *

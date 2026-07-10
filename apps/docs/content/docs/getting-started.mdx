@@ -51,17 +51,17 @@ npx playwright test --project seodit
 
 Place the spec next to the page, for example:
 
-`src/app/[locale]/anime/[id]/page.seodit.spec.ts`
+`src/app/[locale]/products/[id]/page.seodit.spec.ts`
 
 ```typescript
 import { routing } from "@/i18n/routing";
 import { test, expect } from "@/test/seodit";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const id = "1";
+const id = "alpha";
 
 for (const locale of routing.locales) {
-  const pageUrl = new URL(`/${locale}/anime/${id}`, siteUrl).toString();
+  const pageUrl = new URL(`/${locale}/products/${id}`, siteUrl).toString();
 
   test(pageUrl, async ({ page }) => {
     await page.goto(pageUrl);
@@ -70,11 +70,11 @@ for (const locale of routing.locales) {
     await expect(page).toHaveCanonical(pageUrl);
     await expect(page).toHaveSelfAlternate(locale, pageUrl);
 
-    const xDefaultUrl = new URL(`/${routing.defaultLocale}/anime/${id}`, siteUrl).toString();
+    const xDefaultUrl = new URL(`/${routing.defaultLocale}/products/${id}`, siteUrl).toString();
     await expect(page).toHaveXDefaultAlternate(xDefaultUrl);
 
     for (const alternateLocale of routing.locales) {
-      const alternateUrl = new URL(`/${alternateLocale}/anime/${id}`, siteUrl).toString();
+      const alternateUrl = new URL(`/${alternateLocale}/products/${id}`, siteUrl).toString();
       await expect(page).toHaveAlternate(alternateLocale, alternateUrl);
     }
   });

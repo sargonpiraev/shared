@@ -22,20 +22,20 @@ const routing = {
 
 describe("next manifest helpers", () => {
   it("maps colocated spec files to manifest keys", () => {
-    const key = specFileToManifestKey("/project/src/app/[locale]/anime/page.seodit.spec.ts");
-    assert.equal(key, "/[locale]/anime/page");
-    assert.equal(manifestKeyToRoutePattern(key!), "/[locale]/anime");
+    const key = specFileToManifestKey("/project/src/app/[locale]/products/page.seodit.spec.ts");
+    assert.equal(key, "/[locale]/products/page");
+    assert.equal(manifestKeyToRoutePattern(key!), "/[locale]/products");
   });
 
   it("reads page routes from Next build manifest", () => {
     const routes = readNextPageRoutes({ buildDir: fixtureDir });
-    assert.deepEqual(routes, ["/", "/[locale]", "/[locale]/anime", "/[locale]/anime/[malId]"]);
+    assert.deepEqual(routes, ["/", "/[locale]", "/[locale]/products", "/[locale]/products/[id]"]);
   });
 });
 
 describe("createSeoditPageRoutes", () => {
   it("expands locales for static localized routes", () => {
-    const specUrl = new URL("./__fixtures__/project/src/app/[locale]/anime/page.seodit.spec.ts", import.meta.url);
+    const specUrl = new URL("./__fixtures__/project/src/app/[locale]/products/page.seodit.spec.ts", import.meta.url);
     const routes = createSeoditPageRoutes(routing, specUrl.href, {
       buildDir: fixtureDir,
       origin: "http://localhost:3000",
@@ -43,34 +43,34 @@ describe("createSeoditPageRoutes", () => {
 
     assert.deepEqual(
       routes.map((route) => route.pathname),
-      ["/en/anime", "/ru/anime"],
+      ["/en/products", "/ru/products"],
     );
-    assert.equal(routes[0]?.absoluteUrl(), "http://localhost:3000/en/anime");
+    assert.equal(routes[0]?.absoluteUrl(), "http://localhost:3000/en/products");
     assert.deepEqual(routes[0]?.alternates(), [
-      { locale: "en", url: "http://localhost:3000/en/anime" },
-      { locale: "ru", url: "http://localhost:3000/ru/anime" },
+      { locale: "en", url: "http://localhost:3000/en/products" },
+      { locale: "ru", url: "http://localhost:3000/ru/products" },
     ]);
-    assert.equal(routes[0]?.xDefaultUrl(), "http://localhost:3000/en/anime");
+    assert.equal(routes[0]?.xDefaultUrl(), "http://localhost:3000/en/products");
   });
 
   it("applies dynamic params for localized detail routes", () => {
     const specUrl = new URL(
-      "./__fixtures__/project/src/app/[locale]/anime/[malId]/page.seodit.spec.ts",
+      "./__fixtures__/project/src/app/[locale]/products/[id]/page.seodit.spec.ts",
       import.meta.url,
     );
     const routes = createSeoditPageRoutes(routing, specUrl.href, {
       buildDir: fixtureDir,
-      params: [{ malId: "1" }],
+      params: [{ id: "alpha" }],
     });
 
     assert.deepEqual(
       routes.map((route) => route.pathname),
-      ["/en/anime/1", "/ru/anime/1"],
+      ["/en/products/alpha", "/ru/products/alpha"],
     );
   });
 
   it("asserts route basics with canonical and hreflang alternates", async () => {
-    const specUrl = new URL("./__fixtures__/project/src/app/[locale]/anime/page.seodit.spec.ts", import.meta.url);
+    const specUrl = new URL("./__fixtures__/project/src/app/[locale]/products/page.seodit.spec.ts", import.meta.url);
     const [route] = createSeoditPageRoutes(routing, specUrl.href, {
       buildDir: fixtureDir,
       origin: "http://localhost:3000",
@@ -98,11 +98,11 @@ describe("createSeoditPageRoutes", () => {
 
     assert.deepEqual(calls, [
       "lang:en",
-      "canonical:http://localhost:3000/en/anime",
-      "self:en:http://localhost:3000/en/anime",
-      "x-default:http://localhost:3000/en/anime",
-      "alternate:en:http://localhost:3000/en/anime",
-      "alternate:ru:http://localhost:3000/ru/anime",
+      "canonical:http://localhost:3000/en/products",
+      "self:en:http://localhost:3000/en/products",
+      "x-default:http://localhost:3000/en/products",
+      "alternate:en:http://localhost:3000/en/products",
+      "alternate:ru:http://localhost:3000/ru/products",
     ]);
   });
 });

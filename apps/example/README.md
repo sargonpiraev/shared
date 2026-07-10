@@ -5,8 +5,8 @@ Minimal Next.js + next-intl app that demonstrates `@sargonpiraev/seodit/next` wi
 ## Routes
 
 - `/[locale]`
-- `/[locale]/anime`
-- `/[locale]/anime/[malId]` with fixture `malId=1`
+- `/[locale]/products`
+- `/[locale]/products/[id]` with fixture `id=alpha`
 
 ## Run
 

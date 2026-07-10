@@ -1,22 +1,22 @@
-export const FIXTURE_ANIME = {
-  malId: 1,
+export const FIXTURE_PRODUCT = {
+  id: "alpha",
   titles: {
-    en: "Cowboy Bebop",
-    ru: "Ковбой Бибоп",
+    en: "Example product",
+    ru: "Пример товара",
   },
   descriptions: {
-    en: "Bounty hunters travel the solar system in the year 2071.",
-    ru: "Охотники за головами путешествуют по Солнечной системе в 2071 году.",
+    en: "A minimal fixture product for the seodit example app.",
+    ru: "Минимальный товар-фикстура для примера seodit.",
   },
 } as const;
 
-export function getFixtureAnimeTitle(locale: string) {
-  return FIXTURE_ANIME.titles[locale as keyof typeof FIXTURE_ANIME.titles] ?? FIXTURE_ANIME.titles.en;
+export function getFixtureProductTitle(locale: string) {
+  return FIXTURE_PRODUCT.titles[locale as keyof typeof FIXTURE_PRODUCT.titles] ?? FIXTURE_PRODUCT.titles.en;
 }
 
-export function getFixtureAnimeDescription(locale: string) {
+export function getFixtureProductDescription(locale: string) {
   return (
-    FIXTURE_ANIME.descriptions[locale as keyof typeof FIXTURE_ANIME.descriptions] ??
-    FIXTURE_ANIME.descriptions.en
+    FIXTURE_PRODUCT.descriptions[locale as keyof typeof FIXTURE_PRODUCT.descriptions] ??
+    FIXTURE_PRODUCT.descriptions.en
   );
 }

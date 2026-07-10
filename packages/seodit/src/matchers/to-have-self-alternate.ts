@@ -14,7 +14,7 @@ import type { Page } from "@playwright/test";
  * `toHaveSelfAlternate(locale, expected)` reads `link[rel="alternate"][hreflang="<locale>"]` href.
 
  * ```typescript
- * await expect(page).toHaveSelfAlternate("en", "https://anidex.tv/en");
+ * await expect(page).toHaveSelfAlternate("en", "https://example.com/en");
  * ```
 
  */

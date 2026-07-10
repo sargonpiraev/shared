@@ -14,7 +14,7 @@ import type { Page } from "@playwright/test";
  * `toHaveMetaTitle(expected)` reads the `<title>` text and compares it with the expected value.
 
  * ```typescript
- * await expect(page).toHaveMetaTitle("Anidex");
+ * await expect(page).toHaveMetaTitle("Example Store");
  * ```
 
  *

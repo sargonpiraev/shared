@@ -14,7 +14,7 @@ import type { Page } from "@playwright/test";
  * `toHaveXDefaultAlternate(expected)` reads `link[rel="alternate"][hreflang="x-default"]` href.
 
  * ```typescript
- * await expect(page).toHaveXDefaultAlternate("https://anidex.tv/en");
+ * await expect(page).toHaveXDefaultAlternate("https://example.com/en");
  * ```
 
  */

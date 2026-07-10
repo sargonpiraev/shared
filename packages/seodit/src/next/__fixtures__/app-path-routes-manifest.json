@@ -1,8 +1,6 @@
 {
-  "/_not-found/page": "/_not-found",
-  "/_global-error/page": "/_global-error",
   "/page": "/",
   "/[locale]/page": "/[locale]",
-  "/[locale]/anime/page": "/[locale]/anime",
-  "/[locale]/anime/[malId]/page": "/[locale]/anime/[malId]"
+  "/[locale]/products/page": "/[locale]/products",
+  "/[locale]/products/[id]/page": "/[locale]/products/[id]"
 }
