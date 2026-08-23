@@ -1,8 +1,0 @@
-# yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
-# Canonical product-project alint provider entry (like ci/lefthook.yml).
-# Shared extends this in-tree; products pin the leaf ci/alint/project.yml over GitHub raw + SRI
-# (remote nested extends are unsupported).
-version: 1
-
-extends:
-  - ./alint/project.yml

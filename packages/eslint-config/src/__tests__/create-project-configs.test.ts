@@ -20,84 +20,62 @@ describe('createProjectConfigs', () => {
     assert.ok(configs.length >= 5)
 
     const inventory = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('project.json'),
+      (c) => Array.isArray(c.files) && c.files.includes('project.json')
     )
     assert.ok(inventory)
     assert.ok(inventory.files?.includes('package.json'))
     assert.ok(inventory.files?.includes('.cursor/worktrees.json'))
 
     assert.equal(
-      configs.some(
-        (c) =>
-          Array.isArray(c.files) && c.files.includes('repo.harness.json'),
-      ),
-      false,
+      configs.some((c) => Array.isArray(c.files) && c.files.includes('repo.harness.json')),
+      false
     )
 
     const tsconfig = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('tsconfig.json'),
+      (c) => Array.isArray(c.files) && c.files.includes('tsconfig.json')
     )
     assert.ok(tsconfig)
 
-    const lefthook = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('lefthook.yml'),
-    )
+    const lefthook = configs.find((c) => Array.isArray(c.files) && c.files.includes('lefthook.yml'))
     assert.ok(lefthook)
     assert.ok(lefthook.files?.includes('lefthook.yaml'))
 
-    const gitignore = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('.gitignore'),
-    )
+    const gitignore = configs.find((c) => Array.isArray(c.files) && c.files.includes('.gitignore'))
     assert.ok(gitignore)
-    assert.equal(
-      gitignore.rules?.['project-harness/pulumi-gitignore'],
-      'error',
-    )
+    assert.equal(gitignore.rules?.['project-harness/pulumi-gitignore'], 'error')
 
     const playwright = configs.find(
-      (c) =>
-        Array.isArray(c.files) &&
-        c.files.includes('apps/webapp/playwright.config.ts'),
+      (c) => Array.isArray(c.files) && c.files.includes('apps/webapp/playwright.config.ts')
     )
     assert.ok(playwright)
     assert.ok(playwright.files?.includes('playwright.config.ts'))
     assert.ok(playwright.files?.includes('apps/extapp/playwright.config.ts'))
-    assert.equal(
-      playwright.rules?.['project-harness/playwright-config'],
-      'error',
-    )
+    assert.equal(playwright.rules?.['project-harness/playwright-config'], 'error')
   })
 
   it('prefixes sibling root globs for meta scope (not deep package.json)', () => {
     const configs = createProjectConfigs({ scope: 'meta' })
     const inventory = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('*/project.json'),
+      (c) => Array.isArray(c.files) && c.files.includes('*/project.json')
     )
     assert.ok(inventory)
     assert.ok(inventory.files?.includes('*/package.json'))
-    assert.equal(
-      (inventory.files as string[]).includes('**/package.json'),
-      false,
-    )
+    assert.equal((inventory.files as string[]).includes('**/package.json'), false)
     assert.ok(inventory.files?.includes('*/.cursor/worktrees.json'))
 
     const lefthook = configs.find(
-      (c) => Array.isArray(c.files) && c.files.includes('*/lefthook.yml'),
+      (c) => Array.isArray(c.files) && c.files.includes('*/lefthook.yml')
     )
     assert.ok(lefthook)
 
     const gitignore = configs.find(
       (c) =>
-        Array.isArray(c.files) &&
-        c.files.includes('*/.gitignore') &&
-        c.files.includes('.gitignore'),
+        Array.isArray(c.files) && c.files.includes('*/.gitignore') && c.files.includes('.gitignore')
     )
     assert.ok(gitignore)
 
     const playwright = configs.find(
-      (c) =>
-        Array.isArray(c.files) &&
-        c.files.includes('*/apps/webapp/playwright.config.ts'),
+      (c) => Array.isArray(c.files) && c.files.includes('*/apps/webapp/playwright.config.ts')
     )
     assert.ok(playwright)
     assert.ok(playwright.files?.includes('*/playwright.config.ts'))
@@ -141,15 +119,24 @@ describe('createProjectConfigs', () => {
     ).properties.scripts
     assert.ok(packageScripts.required.includes('prepare'))
     assert.ok(packageScripts.required.includes('test:eslint'))
-    assert.ok(packageScripts.required.includes('test:alint'))
+    assert.ok(packageScripts.required.includes('test:fslint'))
     assert.ok(packageScripts.required.includes('test:pulumi'))
     assert.equal(
       (
         packageScripts.properties as {
           'test:lint'?: unknown
+          'test:alint'?: unknown
         }
       )['test:lint'],
-      false,
+      false
+    )
+    assert.equal(
+      (
+        packageScripts.properties as {
+          'test:alint'?: unknown
+        }
+      )['test:alint'],
+      false
     )
     assert.match(packageScripts.properties.prepare.pattern, /lefthook/)
     const projectTargets = (
@@ -157,15 +144,16 @@ describe('createProjectConfigs', () => {
         properties: {
           targets: {
             required: string[]
-            properties: { 'test:lint'?: unknown }
+            properties: { 'test:lint'?: unknown; 'test:alint'?: unknown }
           }
         }
       }
     ).properties.targets
     assert.ok(projectTargets.required.includes('test:eslint'))
-    assert.ok(projectTargets.required.includes('test:alint'))
+    assert.ok(projectTargets.required.includes('test:fslint'))
     assert.ok(projectTargets.required.includes('test:pulumi'))
     assert.equal(projectTargets.properties['test:lint'], false)
+    assert.equal(projectTargets.properties['test:alint'], false)
     assert.ok(!('appPlaywrightWebapp' in schemas))
     assert.ok(!('appPlaywrightExtapp' in schemas))
     assert.ok(CANONICAL_APP_NAMES.includes('webapp'))
@@ -173,26 +161,11 @@ describe('createProjectConfigs', () => {
   })
 
   it('infers playwright app kind and suite matrix', () => {
-    assert.equal(
-      inferPlaywrightAppKind('/repo/apps/webapp/playwright.config.ts'),
-      'webapp',
-    )
-    assert.equal(
-      inferPlaywrightAppKind('/repo/apps/docapp/playwright.config.ts'),
-      'docapp',
-    )
-    assert.equal(
-      inferPlaywrightAppKind('/repo/apps/extapp/playwright.config.ts'),
-      'extapp',
-    )
-    assert.equal(
-      inferPlaywrightAppKind('/repo/playwright.config.ts'),
-      'webapp',
-    )
-    assert.equal(
-      inferPlaywrightAppKind('/repo/apps/admapp/playwright.config.ts'),
-      null,
-    )
+    assert.equal(inferPlaywrightAppKind('/repo/apps/webapp/playwright.config.ts'), 'webapp')
+    assert.equal(inferPlaywrightAppKind('/repo/apps/docapp/playwright.config.ts'), 'docapp')
+    assert.equal(inferPlaywrightAppKind('/repo/apps/extapp/playwright.config.ts'), 'extapp')
+    assert.equal(inferPlaywrightAppKind('/repo/playwright.config.ts'), 'webapp')
+    assert.equal(inferPlaywrightAppKind('/repo/apps/admapp/playwright.config.ts'), null)
     assert.deepEqual(REQUIRED_PLAYWRIGHT_PROJECTS.webapp, [
       'functional',
       'seo',
@@ -207,18 +180,12 @@ describe('createProjectConfigs', () => {
       'visual',
       'cwv',
     ])
-    assert.deepEqual(REQUIRED_PLAYWRIGHT_PROJECTS.extapp, [
-      'functional',
-      'visual',
-    ])
+    assert.deepEqual(REQUIRED_PLAYWRIGHT_PROJECTS.extapp, ['functional', 'visual'])
     assert.equal(isAllowedProjectName('webapp', 'visual-mobile'), true)
     assert.equal(isAllowedProjectName('webapp', 'cwv'), true)
     assert.equal(isAllowedProjectName('extapp', 'cwv'), false)
     assert.equal(isAllowedProjectName('extapp', 'visual-mobile'), false)
-    assert.equal(
-      testMatchCoversSuite('**/*.functional.spec.ts', 'functional'),
-      true,
-    )
+    assert.equal(testMatchCoversSuite('**/*.functional.spec.ts', 'functional'), true)
     assert.equal(testMatchCoversSuite('**/*.seo.spec.ts', 'functional'), false)
   })
 })

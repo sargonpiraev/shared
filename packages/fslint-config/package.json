@@ -1,0 +1,46 @@
+{
+  "name": "@sargonpiraev/fslint-config",
+  "version": "0.0.0",
+  "description": "Shared alint (file structure linting) rules for sargonpiraev products and packages",
+  "keywords": [
+    "alint",
+    "fslint",
+    "file-structure"
+  ],
+  "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/fslint-config#readme",
+  "bugs": {
+    "url": "https://github.com/sargonpiraev/shared/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sargonpiraev/shared.git",
+    "directory": "packages/fslint-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Sargon Piraev",
+    "email": "sargonpiraev@gmail.com"
+  },
+  "exports": {
+    ".": "./project.yml",
+    "./project.yml": "./project.yml"
+  },
+  "files": [
+    "project.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node -e \"console.log('noop build'); process.exit(0)\"",
+    "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
+    "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
+    "test": "node -e \"const fs=require('fs'); const t=fs.readFileSync('project.yml','utf8'); if(!t.includes('id: project')||!t.includes('id: webapp')||!t.includes('id: mobapp')||!t.includes('id: extapp')) process.exit(1)\""
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

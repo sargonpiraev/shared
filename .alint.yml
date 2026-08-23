@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
-# Shared monorepo consumer: product-project shape via ci/.alint.yml.
+# Shared monorepo consumer: product-project shape via @sargonpiraev/fslint-config.
 version: 1
 
 extends:
-  - ./ci/.alint.yml
+  - ./packages/fslint-config/project.yml

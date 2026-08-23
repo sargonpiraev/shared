@@ -2,21 +2,10 @@
   "name": "shared",
   "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__project.json",
   "projectType": "library",
-  "tags": [
-    "shared",
-    "type:lib",
-    "stack:npm",
-    "status:active"
-  ],
+  "tags": ["shared", "type:lib", "stack:npm", "status:active"],
   "metadata": {
     "description": "Shared monorepo: public npm packages + reusable GitHub Actions / Lefthook baseline (merged from packages + ci)",
-    "technologies": [
-      "typescript",
-      "turbo",
-      "npm",
-      "github-actions",
-      "lefthook"
-    ]
+    "technologies": ["typescript", "turbo", "npm", "github-actions", "lefthook"]
   },
   "targets": {
     "lint": {
@@ -96,9 +85,9 @@
         "cwd": "shared"
       }
     },
-    "test:alint": {
+    "test:fslint": {
       "cache": false,
-      "command": "npm run test:alint",
+      "command": "npm run test:fslint",
       "options": {
         "cwd": "shared"
       }

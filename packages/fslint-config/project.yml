@@ -1,0 +1,97 @@
+# Product project root shape (lint root = the consuming repo).
+# Package: @sargonpiraev/fslint-config
+# Shared in-tree: ./packages/fslint-config/project.yml
+# Projects: GitHub raw + SRI (this file) or ./node_modules/@sargonpiraev/fslint-config/project.yml
+# Meta sibling inventory stays in the meta-repo `.alint.yml`.
+#
+# Layers:
+#   project — every clone root (files + dirs)
+#   webapp / mobapp / extapp — only when `apps/<type>` exists
+#     (`for_each_dir` skips if absent; paths relative to that app dir)
+#
+# MUST presence (every Nx project / shared clone):
+#   dirs:  .cursor/, .github/, apps/, packages/, pulumi/
+#   files: .alint.yml, .npmrc, .nvmrc, .prettierignore, AGENTS.md,
+#          commitlint.config.cjs, eslint.config.mjs, lefthook.yml,
+#          package-lock.json, package.json, prettier.config.mjs, project.json,
+#          README.md, tsconfig.json, turbo.json
+# .npmrc = copy of ci/npmrc (engine-strict + fund=false); no auth tokens.
+# .nvmrc = presence (major pin). engines.node = ESLint content (floor >=22).
+# .env.example stays on the ESLint env harness when runtime env apps exist.
+#
+# Presence vs content: alint only file_exists / dir_exists here. Do NOT put
+# package.json scripts shape, lefthook remotes structure, or other JSON/YAML
+# *contents* in alint — those belong in ESLint json-schema (project__package,
+# project__lefthook, …).
+#
+# Lefthook: only committed config is lefthook.yml (remotes → ci/lefthook.yml).
+# lefthook-local.yml is Lefthook’s optional personal override — gitignore it;
+# do not commit it (inventory enforces the ignore). Not file_absent: local
+# overrides on disk are allowed.
+version: 1
+
+rules:
+  # Anchor on package.json (select "." is vacuous in alint); nested checks use root_only.
+  - id: project
+    kind: for_each_file
+    select: ["package.json"]
+    level: error
+    message: "Project root is missing required governance files or dirs"
+    require:
+      - { paths: .cursor, kind: dir_exists, root_only: true }
+      - { paths: .github, kind: dir_exists, root_only: true }
+      - { paths: apps, kind: dir_exists, root_only: true }
+      - { paths: packages, kind: dir_exists, root_only: true }
+      - { paths: pulumi, kind: dir_exists, root_only: true }
+      - { paths: .alint.yml, kind: file_exists, root_only: true }
+      - { paths: .npmrc, kind: file_exists, root_only: true }
+      - { paths: .nvmrc, kind: file_exists, root_only: true }
+      - { paths: .prettierignore, kind: file_exists, root_only: true }
+      - { paths: AGENTS.md, kind: file_exists, root_only: true }
+      - { paths: commitlint.config.cjs, kind: file_exists, root_only: true }
+      - { paths: eslint.config.mjs, kind: file_exists, root_only: true }
+      - { paths: lefthook.yml, kind: file_exists, root_only: true }
+      - { paths: package-lock.json, kind: file_exists, root_only: true }
+      - { paths: package.json, kind: file_exists, root_only: true }
+      - { paths: prettier.config.mjs, kind: file_exists, root_only: true }
+      - { paths: project.json, kind: file_exists, root_only: true }
+      - { paths: README.md, kind: file_exists, root_only: true }
+      - { paths: tsconfig.json, kind: file_exists, root_only: true }
+      - { paths: turbo.json, kind: file_exists, root_only: true }
+
+  - id: webapp
+    kind: for_each_dir
+    select: ["apps/webapp"]
+    level: error
+    message: "apps/webapp is missing required files or dirs"
+    require:
+      - { paths: public, kind: dir_exists }
+      - { paths: src, kind: dir_exists }
+      - { paths: package.json, kind: file_exists }
+      - { paths: playwright.config.ts, kind: file_exists }
+      - { paths: tsconfig.json, kind: file_exists }
+
+  - id: mobapp
+    kind: for_each_dir
+    select: ["apps/mobapp"]
+    level: error
+    message: "apps/mobapp is missing required files or dirs"
+    require:
+      - { paths: assets, kind: dir_exists }
+      - { paths: src, kind: dir_exists }
+      - { paths: app.json, kind: file_exists }
+      - { paths: package.json, kind: file_exists }
+      - { paths: tsconfig.json, kind: file_exists }
+
+  - id: extapp
+    kind: for_each_dir
+    select: ["apps/extapp"]
+    level: error
+    message: "apps/extapp is missing required files or dirs"
+    require:
+      - { paths: entrypoints, kind: dir_exists }
+      - { paths: public, kind: dir_exists }
+      - { paths: package.json, kind: file_exists }
+      - { paths: playwright.config.ts, kind: file_exists }
+      - { paths: tsconfig.json, kind: file_exists }
+      - { paths: wxt.config.ts, kind: file_exists }

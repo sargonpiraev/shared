@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Project/shared package.json test scripts",
-  "description": "Required npm script names for project/shared package.json. Checks use the test:* namespace; build is separate. Use test:eslint (never test:lint). test:alint is required (FS presence). test:format must be prettier --check (not write-only / noop). Shared Prettier is via root prettier.config.mjs (not package.json prettier key) — inventory enforces the file + @sargonpiraev/prettier-config dep. prepare must run lefthook install (hooks after npm ci/install). Optional Playwright lane scripts (test:functional / test:seo / test:analytics / test:cwv) when the project has a webapp/docapp/extapp harness — inventory requires test:cwv when webapp/docapp (or flat-root playwright.config.ts) is present. test:pulumi is always required (index-clusters + mocks; never noop). Shipped by @sargonpiraev/eslint-config.",
+  "description": "Required npm script names for project/shared package.json. Checks use the test:* namespace; build is separate. Use test:eslint (never test:lint). test:fslint is required (FS presence). test:format must be prettier --check (not write-only / noop). Shared Prettier is via root prettier.config.mjs (not package.json prettier key) — inventory enforces the file + @sargonpiraev/prettier-config dep. prepare must run lefthook install (hooks after npm ci/install). Optional Playwright lane scripts (test:functional / test:seo / test:analytics / test:cwv) when the project has a webapp/docapp/extapp harness — inventory requires test:cwv when webapp/docapp (or flat-root playwright.config.ts) is present. test:pulumi is always required (index-clusters + mocks; never noop). Shipped by @sargonpiraev/eslint-config.",
   "type": "object",
   "required": ["scripts", "engines"],
   "properties": {
@@ -25,7 +25,7 @@
         "test",
         "test:unit",
         "test:eslint",
-        "test:alint",
+        "test:fslint",
         "test:check-types",
         "test:spec",
         "test:visual",
@@ -48,10 +48,11 @@
           "description": "Linting (ESLint). Canonical name — never test:lint."
         },
         "test:lint": false,
-        "test:alint": {
+        "test:alint": false,
+        "test:fslint": {
           "type": "string",
           "minLength": 1,
-          "description": "FS structure / presence (alint check)."
+          "description": "File structure linting (`alint check`). Never test:alint."
         },
         "test:check-types": { "type": "string", "minLength": 1 },
         "test:spec": { "type": "string", "minLength": 1 },

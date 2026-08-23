@@ -230,6 +230,8 @@ const inventoryRule: Rule.RuleModule = {
         'webapp/docapp (or flat-root playwright.config.ts) requires package.json scripts.test:cwv (Core Web Vitals lab lane; not part of test:spec).',
       forbiddenTestLint:
         'package.json must not define scripts.test:lint — use scripts.test:eslint (tool-named).',
+      forbiddenTestAlint:
+        'package.json must not define scripts.test:alint — use scripts.test:fslint (file structure linting; engine remains alint).',
     },
   },
   create(context) {
@@ -247,6 +249,9 @@ const inventoryRule: Rule.RuleModule = {
 
         if (pkg.scripts?.['test:lint'] !== undefined) {
           context.report({ node, messageId: 'forbiddenTestLint' })
+        }
+        if (pkg.scripts?.['test:alint'] !== undefined) {
+          context.report({ node, messageId: 'forbiddenTestAlint' })
         }
 
         if (pkg.prettier !== undefined) {

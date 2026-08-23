@@ -16,15 +16,15 @@
     "pulumi:preview": "npm --prefix pulumi run preview",
     "pulumi:up": "npm --prefix pulumi run up",
     "release": "multi-semantic-release",
-    "test": "turbo run test && npm run test:pulumi",
-    "test:alint": "alint check",
+    "test": "turbo run test && npm run test:pulumi && npm run test:format",
+    "test:fslint": "alint check",
     "test:check-types": "npm run check-types",
-    "test:format": "prettier --check \"**/*.{ts,tsx,md,json}\"",
     "test:eslint": "npm run build -w @sargonpiraev/eslint-config && eslint --config ./eslint.config.mjs --no-config-lookup --no-warn-ignored --no-error-on-unmatched-pattern \"project.json\" \"package.json\" \".cursor/worktrees.json\" \"tsconfig.json\" \".releaserc.json\" \"packages/*/.releaserc.json\" \"playwright.config.ts\" \"apps/*/playwright.config.ts\" \".gitignore\" && npm run lint",
+    "test:format": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi",
     "test:spec": "node -e \"console.log('noop test:spec — N/A'); process.exit(0)\"",
     "test:unit": "turbo run test",
-    "test:visual": "node -e \"console.log('noop test:visual — N/A'); process.exit(0)\"",
-    "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi"
+    "test:visual": "node -e \"console.log('noop test:visual — N/A'); process.exit(0)\""
   },
   "devDependencies": {
     "@asamarts/alint": "^0.14.2",
@@ -32,6 +32,7 @@
     "@eslint/js": "^9.26.0",
     "@sargonpiraev/commitlint-config": "file:packages/commitlint-config",
     "@sargonpiraev/eslint-config": "file:packages/eslint-config",
+    "@sargonpiraev/fslint-config": "file:packages/fslint-config",
     "@sargonpiraev/prettier-config": "file:packages/prettier-config",
     "@sargonpiraev/semantic-release-config": "file:packages/semantic-release-config",
     "@sargonpiraev/tsconfig": "file:packages/tsconfig",
