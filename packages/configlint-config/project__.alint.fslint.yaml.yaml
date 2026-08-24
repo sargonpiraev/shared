@@ -1,0 +1,18 @@
+# Clone-root .alint.fslint.yaml. Presence stays in fslint-config.
+# Pins live in templates/project__.alint.fslint.yaml.schema.json.
+# Do not extend this from meta (meta inventory differs).
+version: 1
+
+rules:
+  - id: project__.alint.fslint.yaml
+    kind: for_each_file
+    select: .alint.fslint.yaml
+    when_iter: 'iter.path == ".alint.fslint.yaml"'
+    level: error
+    message: 'clone-root .alint.fslint.yaml must extend fslint-config/project.yaml'
+    require:
+      - {
+          paths: '{path}',
+          kind: json_schema_passes,
+          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__.alint.fslint.yaml.schema.json,
+        }

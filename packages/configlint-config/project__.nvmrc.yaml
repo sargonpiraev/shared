@@ -1,0 +1,14 @@
+# Clone-root .nvmrc. Presence stays in fslint-config.
+# Whole-file pin: templates/.nvmrc
+version: 1
+
+rules:
+  - id: project__.nvmrc
+    kind: cross_file
+    source:
+      file: node_modules/@sargonpiraev/configlint-config/templates/.nvmrc
+    targets:
+      files: .nvmrc
+    relation: identical
+    level: error
+    message: 'clone-root .nvmrc must be identical to the portfolio template'

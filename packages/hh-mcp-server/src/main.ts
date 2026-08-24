@@ -177,7 +177,13 @@ app.get('/.well-known/oauth-client-config', (req, res) => {
 
 // Facade OAuth Authorization endpoint - accepts any redirect_uri and delegates to HeadHunter
 app.get('/oauth/authorize', (req, res) => {
-  const { client_id, redirect_uri, state, code_challenge, code_challenge_method = 'S256' } = req.query
+  const {
+    client_id,
+    redirect_uri,
+    state,
+    code_challenge,
+    code_challenge_method = 'S256',
+  } = req.query
 
   // Validate required parameters
   if (!client_id || !redirect_uri) {
@@ -228,7 +234,8 @@ app.post('/oauth/token', express.urlencoded({ extended: true }), async (req, res
 
   try {
     // Use the configured redirect_uri instead of the client's redirect_uri
-    const configuredRedirectUri = env.HH_REDIRECT_URI || `http://${env.HOST}:${env.PORT}/oauth/callback/debug`
+    const configuredRedirectUri =
+      env.HH_REDIRECT_URI || `http://${env.HOST}:${env.PORT}/oauth/callback/debug`
 
     // Prepare token request for HeadHunter
     const tokenParams = new URLSearchParams({
@@ -244,7 +251,9 @@ app.post('/oauth/token', express.urlencoded({ extended: true }), async (req, res
       tokenParams.set('code_verifier', code_verifier)
     }
 
-    logger.log(`Facade token: Exchanging code with HeadHunter, redirect_uri=${configuredRedirectUri}`)
+    logger.log(
+      `Facade token: Exchanging code with HeadHunter, redirect_uri=${configuredRedirectUri}`
+    )
 
     // Exchange code with HeadHunter token endpoint
     const tokenResponse = await fetch('https://api.hh.ru/token', {
@@ -327,7 +336,11 @@ app.get('/oauth/callback/debug', (req, res) => {
 })
 
 // Authorization middleware
-async function requireAuth(req: express.Request, res: express.Response, next: express.NextFunction) {
+async function requireAuth(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   const authHeader = req.get('Authorization')
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {

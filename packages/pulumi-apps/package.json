@@ -28,8 +28,6 @@
     "email": "sargonpiraev@gmail.com"
   },
   "type": "module",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -52,6 +50,8 @@
       "import": "./build/finops/index.js"
     }
   },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "files": [
     "build",
     "README.md",

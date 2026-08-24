@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__package.json.schema.json",
+  "title": "Clone-root package.json portfolio scripts",
+  "type": "object",
+  "required": ["scripts"],
+  "properties": {
+    "scripts": {
+      "type": "object",
+      "required": [
+        "test:fslint",
+        "test:configlint",
+        "test:eslint",
+        "test:format",
+        "test:check-types"
+      ],
+      "properties": {
+        "test:fslint": {
+          "const": "alint check -c .alint.fslint.yaml"
+        },
+        "test:configlint": {
+          "const": "alint check -c .alint.configlint.yaml"
+        },
+        "test:eslint": {
+          "const": "eslint ."
+        },
+        "test:format": {
+          "const": "prettier --check \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""
+        },
+        "test:check-types": {
+          "const": "turbo run check-types"
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,1 @@
-export { TelegramBot } from './resource.js';
+export { TelegramBot } from './resource.js'

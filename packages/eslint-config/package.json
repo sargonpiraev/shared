@@ -1,14 +1,11 @@
 {
   "name": "@sargonpiraev/eslint-config",
-  "version": "0.0.0",
-  "description": "Shared ESLint flat-config presets and JSON schemas for project harness / test:* inventory gates",
+  "version": "1.14.0",
+  "description": "Shared ESLint flat-config preset for TypeScript / JavaScript",
   "keywords": [
     "eslint",
     "eslint-config",
-    "json-schema",
-    "playwright",
-    "nx",
-    "harness"
+    "typescript"
   ],
   "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/eslint-config#readme",
   "bugs": {
@@ -37,8 +34,7 @@
     "./project-meta": {
       "types": "./build/project-meta.d.ts",
       "import": "./build/project-meta.js"
-    },
-    "./schemas/*": "./build/schemas/*"
+    }
   },
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -48,23 +44,23 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && mkdir -p build/schemas && cp src/schemas/*.json build/schemas/",
+    "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .ts",
-    "test": "npm run build && tsc -p tsconfig.test.json && node --test build/__tests__/*.test.js"
+    "test": "node -e \"console.log('noop test'); process.exit(0)\""
   },
   "dependencies": {
-    "jiti": "^2.7.0"
+    "@eslint/js": "^9.26.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.31.1"
   },
   "devDependencies": {
     "@types/node": "^22.15.33",
     "eslint": "9.39.5",
-    "eslint-plugin-json-schema-validator": "^6.3.1",
     "typescript": "5.9.2"
   },
   "peerDependencies": {
-    "eslint": ">=9.0.0",
-    "eslint-plugin-json-schema-validator": ">=6.0.0"
+    "eslint": ">=9.0.0"
   },
   "engines": {
     "node": ">=22"

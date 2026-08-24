@@ -1,1 +1,1 @@
-export { GscProperty } from './resource.js';
+export { GscProperty } from './resource.js'

@@ -4,4 +4,4 @@ export {
   repoHasMobapp,
   type MobappArgs,
   type MobappAscSecretRefs,
-} from "./mobapp.js";
+} from './mobapp.js'

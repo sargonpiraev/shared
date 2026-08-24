@@ -1,0 +1,14 @@
+# apps/extapp playwright.config.ts — skipped when the dir is absent.
+version: 1
+
+rules:
+  - id: extapp-playwright
+    kind: for_each_dir
+    select: ["apps/extapp"]
+    level: error
+    message: "apps/extapp/playwright.config.ts is missing required Playwright projects"
+    require:
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']functional[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }

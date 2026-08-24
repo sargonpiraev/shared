@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__.alint.configlint.yaml.schema.json",
+  "title": "Clone-root .alint.configlint.yaml extends the product configlint leaves",
+  "type": "object",
+  "required": ["extends"],
+  "properties": {
+    "extends": {
+      "type": "array",
+      "minItems": 16,
+      "allOf": [
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__package\\.json\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__project\\.json\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__\\.nvmrc\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__\\.npmrc\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__turbo\\.json\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__tsconfig\\.json\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__commitlintrc\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__eslint\\.config\\.mjs\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__prettier\\.config\\.mjs\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__lefthook\\.yml\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__\\.cursor__worktrees\\.json\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__\\.alint\\.fslint\\.yaml\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__\\.alint\\.configlint\\.yaml\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "webapp__playwright\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "docapp__playwright\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "extapp__playwright\\.yaml"
+          }
+        }
+      ]
+    }
+  }
+}

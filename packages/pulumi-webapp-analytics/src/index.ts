@@ -4,4 +4,4 @@ export {
   repoHasWebapp,
   type WebappAnalyticsArgs,
   type WebappAnalyticsChildAliases,
-} from "./webapp-analytics.js";
+} from './webapp-analytics.js'

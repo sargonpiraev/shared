@@ -1,1 +1,1 @@
-export { ExpoProject } from './resource.js';
+export { ExpoProject } from './resource.js'

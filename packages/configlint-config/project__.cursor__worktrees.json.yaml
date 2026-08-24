@@ -1,0 +1,15 @@
+# Clone-root .cursor/worktrees.json. Presence stays in fslint-config.
+# Whole-file pin: golden is templates/.cursor__worktrees.json in this package.
+# Requires the package on disk (node_modules/@sargonpiraev/configlint-config).
+version: 1
+
+rules:
+  - id: project__.cursor__worktrees.json
+    kind: cross_file
+    source:
+      file: node_modules/@sargonpiraev/configlint-config/templates/.cursor__worktrees.json
+    targets:
+      files: .cursor/worktrees.json
+    relation: identical
+    level: error
+    message: 'clone-root .cursor/worktrees.json must be identical to the portfolio template'

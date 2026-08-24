@@ -6,18 +6,9 @@
     "module": "ES2022",
     "moduleResolution": "Bundler",
     "declaration": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "coverage",
-    "src/**/*.test.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build", "coverage", "src/**/*.test.ts"]
 }

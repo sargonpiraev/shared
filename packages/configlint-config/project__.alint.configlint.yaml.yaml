@@ -1,0 +1,18 @@
+# Clone-root .alint.configlint.yaml. Presence stays in fslint-config.
+# Pins live in templates/project__.alint.configlint.yaml.schema.json (leaf names, not SRI).
+# Do not extend this from meta (meta extends a subset).
+version: 1
+
+rules:
+  - id: project__.alint.configlint.yaml
+    kind: for_each_file
+    select: .alint.configlint.yaml
+    when_iter: 'iter.path == ".alint.configlint.yaml"'
+    level: error
+    message: 'clone-root .alint.configlint.yaml must extend the product configlint leaves'
+    require:
+      - {
+          paths: '{path}',
+          kind: json_schema_passes,
+          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__.alint.configlint.yaml.schema.json,
+        }

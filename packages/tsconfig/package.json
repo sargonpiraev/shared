@@ -2,6 +2,24 @@
   "name": "@sargonpiraev/tsconfig",
   "version": "0.0.0",
   "description": "Shared TypeScript base configs (strict) for sargonpiraev products and packages",
+  "keywords": [
+    "typescript",
+    "tsconfig"
+  ],
+  "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/tsconfig#readme",
+  "bugs": {
+    "url": "https://github.com/sargonpiraev/shared/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sargonpiraev/shared.git",
+    "directory": "packages/tsconfig"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Sargon Piraev",
+    "email": "sargonpiraev@gmail.com"
+  },
   "exports": {
     "./base.json": "./base.json",
     "./base": "./base.json"
@@ -11,38 +29,20 @@
     "README.md",
     "LICENSE"
   ],
-  "keywords": [
-    "typescript",
-    "tsconfig"
-  ],
-  "author": {
-    "name": "Sargon Piraev",
-    "email": "sargonpiraev@gmail.com"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sargonpiraev/shared.git",
-    "directory": "packages/tsconfig"
-  },
-  "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/tsconfig#readme",
-  "bugs": {
-    "url": "https://github.com/sargonpiraev/shared/issues"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
     "build": "node -e \"console.log('noop build'); process.exit(0)\"",
     "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
     "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
     "test": "node -e \"const c=require('./base.json'); if(c.compilerOptions.strict!==true) process.exit(1)\""
   },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
-  },
-  "peerDependencies": {
-    "typescript": ">=5.0.0"
   }
 }

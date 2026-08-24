@@ -8,10 +8,11 @@ Shared monorepo (former `packages` + `ci`).
 - **eslint-config** — shared project ESLint flat-config + inventory/harness JSON schemas (`@sargonpiraev/eslint-config`)
 - **prettier-config** — shared Prettier (`@sargonpiraev/prettier-config`)
 - **fslint-config** — shared alint file-structure rules (`@sargonpiraev/fslint-config`)
+- **lefthook-config** — Lefthook remotes provider (`@sargonpiraev/lefthook-config`; `packages/lefthook-config/lefthook.yml`)
 - **commitlint-config** — shared Commitlint conventional preset (`@sargonpiraev/commitlint-config`)
 - **tsconfig** — shared TypeScript base with `strict: true` (`@sargonpiraev/tsconfig`)
 - **semantic-release-config** — shared semantic-release base (`@sargonpiraev/semantic-release-config`); package `.releaserc.json` thin-extends it
-- **ci/** — Lefthook remotes provider baseline (`ci/lefthook.yml`) + root `.npmrc` template (`ci/npmrc`)
+- **ci/** — root `.npmrc` template (`ci/npmrc`)
 - **.github/** — reusable GitHub Actions workflows + composite actions (from former `sargonpiraev/ci`)
 
 Root thin extends: `prettier.config.mjs`, `commitlint.config.cjs`, `tsconfig.json`, `eslint.config.mjs`, `.alint.yml`, `lefthook.yml` — see meta `ws__meta-shared-projects-boundaries`.

@@ -1,6 +1,0 @@
-# Portfolio root .npmrc template (SSOT).
-# Copy identically to meta / project / shared roots.
-# Do NOT add auth tokens (//registry…/:_authToken=).
-# Optional project-only overlays (e.g. legacy-peer-deps=true) may follow these lines.
-engine-strict=true
-fund=false

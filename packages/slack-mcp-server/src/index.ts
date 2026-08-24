@@ -73,7 +73,10 @@ mcpServer.tool(
   {
     channel: z.string().describe('Channel ID or name to post the message to'),
     text: z.string().describe('Text content of the message'),
-    blocks: z.array(z.any()).optional().describe('Slack Block Kit formatted message blocks (optional)'),
+    blocks: z
+      .array(z.any())
+      .optional()
+      .describe('Slack Block Kit formatted message blocks (optional)'),
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async ({ channel, text, blocks }: { channel: string; text: string; blocks?: any[] }) => {
@@ -131,7 +134,9 @@ mcpServer.tool(
         })
         .join('\n')
 
-      return createTextMessage(`Available Slack channels:\n\n${channelList}\n\nTotal: ${channels.length} channels`)
+      return createTextMessage(
+        `Available Slack channels:\n\n${channelList}\n\nTotal: ${channels.length} channels`
+      )
     } catch (error) {
       return handleError(error)
     }

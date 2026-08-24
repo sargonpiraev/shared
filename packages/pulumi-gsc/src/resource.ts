@@ -1,21 +1,21 @@
-import * as pulumi from "@pulumi/pulumi";
+import * as pulumi from '@pulumi/pulumi'
 
 export class GscProperty extends pulumi.CustomResource {
-  public readonly siteUrl!: pulumi.Output<string>;
-  public readonly permissionLevel!: pulumi.Output<string>;
-  public readonly registeredAt!: pulumi.Output<string>;
+  public readonly siteUrl!: pulumi.Output<string>
+  public readonly permissionLevel!: pulumi.Output<string>
+  public readonly registeredAt!: pulumi.Output<string>
 
   constructor(
     name: string,
     args: {
-      siteUrl: pulumi.Input<string>;
-      serviceAccountKeyB64: pulumi.Input<string>;
-      importExisting?: boolean;
+      siteUrl: pulumi.Input<string>
+      serviceAccountKeyB64: pulumi.Input<string>
+      importExisting?: boolean
     },
-    opts?: pulumi.CustomResourceOptions,
+    opts?: pulumi.CustomResourceOptions
   ) {
     super(
-      "gsc:index:Property",
+      'gsc:index:Property',
       name,
       {
         siteUrl: args.siteUrl,
@@ -24,7 +24,7 @@ export class GscProperty extends pulumi.CustomResource {
         permissionLevel: undefined,
         registeredAt: undefined,
       },
-      opts,
-    );
+      opts
+    )
   }
 }

@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
+# Shared monorepo consumer: configlint via @sargonpiraev/configlint-config.
+version: 1
+
+respect_gitignore: false
+
+extends:
+  - ./packages/configlint-config/project__package.json.yaml
+  - ./packages/configlint-config/project__project.json.yaml
+  - ./packages/configlint-config/project__.nvmrc.yaml
+  - ./packages/configlint-config/project__.npmrc.yaml
+  - ./packages/configlint-config/project__turbo.json.yaml
+  - ./packages/configlint-config/project__tsconfig.json.yaml
+  - ./packages/configlint-config/project__commitlintrc.yaml
+  - ./packages/configlint-config/project__eslint.config.mjs.yaml
+  - ./packages/configlint-config/project__prettier.config.mjs.yaml
+  - ./packages/configlint-config/project__lefthook.yml.yaml
+  - ./packages/configlint-config/project__.cursor__worktrees.json.yaml
+  - ./packages/configlint-config/project__.alint.fslint.yaml.yaml
+  - ./packages/configlint-config/project__.alint.configlint.yaml.yaml
+  - ./packages/configlint-config/webapp__playwright.yaml
+  - ./packages/configlint-config/docapp__playwright.yaml
+  - ./packages/configlint-config/extapp__playwright.yaml

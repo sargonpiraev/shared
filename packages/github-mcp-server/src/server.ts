@@ -266,30 +266,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('apps/get-webhook-config-for-app', `Get a webhook configuration for an app`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'apps/get-webhook-config-for-app',
+  `Get a webhook configuration for an app`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/app/hook/config',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/app/hook/config',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'apps/update-webhook-config-for-app',
@@ -334,30 +339,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('apps/list-webhook-deliveries', `List deliveries for an app webhook`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'apps/list-webhook-deliveries',
+  `List deliveries for an app webhook`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/app/hook/deliveries',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/app/hook/deliveries',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'apps/get-webhook-delivery',
@@ -1157,30 +1167,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('codes-of-conduct/get-all-codes-of-conduct', `Get all codes of conduct`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'codes-of-conduct/get-all-codes-of-conduct',
+  `Get all codes of conduct`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/codes_of_conduct',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/codes_of_conduct',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'codes-of-conduct/get-conduct-code',
@@ -1359,7 +1374,8 @@ mcpServer.tool(
         delete mappedParams['dependencyGraph']
       }
       if ('dependencyGraphAutosubmitAction' in mappedParams) {
-        mappedParams['dependency_graph_autosubmit_action'] = mappedParams['dependencyGraphAutosubmitAction']
+        mappedParams['dependency_graph_autosubmit_action'] =
+          mappedParams['dependencyGraphAutosubmitAction']
         delete mappedParams['dependencyGraphAutosubmitAction']
       }
       if ('dependencyGraphAutosubmitActionOptions' in mappedParams) {
@@ -1384,11 +1400,13 @@ mcpServer.tool(
         delete mappedParams['codeScanningDefaultSetup']
       }
       if ('codeScanningDefaultSetupOptions' in mappedParams) {
-        mappedParams['code_scanning_default_setup_options'] = mappedParams['codeScanningDefaultSetupOptions']
+        mappedParams['code_scanning_default_setup_options'] =
+          mappedParams['codeScanningDefaultSetupOptions']
         delete mappedParams['codeScanningDefaultSetupOptions']
       }
       if ('codeScanningDelegatedAlertDismissal' in mappedParams) {
-        mappedParams['code_scanning_delegated_alert_dismissal'] = mappedParams['codeScanningDelegatedAlertDismissal']
+        mappedParams['code_scanning_delegated_alert_dismissal'] =
+          mappedParams['codeScanningDelegatedAlertDismissal']
         delete mappedParams['codeScanningDelegatedAlertDismissal']
       }
       if ('secretProtection' in mappedParams) {
@@ -1400,19 +1418,23 @@ mcpServer.tool(
         delete mappedParams['secretScanning']
       }
       if ('secretScanningPushProtection' in mappedParams) {
-        mappedParams['secret_scanning_push_protection'] = mappedParams['secretScanningPushProtection']
+        mappedParams['secret_scanning_push_protection'] =
+          mappedParams['secretScanningPushProtection']
         delete mappedParams['secretScanningPushProtection']
       }
       if ('secretScanningValidityChecks' in mappedParams) {
-        mappedParams['secret_scanning_validity_checks'] = mappedParams['secretScanningValidityChecks']
+        mappedParams['secret_scanning_validity_checks'] =
+          mappedParams['secretScanningValidityChecks']
         delete mappedParams['secretScanningValidityChecks']
       }
       if ('secretScanningNonProviderPatterns' in mappedParams) {
-        mappedParams['secret_scanning_non_provider_patterns'] = mappedParams['secretScanningNonProviderPatterns']
+        mappedParams['secret_scanning_non_provider_patterns'] =
+          mappedParams['secretScanningNonProviderPatterns']
         delete mappedParams['secretScanningNonProviderPatterns']
       }
       if ('secretScanningGenericSecrets' in mappedParams) {
-        mappedParams['secret_scanning_generic_secrets'] = mappedParams['secretScanningGenericSecrets']
+        mappedParams['secret_scanning_generic_secrets'] =
+          mappedParams['secretScanningGenericSecrets']
         delete mappedParams['secretScanningGenericSecrets']
       }
       if ('secretScanningDelegatedAlertDismissal' in mappedParams) {
@@ -1421,7 +1443,8 @@ mcpServer.tool(
         delete mappedParams['secretScanningDelegatedAlertDismissal']
       }
       if ('privateVulnerabilityReporting' in mappedParams) {
-        mappedParams['private_vulnerability_reporting'] = mappedParams['privateVulnerabilityReporting']
+        mappedParams['private_vulnerability_reporting'] =
+          mappedParams['privateVulnerabilityReporting']
         delete mappedParams['privateVulnerabilityReporting']
       }
 
@@ -1567,7 +1590,8 @@ mcpServer.tool(
         delete mappedParams['dependencyGraph']
       }
       if ('dependencyGraphAutosubmitAction' in mappedParams) {
-        mappedParams['dependency_graph_autosubmit_action'] = mappedParams['dependencyGraphAutosubmitAction']
+        mappedParams['dependency_graph_autosubmit_action'] =
+          mappedParams['dependencyGraphAutosubmitAction']
         delete mappedParams['dependencyGraphAutosubmitAction']
       }
       if ('dependencyGraphAutosubmitActionOptions' in mappedParams) {
@@ -1588,11 +1612,13 @@ mcpServer.tool(
         delete mappedParams['codeScanningDefaultSetup']
       }
       if ('codeScanningDefaultSetupOptions' in mappedParams) {
-        mappedParams['code_scanning_default_setup_options'] = mappedParams['codeScanningDefaultSetupOptions']
+        mappedParams['code_scanning_default_setup_options'] =
+          mappedParams['codeScanningDefaultSetupOptions']
         delete mappedParams['codeScanningDefaultSetupOptions']
       }
       if ('codeScanningDelegatedAlertDismissal' in mappedParams) {
-        mappedParams['code_scanning_delegated_alert_dismissal'] = mappedParams['codeScanningDelegatedAlertDismissal']
+        mappedParams['code_scanning_delegated_alert_dismissal'] =
+          mappedParams['codeScanningDelegatedAlertDismissal']
         delete mappedParams['codeScanningDelegatedAlertDismissal']
       }
       if ('secretProtection' in mappedParams) {
@@ -1604,19 +1630,23 @@ mcpServer.tool(
         delete mappedParams['secretScanning']
       }
       if ('secretScanningPushProtection' in mappedParams) {
-        mappedParams['secret_scanning_push_protection'] = mappedParams['secretScanningPushProtection']
+        mappedParams['secret_scanning_push_protection'] =
+          mappedParams['secretScanningPushProtection']
         delete mappedParams['secretScanningPushProtection']
       }
       if ('secretScanningValidityChecks' in mappedParams) {
-        mappedParams['secret_scanning_validity_checks'] = mappedParams['secretScanningValidityChecks']
+        mappedParams['secret_scanning_validity_checks'] =
+          mappedParams['secretScanningValidityChecks']
         delete mappedParams['secretScanningValidityChecks']
       }
       if ('secretScanningNonProviderPatterns' in mappedParams) {
-        mappedParams['secret_scanning_non_provider_patterns'] = mappedParams['secretScanningNonProviderPatterns']
+        mappedParams['secret_scanning_non_provider_patterns'] =
+          mappedParams['secretScanningNonProviderPatterns']
         delete mappedParams['secretScanningNonProviderPatterns']
       }
       if ('secretScanningGenericSecrets' in mappedParams) {
-        mappedParams['secret_scanning_generic_secrets'] = mappedParams['secretScanningGenericSecrets']
+        mappedParams['secret_scanning_generic_secrets'] =
+          mappedParams['secretScanningGenericSecrets']
         delete mappedParams['secretScanningGenericSecrets']
       }
       if ('secretScanningDelegatedAlertDismissal' in mappedParams) {
@@ -1625,7 +1655,8 @@ mcpServer.tool(
         delete mappedParams['secretScanningDelegatedAlertDismissal']
       }
       if ('privateVulnerabilityReporting' in mappedParams) {
-        mappedParams['private_vulnerability_reporting'] = mappedParams['privateVulnerabilityReporting']
+        mappedParams['private_vulnerability_reporting'] =
+          mappedParams['privateVulnerabilityReporting']
         delete mappedParams['privateVulnerabilityReporting']
       }
 
@@ -2611,30 +2642,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('gitignore/get-all-templates', `Get all gitignore templates`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'gitignore/get-all-templates',
+  `Get all gitignore templates`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/gitignore/templates',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/gitignore/templates',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'gitignore/get-template',
@@ -2866,30 +2902,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('markdown/render-raw', `Render a Markdown document in raw mode`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'markdown/render-raw',
+  `Render a Markdown document in raw mode`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/markdown/raw',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/markdown/raw',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'apps/get-subscription-plan-for-account',
@@ -3754,23 +3795,28 @@ mcpServer.tool(
         delete mappedParams['defaultRepositoryPermission']
       }
       if ('membersCanCreateRepositories' in mappedParams) {
-        mappedParams['members_can_create_repositories'] = mappedParams['membersCanCreateRepositories']
+        mappedParams['members_can_create_repositories'] =
+          mappedParams['membersCanCreateRepositories']
         delete mappedParams['membersCanCreateRepositories']
       }
       if ('membersCanCreateInternalRepositories' in mappedParams) {
-        mappedParams['members_can_create_internal_repositories'] = mappedParams['membersCanCreateInternalRepositories']
+        mappedParams['members_can_create_internal_repositories'] =
+          mappedParams['membersCanCreateInternalRepositories']
         delete mappedParams['membersCanCreateInternalRepositories']
       }
       if ('membersCanCreatePrivateRepositories' in mappedParams) {
-        mappedParams['members_can_create_private_repositories'] = mappedParams['membersCanCreatePrivateRepositories']
+        mappedParams['members_can_create_private_repositories'] =
+          mappedParams['membersCanCreatePrivateRepositories']
         delete mappedParams['membersCanCreatePrivateRepositories']
       }
       if ('membersCanCreatePublicRepositories' in mappedParams) {
-        mappedParams['members_can_create_public_repositories'] = mappedParams['membersCanCreatePublicRepositories']
+        mappedParams['members_can_create_public_repositories'] =
+          mappedParams['membersCanCreatePublicRepositories']
         delete mappedParams['membersCanCreatePublicRepositories']
       }
       if ('membersAllowedRepositoryCreationType' in mappedParams) {
-        mappedParams['members_allowed_repository_creation_type'] = mappedParams['membersAllowedRepositoryCreationType']
+        mappedParams['members_allowed_repository_creation_type'] =
+          mappedParams['membersAllowedRepositoryCreationType']
         delete mappedParams['membersAllowedRepositoryCreationType']
       }
       if ('membersCanCreatePages' in mappedParams) {
@@ -3778,15 +3824,18 @@ mcpServer.tool(
         delete mappedParams['membersCanCreatePages']
       }
       if ('membersCanCreatePublicPages' in mappedParams) {
-        mappedParams['members_can_create_public_pages'] = mappedParams['membersCanCreatePublicPages']
+        mappedParams['members_can_create_public_pages'] =
+          mappedParams['membersCanCreatePublicPages']
         delete mappedParams['membersCanCreatePublicPages']
       }
       if ('membersCanCreatePrivatePages' in mappedParams) {
-        mappedParams['members_can_create_private_pages'] = mappedParams['membersCanCreatePrivatePages']
+        mappedParams['members_can_create_private_pages'] =
+          mappedParams['membersCanCreatePrivatePages']
         delete mappedParams['membersCanCreatePrivatePages']
       }
       if ('membersCanForkPrivateRepositories' in mappedParams) {
-        mappedParams['members_can_fork_private_repositories'] = mappedParams['membersCanForkPrivateRepositories']
+        mappedParams['members_can_fork_private_repositories'] =
+          mappedParams['membersCanForkPrivateRepositories']
         delete mappedParams['membersCanForkPrivateRepositories']
       }
       if ('webCommitSignoffRequired' in mappedParams) {
@@ -3834,7 +3883,8 @@ mcpServer.tool(
         delete mappedParams['secretScanningPushProtectionCustomLink']
       }
       if ('deployKeysEnabledForRepositories' in mappedParams) {
-        mappedParams['deploy_keys_enabled_for_repositories'] = mappedParams['deployKeysEnabledForRepositories']
+        mappedParams['deploy_keys_enabled_for_repositories'] =
+          mappedParams['deployKeysEnabledForRepositories']
         delete mappedParams['deployKeysEnabledForRepositories']
       }
 
@@ -7189,7 +7239,8 @@ mcpServer.tool(
         delete mappedParams['dependencyGraph']
       }
       if ('dependencyGraphAutosubmitAction' in mappedParams) {
-        mappedParams['dependency_graph_autosubmit_action'] = mappedParams['dependencyGraphAutosubmitAction']
+        mappedParams['dependency_graph_autosubmit_action'] =
+          mappedParams['dependencyGraphAutosubmitAction']
         delete mappedParams['dependencyGraphAutosubmitAction']
       }
       if ('dependencyGraphAutosubmitActionOptions' in mappedParams) {
@@ -7214,11 +7265,13 @@ mcpServer.tool(
         delete mappedParams['codeScanningDefaultSetup']
       }
       if ('codeScanningDefaultSetupOptions' in mappedParams) {
-        mappedParams['code_scanning_default_setup_options'] = mappedParams['codeScanningDefaultSetupOptions']
+        mappedParams['code_scanning_default_setup_options'] =
+          mappedParams['codeScanningDefaultSetupOptions']
         delete mappedParams['codeScanningDefaultSetupOptions']
       }
       if ('codeScanningDelegatedAlertDismissal' in mappedParams) {
-        mappedParams['code_scanning_delegated_alert_dismissal'] = mappedParams['codeScanningDelegatedAlertDismissal']
+        mappedParams['code_scanning_delegated_alert_dismissal'] =
+          mappedParams['codeScanningDelegatedAlertDismissal']
         delete mappedParams['codeScanningDelegatedAlertDismissal']
       }
       if ('secretProtection' in mappedParams) {
@@ -7230,27 +7283,33 @@ mcpServer.tool(
         delete mappedParams['secretScanning']
       }
       if ('secretScanningPushProtection' in mappedParams) {
-        mappedParams['secret_scanning_push_protection'] = mappedParams['secretScanningPushProtection']
+        mappedParams['secret_scanning_push_protection'] =
+          mappedParams['secretScanningPushProtection']
         delete mappedParams['secretScanningPushProtection']
       }
       if ('secretScanningDelegatedBypass' in mappedParams) {
-        mappedParams['secret_scanning_delegated_bypass'] = mappedParams['secretScanningDelegatedBypass']
+        mappedParams['secret_scanning_delegated_bypass'] =
+          mappedParams['secretScanningDelegatedBypass']
         delete mappedParams['secretScanningDelegatedBypass']
       }
       if ('secretScanningDelegatedBypassOptions' in mappedParams) {
-        mappedParams['secret_scanning_delegated_bypass_options'] = mappedParams['secretScanningDelegatedBypassOptions']
+        mappedParams['secret_scanning_delegated_bypass_options'] =
+          mappedParams['secretScanningDelegatedBypassOptions']
         delete mappedParams['secretScanningDelegatedBypassOptions']
       }
       if ('secretScanningValidityChecks' in mappedParams) {
-        mappedParams['secret_scanning_validity_checks'] = mappedParams['secretScanningValidityChecks']
+        mappedParams['secret_scanning_validity_checks'] =
+          mappedParams['secretScanningValidityChecks']
         delete mappedParams['secretScanningValidityChecks']
       }
       if ('secretScanningNonProviderPatterns' in mappedParams) {
-        mappedParams['secret_scanning_non_provider_patterns'] = mappedParams['secretScanningNonProviderPatterns']
+        mappedParams['secret_scanning_non_provider_patterns'] =
+          mappedParams['secretScanningNonProviderPatterns']
         delete mappedParams['secretScanningNonProviderPatterns']
       }
       if ('secretScanningGenericSecrets' in mappedParams) {
-        mappedParams['secret_scanning_generic_secrets'] = mappedParams['secretScanningGenericSecrets']
+        mappedParams['secret_scanning_generic_secrets'] =
+          mappedParams['secretScanningGenericSecrets']
         delete mappedParams['secretScanningGenericSecrets']
       }
       if ('secretScanningDelegatedAlertDismissal' in mappedParams) {
@@ -7259,7 +7318,8 @@ mcpServer.tool(
         delete mappedParams['secretScanningDelegatedAlertDismissal']
       }
       if ('privateVulnerabilityReporting' in mappedParams) {
-        mappedParams['private_vulnerability_reporting'] = mappedParams['privateVulnerabilityReporting']
+        mappedParams['private_vulnerability_reporting'] =
+          mappedParams['privateVulnerabilityReporting']
         delete mappedParams['privateVulnerabilityReporting']
       }
 
@@ -7445,7 +7505,8 @@ mcpServer.tool(
         delete mappedParams['dependencyGraph']
       }
       if ('dependencyGraphAutosubmitAction' in mappedParams) {
-        mappedParams['dependency_graph_autosubmit_action'] = mappedParams['dependencyGraphAutosubmitAction']
+        mappedParams['dependency_graph_autosubmit_action'] =
+          mappedParams['dependencyGraphAutosubmitAction']
         delete mappedParams['dependencyGraphAutosubmitAction']
       }
       if ('dependencyGraphAutosubmitActionOptions' in mappedParams) {
@@ -7466,11 +7527,13 @@ mcpServer.tool(
         delete mappedParams['codeScanningDefaultSetup']
       }
       if ('codeScanningDefaultSetupOptions' in mappedParams) {
-        mappedParams['code_scanning_default_setup_options'] = mappedParams['codeScanningDefaultSetupOptions']
+        mappedParams['code_scanning_default_setup_options'] =
+          mappedParams['codeScanningDefaultSetupOptions']
         delete mappedParams['codeScanningDefaultSetupOptions']
       }
       if ('codeScanningDelegatedAlertDismissal' in mappedParams) {
-        mappedParams['code_scanning_delegated_alert_dismissal'] = mappedParams['codeScanningDelegatedAlertDismissal']
+        mappedParams['code_scanning_delegated_alert_dismissal'] =
+          mappedParams['codeScanningDelegatedAlertDismissal']
         delete mappedParams['codeScanningDelegatedAlertDismissal']
       }
       if ('secretProtection' in mappedParams) {
@@ -7482,27 +7545,33 @@ mcpServer.tool(
         delete mappedParams['secretScanning']
       }
       if ('secretScanningPushProtection' in mappedParams) {
-        mappedParams['secret_scanning_push_protection'] = mappedParams['secretScanningPushProtection']
+        mappedParams['secret_scanning_push_protection'] =
+          mappedParams['secretScanningPushProtection']
         delete mappedParams['secretScanningPushProtection']
       }
       if ('secretScanningDelegatedBypass' in mappedParams) {
-        mappedParams['secret_scanning_delegated_bypass'] = mappedParams['secretScanningDelegatedBypass']
+        mappedParams['secret_scanning_delegated_bypass'] =
+          mappedParams['secretScanningDelegatedBypass']
         delete mappedParams['secretScanningDelegatedBypass']
       }
       if ('secretScanningDelegatedBypassOptions' in mappedParams) {
-        mappedParams['secret_scanning_delegated_bypass_options'] = mappedParams['secretScanningDelegatedBypassOptions']
+        mappedParams['secret_scanning_delegated_bypass_options'] =
+          mappedParams['secretScanningDelegatedBypassOptions']
         delete mappedParams['secretScanningDelegatedBypassOptions']
       }
       if ('secretScanningValidityChecks' in mappedParams) {
-        mappedParams['secret_scanning_validity_checks'] = mappedParams['secretScanningValidityChecks']
+        mappedParams['secret_scanning_validity_checks'] =
+          mappedParams['secretScanningValidityChecks']
         delete mappedParams['secretScanningValidityChecks']
       }
       if ('secretScanningNonProviderPatterns' in mappedParams) {
-        mappedParams['secret_scanning_non_provider_patterns'] = mappedParams['secretScanningNonProviderPatterns']
+        mappedParams['secret_scanning_non_provider_patterns'] =
+          mappedParams['secretScanningNonProviderPatterns']
         delete mappedParams['secretScanningNonProviderPatterns']
       }
       if ('secretScanningGenericSecrets' in mappedParams) {
-        mappedParams['secret_scanning_generic_secrets'] = mappedParams['secretScanningGenericSecrets']
+        mappedParams['secret_scanning_generic_secrets'] =
+          mappedParams['secretScanningGenericSecrets']
         delete mappedParams['secretScanningGenericSecrets']
       }
       if ('secretScanningDelegatedAlertDismissal' in mappedParams) {
@@ -7511,7 +7580,8 @@ mcpServer.tool(
         delete mappedParams['secretScanningDelegatedAlertDismissal']
       }
       if ('privateVulnerabilityReporting' in mappedParams) {
-        mappedParams['private_vulnerability_reporting'] = mappedParams['privateVulnerabilityReporting']
+        mappedParams['private_vulnerability_reporting'] =
+          mappedParams['privateVulnerabilityReporting']
         delete mappedParams['privateVulnerabilityReporting']
       }
 
@@ -16153,30 +16223,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('rate-limit/get', `Get rate limit status for the authenticated user`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'rate-limit/get',
+  `Get rate limit status for the authenticated user`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/rate_limit',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/rate_limit',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'repos/get',
@@ -19753,7 +19828,8 @@ mcpServer.tool(
         delete mappedParams['blockCreations']
       }
       if ('requiredConversationResolution' in mappedParams) {
-        mappedParams['required_conversation_resolution'] = mappedParams['requiredConversationResolution']
+        mappedParams['required_conversation_resolution'] =
+          mappedParams['requiredConversationResolution']
         delete mappedParams['requiredConversationResolution']
       }
       if ('lockBranch' in mappedParams) {
@@ -19993,7 +20069,8 @@ mcpServer.tool(
         delete mappedParams['requireCodeOwnerReviews']
       }
       if ('requiredApprovingReviewCount' in mappedParams) {
-        mappedParams['required_approving_review_count'] = mappedParams['requiredApprovingReviewCount']
+        mappedParams['required_approving_review_count'] =
+          mappedParams['requiredApprovingReviewCount']
         delete mappedParams['requiredApprovingReviewCount']
       }
       if ('requireLastPushApproval' in mappedParams) {
@@ -37880,30 +37957,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('migrations/list-for-authenticated-user', `List user migrations`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'migrations/list-for-authenticated-user',
+  `List user migrations`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/user/migrations',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/user/migrations',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'migrations/start-for-authenticated-user',

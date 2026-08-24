@@ -6,4 +6,4 @@ export {
   type WebappArgs,
   type WebappChildAliases,
   type WebappVercelArgs,
-} from "./webapp.js";
+} from './webapp.js'

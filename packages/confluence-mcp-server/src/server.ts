@@ -818,7 +818,8 @@ mcpServer.tool(
         delete mappedParams['includeVersion']
       }
       if ('includeFavoritedByCurrentUserStatus' in mappedParams) {
-        mappedParams['include-favorited-by-current-user-status'] = mappedParams['includeFavoritedByCurrentUserStatus']
+        mappedParams['include-favorited-by-current-user-status'] =
+          mappedParams['includeFavoritedByCurrentUserStatus']
         delete mappedParams['includeFavoritedByCurrentUserStatus']
       }
       if ('includeWebresources' in mappedParams) {
@@ -2332,7 +2333,8 @@ mcpServer.tool(
         delete mappedParams['includeVersion']
       }
       if ('includeFavoritedByCurrentUserStatus' in mappedParams) {
-        mappedParams['include-favorited-by-current-user-status'] = mappedParams['includeFavoritedByCurrentUserStatus']
+        mappedParams['include-favorited-by-current-user-status'] =
+          mappedParams['includeFavoritedByCurrentUserStatus']
         delete mappedParams['includeFavoritedByCurrentUserStatus']
       }
       if ('includeWebresources' in mappedParams) {
@@ -3909,30 +3911,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('create-smart-link', `Create Smart Link in the content tree`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'create-smart-link',
+  `Create Smart Link in the content tree`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/embeds',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/embeds',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-smart-link-by-id',
@@ -7384,105 +7391,125 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('create-bulk-user-lookup', `Create bulk user lookup using ids`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'create-bulk-user-lookup',
+  `Create bulk user lookup using ids`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/users-bulk',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/users-bulk',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('check-access-by-email', `Check site access for a list of emails`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'check-access-by-email',
+  `Check site access for a list of emails`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/user/access/check-access-by-email',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/user/access/check-access-by-email',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('invite-by-email', `Invite a list of emails to the site`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'invite-by-email',
+  `Invite a list of emails to the site`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/user/access/invite-by-email',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/user/access/invite-by-email',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('get-data-policy-metadata', `Get data policy metadata for the workspace`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-data-policy-metadata',
+  `Get data policy metadata for the workspace`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/data-policies/metadata',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/data-policies/metadata',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-data-policy-spaces',
@@ -7520,30 +7547,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('get-classification-levels', `Get list of classification levels`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-classification-levels',
+  `Get list of classification levels`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/classification-levels',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/classification-levels',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-space-default-classification-level',

@@ -1,0 +1,17 @@
+# Clone-root tsconfig.json. Presence stays in fslint-config.
+# Pins live in templates/project__tsconfig.json.schema.json (`const`).
+version: 1
+
+rules:
+  - id: project__tsconfig.json
+    kind: for_each_file
+    select: tsconfig.json
+    when_iter: 'iter.path == "tsconfig.json"'
+    level: error
+    message: 'clone-root tsconfig.json must extend @sargonpiraev/tsconfig/base.json'
+    require:
+      - {
+          paths: '{path}',
+          kind: json_schema_passes,
+          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__tsconfig.json.schema.json,
+        }

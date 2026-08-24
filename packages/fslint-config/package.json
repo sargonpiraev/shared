@@ -1,6 +1,6 @@
 {
   "name": "@sargonpiraev/fslint-config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shared alint (file structure linting) rules for sargonpiraev products and packages",
   "keywords": [
     "alint",
@@ -22,11 +22,18 @@
     "email": "sargonpiraev@gmail.com"
   },
   "exports": {
-    ".": "./project.yml",
-    "./project.yml": "./project.yml"
+    "./project.yaml": "./project.yaml",
+    "./webapp.yaml": "./webapp.yaml",
+    "./mobapp.yaml": "./mobapp.yaml",
+    "./extapp.yaml": "./extapp.yaml"
   },
   "files": [
-    "project.yml",
+    "project.yaml",
+    "cursor.yaml",
+    "github.yaml",
+    "webapp.yaml",
+    "mobapp.yaml",
+    "extapp.yaml",
     "README.md",
     "LICENSE"
   ],
@@ -34,7 +41,7 @@
     "build": "node -e \"console.log('noop build'); process.exit(0)\"",
     "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
     "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
-    "test": "node -e \"const fs=require('fs'); const t=fs.readFileSync('project.yml','utf8'); if(!t.includes('id: project')||!t.includes('id: webapp')||!t.includes('id: mobapp')||!t.includes('id: extapp')) process.exit(1)\""
+    "test": "node -e \"const fs=require('fs'); for (const [f,id] of [['project.yaml','id: project'],['webapp.yaml','id: webapp'],['mobapp.yaml','id: mobapp'],['extapp.yaml','id: extapp']]) { const t=fs.readFileSync(f,'utf8'); if(!t.includes(id)) process.exit(1) }\""
   },
   "engines": {
     "node": ">=22"

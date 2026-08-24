@@ -1,0 +1,54 @@
+# Every clone root (Nx project / shared). Lint root = the consuming repo.
+# Nested checks use root_only. Anchor on package.json (select "." is vacuous).
+#
+# MUST dirs:  .cursor/, .github/, apps/, packages/, pulumi/
+# (contents of .cursor / .github: cursor.yaml, github.yaml)
+# MUST files: .alint.fslint.yaml, .alint.configlint.yaml, .npmrc, .nvmrc, AGENTS.md,
+#             .commitlintrc.yaml, eslint.config.mjs, lefthook.yml,
+#             package-lock.json, package.json, prettier.config.mjs, project.json,
+#             README.md, tsconfig.json, turbo.json
+#
+# Presence only (file_exists / dir_exists). Structured config → configlint-config.
+# lefthook-local.yml is gitignored; do not file_absent it.
+version: 1
+
+extends:
+  - ./webapp.yaml
+  - ./mobapp.yaml
+  - ./extapp.yaml
+
+rules:
+  - id: project
+    kind: for_each_file
+    select: ["package.json"]
+    when_iter: 'iter.path == "package.json"'
+    level: error
+    message: "Project root is missing required governance files or dirs"
+    require:
+
+      # dirs
+      - { paths: .cursor, kind: dir_exists, root_only: true }
+      - { paths: .cursor/worktrees.json, kind: file_exists }
+      - { paths: .github, kind: dir_exists, root_only: true }
+      - { paths: .github/workflows, kind: dir_exists }
+      - { paths: .github/workflows/on-push-main.yml, kind: file_exists }
+      - { paths: apps, kind: dir_exists, root_only: true }
+      - { paths: packages, kind: dir_exists, root_only: true }
+      - { paths: pulumi, kind: dir_exists, root_only: true }
+
+      # files
+      - { paths: .alint.fslint.yaml, kind: file_exists, root_only: true }
+      - { paths: .alint.configlint.yaml, kind: file_exists, root_only: true }
+      - { paths: .npmrc, kind: file_exists, root_only: true }
+      - { paths: .nvmrc, kind: file_exists, root_only: true }
+      - { paths: AGENTS.md, kind: file_exists, root_only: true }
+      - { paths: .commitlintrc.yaml, kind: file_exists, root_only: true }
+      - { paths: eslint.config.mjs, kind: file_exists, root_only: true }
+      - { paths: lefthook.yml, kind: file_exists, root_only: true }
+      - { paths: package-lock.json, kind: file_exists, root_only: true }
+      - { paths: package.json, kind: file_exists, root_only: true }
+      - { paths: prettier.config.mjs, kind: file_exists, root_only: true }
+      - { paths: project.json, kind: file_exists, root_only: true }
+      - { paths: README.md, kind: file_exists, root_only: true }
+      - { paths: tsconfig.json, kind: file_exists, root_only: true }
+      - { paths: turbo.json, kind: file_exists, root_only: true }

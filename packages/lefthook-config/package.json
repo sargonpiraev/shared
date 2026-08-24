@@ -1,0 +1,44 @@
+{
+  "name": "@sargonpiraev/lefthook-config",
+  "version": "0.0.0",
+  "description": "Shared Lefthook remotes baseline for sargonpiraev products and packages",
+  "keywords": [
+    "lefthook",
+    "git-hooks"
+  ],
+  "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/lefthook-config#readme",
+  "bugs": {
+    "url": "https://github.com/sargonpiraev/shared/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sargonpiraev/shared.git",
+    "directory": "packages/lefthook-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Sargon Piraev",
+    "email": "sargonpiraev@gmail.com"
+  },
+  "exports": {
+    "./lefthook.yml": "./lefthook.yml"
+  },
+  "files": [
+    "lefthook.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node -e \"console.log('noop build'); process.exit(0)\"",
+    "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
+    "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
+    "test": "node -e \"const t=require('fs').readFileSync('lefthook.yml','utf8'); if(!t.includes('commit-msg:')||!t.includes('pre-push:')) process.exit(1)\""
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

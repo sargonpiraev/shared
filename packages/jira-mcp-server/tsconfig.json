@@ -6,16 +6,8 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "declaration": true,
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "coverage"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build", "coverage"]
 }

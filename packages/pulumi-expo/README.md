@@ -11,7 +11,7 @@ npm install @sargonpiraev/pulumi-expo
 ## Usage
 
 ```ts
-import { ExpoProject } from '@sargonpiraev/pulumi-expo';
+import { ExpoProject } from '@sargonpiraev/pulumi-expo'
 ```
 
 Pulumi looks up the resource plugin binary `pulumi-resource-expo` on `PATH`. After install:

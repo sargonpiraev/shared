@@ -1,0 +1,14 @@
+# Clone-root .npmrc. Presence stays in fslint-config.
+# Required prefix is templates/.npmrc; extra overlay lines after it are allowed.
+version: 1
+
+rules:
+  - id: project__.npmrc
+    kind: for_each_file
+    select: .npmrc
+    when_iter: 'iter.path == ".npmrc"'
+    level: error
+    message: 'clone-root .npmrc must start with the portfolio engine-strict prefix'
+    require:
+      - { paths: '{path}', kind: file_starts_with, prefix: "engine-strict=true\nfund=false\n" }
+      - { paths: '{path}', kind: file_content_forbidden, pattern: '_authToken' }

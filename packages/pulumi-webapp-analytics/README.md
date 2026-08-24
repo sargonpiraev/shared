@@ -25,27 +25,27 @@ import {
   WebappAnalytics,
   WEBAPP_ANALYTICS_TYPE,
   repoHasWebapp,
-} from "@sargonpiraev/pulumi-webapp-analytics";
+} from '@sargonpiraev/pulumi-webapp-analytics'
 
 if (!repoHasWebapp(repoRoot)) {
-  throw new Error("apps/webapp required");
+  throw new Error('apps/webapp required')
 }
 
-const analytics = new WebappAnalytics("webapp-analytics", {
-  gcpProjectId: "sargonpiraev",
-  datasetId: "searchconsole_anidex",
-  location: "EU",
-  gscSiteUrl: "sc-domain:anidex.tv",
+const analytics = new WebappAnalytics('webapp-analytics', {
+  gcpProjectId: 'sargonpiraev',
+  datasetId: 'searchconsole_anidex',
+  location: 'EU',
+  gscSiteUrl: 'sc-domain:anidex.tv',
   gscServiceAccountKeyB64: process.env.GOOGLE_SERVICE_ACCOUNT_KEY!,
   gcpServiceAccountKeyB64: process.env.GCP_SERVICE_ACCOUNT_KEY!,
-  datasetDescription: "GSC bulk export for anidex.tv",
-  datasetLabels: { product: "anidex", source: "gsc", domain: "product" },
+  datasetDescription: 'GSC bulk export for anidex.tv',
+  datasetLabels: { product: 'anidex', source: 'gsc', domain: 'product' },
   adoptExisting: true,
-  datasetImportId: "projects/sargonpiraev/datasets/searchconsole_anidex",
-});
+  datasetImportId: 'projects/sargonpiraev/datasets/searchconsole_anidex',
+})
 
-void WEBAPP_ANALYTICS_TYPE;
-void analytics.datasetId;
+void WEBAPP_ANALYTICS_TYPE
+void analytics.datasetId
 ```
 
 ## Type token (legacy)

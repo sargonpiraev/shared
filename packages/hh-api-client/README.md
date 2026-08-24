@@ -42,7 +42,12 @@ Before installation, you'll need HeadHunter API credentials:
 ## Quick Start
 
 ```typescript
-import { createHeadHunterClient, getVacancies, getAreas, type GetVacanciesData } from '@sargonpiraev/hh-api-client'
+import {
+  createHeadHunterClient,
+  getVacancies,
+  getAreas,
+  type GetVacanciesData,
+} from '@sargonpiraev/hh-api-client'
 
 // Create a configured client
 const client = createHeadHunterClient({
@@ -127,7 +132,12 @@ await applyToVacancy({
 ### Work with Dictionaries
 
 ```typescript
-import { getAreas, getIndustries, getSkills, getProfessionalRolesDictionary } from '@sargonpiraev/hh-api-client'
+import {
+  getAreas,
+  getIndustries,
+  getSkills,
+  getProfessionalRolesDictionary,
+} from '@sargonpiraev/hh-api-client'
 
 // Get all areas (cities/regions)
 const areas = await getAreas({ client })
@@ -234,7 +244,13 @@ import {
 Full TypeScript support with generated types:
 
 ```typescript
-import type { GetVacanciesData, GetVacanciesResponses, Vacancy, Area, Industry } from '@sargonpiraev/hh-api-client'
+import type {
+  GetVacanciesData,
+  GetVacanciesResponses,
+  Vacancy,
+  Area,
+  Industry,
+} from '@sargonpiraev/hh-api-client'
 
 const handleVacancy = (vacancy: Vacancy) => {
   console.log(vacancy.name)

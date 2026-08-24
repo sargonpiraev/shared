@@ -2745,7 +2745,16 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, distribution, projectId, letter, packageName, packageVersion, fileName, ...otherParams } = args
+      const {
+        id,
+        distribution,
+        projectId,
+        letter,
+        packageName,
+        packageVersion,
+        fileName,
+        ...otherParams
+      } = args
       const url = `/api/v4/groups/${id}/-/packages/debian/pool/${distribution}/${projectId}/${letter}/${packageName}/${packageVersion}/${fileName}`
 
       // Map camelCase to original parameter names for API request
@@ -3662,30 +3671,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-groups-import', `Create a new group import`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-groups-import',
+  `Create a new group import`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/groups/import',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/groups/import',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-groups-id-packages',
@@ -13397,7 +13411,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/search`
 
       // Map camelCase to original parameter names for API request
@@ -13549,7 +13564,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`
 
       // Map camelCase to original parameter names for API request
@@ -13602,7 +13618,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`
 
       // Map camelCase to original parameter names for API request
@@ -13721,7 +13738,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/digest`
 
       // Map camelCase to original parameter names for API request
@@ -13840,7 +13858,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/download_urls`
 
       // Map camelCase to original parameter names for API request
@@ -13959,7 +13978,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/upload_urls`
 
       // Map camelCase to original parameter names for API request
@@ -14580,7 +14600,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/search`
 
       // Map camelCase to original parameter names for API request
@@ -14633,7 +14654,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/latest`
 
       // Map camelCase to original parameter names for API request
@@ -14686,7 +14708,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } = args
+      const { id, packageName, packageVersion, packageUsername, packageChannel, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions`
 
       // Map camelCase to original parameter names for API request
@@ -14740,7 +14763,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, recipeRevision, ...otherParams } = args
+      const {
+        id,
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        ...otherParams
+      } = args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions/${recipeRevision}`
 
       // Map camelCase to original parameter names for API request
@@ -14798,7 +14829,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, recipeRevision, ...otherParams } = args
+      const {
+        id,
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        ...otherParams
+      } = args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions/${recipeRevision}/files`
 
       // Map camelCase to original parameter names for API request
@@ -15072,7 +15111,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, packageName, packageVersion, packageUsername, packageChannel, recipeRevision, ...otherParams } = args
+      const {
+        id,
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        ...otherParams
+      } = args
       const url = `/api/v4/projects/${id}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions/${recipeRevision}/search`
 
       // Map camelCase to original parameter names for API request
@@ -16013,7 +16060,8 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { id, distribution, letter, packageName, packageVersion, fileName, ...otherParams } = args
+      const { id, distribution, letter, packageName, packageVersion, fileName, ...otherParams } =
+        args
       const url = `/api/v4/projects/${id}/packages/debian/pool/${distribution}/${letter}/${packageName}/${packageVersion}/${fileName}`
 
       // Map camelCase to original parameter names for API request
@@ -28506,30 +28554,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-projects-import', `Create a new project import`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-projects-import',
+  `Create a new project import`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/projects/import',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/projects/import',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-projects-id-import',
@@ -34641,30 +34694,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-admin-ci-variables', `Create a new instance-level variable`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-admin-ci-variables',
+  `Create a new instance-level variable`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/admin/ci/variables',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/admin/ci/variables',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-admin-ci-variables-key',
@@ -34943,30 +35001,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-admin-clusters-add', `Add existing instance cluster`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-admin-clusters-add',
+  `Add existing instance cluster`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/admin/clusters/add',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/admin/clusters/add',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-admin-migrations-timestamp-mark',
@@ -35038,30 +35101,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-broadcast-messages', `Create a broadcast message`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-broadcast-messages',
+  `Create a broadcast message`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/broadcast_messages',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/broadcast_messages',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-broadcast-messages-id',
@@ -35311,30 +35379,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-bulk-imports', `Start a new GitLab Migration`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-bulk-imports',
+  `Start a new GitLab Migration`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/bulk_imports',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/bulk_imports',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-bulk-imports',
@@ -36652,30 +36725,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('get-api-v4-packages-conan-v1-ping', `Ping the Conan API`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-packages-conan-v1-ping',
+  `Ping the Conan API`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/packages/conan/v1/ping',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/packages/conan/v1/ping',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-packages-conan-v1-conans-package-name-package-version-package-username-package-channel-packages-conan-package-reference',
@@ -36689,8 +36767,14 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, conanPackageReference, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        conanPackageReference,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}`
 
       // Map camelCase to original parameter names for API request
@@ -36851,8 +36935,14 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, conanPackageReference, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        conanPackageReference,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/digest`
 
       // Map camelCase to original parameter names for API request
@@ -36961,8 +37051,14 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, conanPackageReference, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        conanPackageReference,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/download_urls`
 
       // Map camelCase to original parameter names for API request
@@ -37071,8 +37167,14 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, conanPackageReference, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        conanPackageReference,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/upload_urls`
 
       // Map camelCase to original parameter names for API request
@@ -37182,8 +37284,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, recipeRevision, fileName, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        fileName,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${fileName}`
 
       // Map camelCase to original parameter names for API request
@@ -37245,8 +37354,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, recipeRevision, fileName, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        fileName,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${fileName}`
 
       // Map camelCase to original parameter names for API request
@@ -37308,8 +37424,15 @@ mcpServer.tool(
   },
   async (args, extra) => {
     try {
-      const { packageName, packageVersion, packageUsername, packageChannel, recipeRevision, fileName, ...otherParams } =
-        args
+      const {
+        packageName,
+        packageVersion,
+        packageUsername,
+        packageChannel,
+        recipeRevision,
+        fileName,
+        ...otherParams
+      } = args
       const url = `/api/v4/packages/conan/v1/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${fileName}/authorize`
 
       // Map camelCase to original parameter names for API request
@@ -38694,30 +38817,35 @@ mcpServer.tool('get-api-v4-features', `List all features`, {}, async (args, extr
   }
 })
 
-mcpServer.tool('get-api-v4-features-definitions', `List all feature definitions`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-features-definitions',
+  `List all feature definitions`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/features/definitions',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/features/definitions',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-features-name',
@@ -38785,30 +38913,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('get-api-v4-geo-proxy', `Determine if a Geo site should proxy requests`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-geo-proxy',
+  `Determine if a Geo site should proxy requests`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/geo/proxy',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/geo/proxy',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-geo-retrieve-replicable-name-replicable-id',
@@ -39072,30 +39205,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-integrations-slack-events', `Receive Slack events`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-integrations-slack-events',
+  `Receive Slack events`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/integrations/slack/events',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/integrations/slack/events',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-integrations-slack-interactions',
@@ -39252,30 +39390,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-markdown', `Render an arbitrary Markdown document`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-markdown',
+  `Render an arbitrary Markdown document`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/markdown',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/markdown',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-merge-requests',
@@ -41164,30 +41307,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-usage-data-increment-counter', `Track usage data event`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-usage-data-increment-counter',
+  `Track usage data event`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/usage_data/increment_counter',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/usage_data/increment_counter',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-usage-data-increment-unique-users',
@@ -41285,80 +41433,95 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('get-api-v4-usage-data-service-ping', `Get the latest ServicePing payload`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-usage-data-service-ping',
+  `Get the latest ServicePing payload`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/usage_data/service_ping',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/usage_data/service_ping',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('post-api-v4-usage-data-track-event', `Track gitlab internal events`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-usage-data-track-event',
+  `Track gitlab internal events`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/usage_data/track_event',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/usage_data/track_event',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('get-api-v4-usage-data-non-sql-metrics', `Get Non SQL usage ping metrics`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-usage-data-non-sql-metrics',
+  `Get Non SQL usage ping metrics`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/usage_data/non_sql_metrics',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/usage_data/non_sql_metrics',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-usage-data-queries',
@@ -41390,30 +41553,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('get-api-v4-user-counts', `Return the user specific counts`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-user-counts',
+  `Return the user specific counts`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/user_counts',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/user_counts',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-user-runners',
@@ -41481,80 +41649,95 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('put-api-v4-application-plan-limits', `Change plan limits`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'put-api-v4-application-plan-limits',
+  `Change plan limits`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'PUT',
-      url: '/api/v4/application/plan_limits',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'PUT',
+        url: '/api/v4/application/plan_limits',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('get-api-v4-application-appearance', `Get the current appearance`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-application-appearance',
+  `Get the current appearance`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/application/appearance',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/application/appearance',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
-mcpServer.tool('put-api-v4-application-appearance', `Modify appearance`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'put-api-v4-application-appearance',
+  `Modify appearance`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'PUT',
-      url: '/api/v4/application/appearance',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'PUT',
+        url: '/api/v4/application/appearance',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-application-statistics',
@@ -41723,30 +41906,35 @@ mcpServer.tool(
   }
 )
 
-mcpServer.tool('post-api-v4-import-bitbucket', `Import a BitBucket Cloud repository`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-import-bitbucket',
+  `Import a BitBucket Cloud repository`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/import/bitbucket',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/import/bitbucket',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'post-api-v4-import-bitbucket-server',
@@ -41803,30 +41991,35 @@ mcpServer.tool('post-api-v4-import-github', `Import a GitHub project`, {}, async
   }
 })
 
-mcpServer.tool('post-api-v4-import-github-cancel', `Cancel GitHub project import`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-import-github-cancel',
+  `Cancel GitHub project import`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/import/github/cancel',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/import/github/cancel',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool('post-api-v4-import-github-gists', `Import User Gists`, {}, async (args, extra) => {
   try {
@@ -41853,30 +42046,35 @@ mcpServer.tool('post-api-v4-import-github-gists', `Import User Gists`, {}, async
   }
 })
 
-mcpServer.tool('post-api-v4-slack-trigger', `Trigger a global slack command`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'post-api-v4-slack-trigger',
+  `Trigger a global slack command`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = (args as any).requestData || { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = (args as any).requestData || { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'POST',
-      url: '/api/v4/slack/trigger',
-      data: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'POST',
+        url: '/api/v4/slack/trigger',
+        data: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)
 
 mcpServer.tool(
   'get-api-v4-metadata',
@@ -42135,27 +42333,32 @@ mcpServer.tool('post-api-v4-topics-merge', `Merge topics`, {}, async (args, extr
   }
 })
 
-mcpServer.tool('get-api-v4-web-commits-public-key', `Get the public key for web commits`, {}, async (args, extra) => {
-  try {
-    const otherParams = args
+mcpServer.tool(
+  'get-api-v4-web-commits-public-key',
+  `Get the public key for web commits`,
+  {},
+  async (args, extra) => {
+    try {
+      const otherParams = args
 
-    // Map camelCase to original parameter names for API request
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedParams: any = { ...otherParams }
+      // Map camelCase to original parameter names for API request
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedParams: any = { ...otherParams }
 
-    // Extract authorization token from HTTP request headers
-    const authorization = extra?.requestInfo?.headers?.authorization as string
-    const bearer = authorization?.replace('Bearer ', '')
+      // Extract authorization token from HTTP request headers
+      const authorization = extra?.requestInfo?.headers?.authorization as string
+      const bearer = authorization?.replace('Bearer ', '')
 
-    const response = await apiClient.request({
-      headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
-      method: 'GET',
-      url: '/api/v4/web_commits/public_key',
-      params: mappedParams,
-    })
+      const response = await apiClient.request({
+        headers: bearer ? { Authorization: `Bearer ${bearer}` } : undefined,
+        method: 'GET',
+        url: '/api/v4/web_commits/public_key',
+        params: mappedParams,
+      })
 
-    return handleResult(response.data)
-  } catch (error) {
-    return handleError(error)
+      return handleResult(response.data)
+    } catch (error) {
+      return handleError(error)
+    }
   }
-})
+)

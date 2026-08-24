@@ -1,6 +1,4 @@
-import { createProjectConfigs } from './create-project-configs.js'
-
-/** Flat-config preset for meta-repo sibling project globs (e.g. star/project.json). */
-const projectMeta = createProjectConfigs({ scope: 'meta' })
+/** Meta root must not apply the product TS preset to sibling clones. */
+const projectMeta: [] = []
 
 export default projectMeta

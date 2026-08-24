@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__turbo.json.schema.json",
+  "title": "Clone-root turbo.json portfolio pin",
+  "type": "object",
+  "required": ["$schema", "tasks"],
+  "properties": {
+    "$schema": {
+      "const": "https://turborepo.com/schema.json"
+    },
+    "tasks": {
+      "type": "object",
+      "required": ["check-types"]
+    }
+  }
+}

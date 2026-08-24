@@ -12,29 +12,29 @@ npm install @sargonpiraev/pulumi-ga4
 
 ## Resources
 
-| Type token | Class | Role |
-| --- | --- | --- |
-| `ga4:index:Property` | `Ga4Property` | Adopt or create a GA4 property |
+| Type token               | Class             | Role                              |
+| ------------------------ | ----------------- | --------------------------------- |
+| `ga4:index:Property`     | `Ga4Property`     | Adopt or create a GA4 property    |
 | `ga4:index:BigQueryLink` | `Ga4BigQueryLink` | Native GA4 → BigQuery export link |
 
 ## Usage
 
 ```ts
-import { Ga4Property, Ga4BigQueryLink } from "@sargonpiraev/pulumi-ga4";
+import { Ga4Property, Ga4BigQueryLink } from '@sargonpiraev/pulumi-ga4'
 
-const property = new Ga4Property("ga4", {
-  propertyId: "123456789",
+const property = new Ga4Property('ga4', {
+  propertyId: '123456789',
   serviceAccountKeyB64: process.env.GOOGLE_SERVICE_ACCOUNT_KEY!,
   importExisting: true,
-});
+})
 
-new Ga4BigQueryLink("ga4-bq", {
+new Ga4BigQueryLink('ga4-bq', {
   propertyId: property.propertyId,
-  gcpProjectId: "sargonpiraev",
-  datasetLocation: "EU",
+  gcpProjectId: 'sargonpiraev',
+  datasetLocation: 'EU',
   serviceAccountKeyB64: process.env.GOOGLE_SERVICE_ACCOUNT_KEY!,
   importExisting: true,
-});
+})
 ```
 
 Prefer `@sargonpiraev/pulumi-apps` `Webapp` — it **creates** the GA4 property (account + display name + site URI), it does not wait for a console property id.

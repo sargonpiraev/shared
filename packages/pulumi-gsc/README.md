@@ -11,7 +11,7 @@ npm install @sargonpiraev/pulumi-gsc
 ## Usage
 
 ```ts
-import { GscProperty } from '@sargonpiraev/pulumi-gsc';
+import { GscProperty } from '@sargonpiraev/pulumi-gsc'
 ```
 
 Pulumi looks up the resource plugin binary `pulumi-resource-gsc` on `PATH`. After install:

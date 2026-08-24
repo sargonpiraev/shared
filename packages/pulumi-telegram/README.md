@@ -11,7 +11,7 @@ npm install @sargonpiraev/pulumi-telegram
 ## Usage
 
 ```ts
-import { TelegramBot } from '@sargonpiraev/pulumi-telegram';
+import { TelegramBot } from '@sargonpiraev/pulumi-telegram'
 ```
 
 Pulumi looks up the resource plugin binary `pulumi-resource-telegram` on `PATH`. After install:

@@ -1,0 +1,13 @@
+# Clone-root prettier.config.mjs. Presence stays in fslint-config.
+# JavaScript — cannot migrate to JSON Schema.
+version: 1
+
+rules:
+  - id: project__prettier.config.mjs
+    kind: for_each_file
+    select: prettier.config.mjs
+    when_iter: 'iter.path == "prettier.config.mjs"'
+    level: error
+    message: 'clone-root prettier.config.mjs must re-export @sargonpiraev/prettier-config'
+    require:
+      - { paths: '{path}', kind: file_content_matches, pattern: '@sargonpiraev/prettier-config' }

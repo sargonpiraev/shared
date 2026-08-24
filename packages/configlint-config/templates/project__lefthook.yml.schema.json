@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__lefthook.yml.schema.json",
+  "title": "Clone-root lefthook.yml shared remotes",
+  "type": "object",
+  "required": ["remotes"],
+  "properties": {
+    "remotes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["git_url", "configs"],
+        "properties": {
+          "git_url": {
+            "type": "string",
+            "pattern": "sargonpiraev/shared"
+          },
+          "configs": {
+            "type": "array",
+            "minItems": 1,
+            "contains": {
+              "const": "packages/lefthook-config/lefthook.yml"
+            }
+          }
+        }
+      }
+    }
+  }
+}

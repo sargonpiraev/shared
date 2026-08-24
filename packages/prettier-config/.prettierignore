@@ -1,0 +1,3 @@
+pulumi
+src/generated
+node_modules

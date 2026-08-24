@@ -19,7 +19,9 @@ This repo’s own publish lane is [`repo-on-push-main.yml`](./repo-on-push-main.
 
 Baseline parallel checks:
 
-- `lint`
+- `fslint` (`npm run test:fslint`)
+- `configlint` (`npm run test:configlint`)
+- `lint` (`npm run test:eslint`)
 - `check-types`
 - `build`
 - `test`
@@ -51,11 +53,11 @@ CI uses **Node.js 24**, `actions/checkout@v6`, `actions/setup-node@v6`.
 
 ## Local hooks (lefthook)
 
-Provider baseline: [`../ci/lefthook.yml`](../ci/lefthook.yml) (mirrors `on-push-main.yml`).
+Provider baseline: [`../../packages/lefthook-config/lefthook.yml`](../../packages/lefthook-config/lefthook.yml) (mirrors `on-push-main.yml`).
 
-| Hook | Checks |
-|---|---|
-| `commit-msg` | Conventional Commits via commitlint |
+| Hook                  | Checks                                          |
+| --------------------- | ----------------------------------------------- |
+| `commit-msg`          | Conventional Commits via commitlint             |
 | `pre-push` (parallel) | `lint`, `check-types`, `build`, `test`, `audit` |
 
 In a consumer repo:
@@ -66,7 +68,7 @@ remotes:
   - git_url: https://github.com/sargonpiraev/shared
     ref: main
     configs:
-      - ci/lefthook.yml
+      - packages/lefthook-config/lefthook.yml
 ```
 
 Needs `lefthook`, `@commitlint/cli`, and `@commitlint/config-conventional` in `devDependencies`, plus `prepare`: `lefthook install`.

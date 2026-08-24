@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__tsconfig.json.schema.json",
+  "title": "Clone-root tsconfig.json extends shared base",
+  "type": "object",
+  "required": ["extends"],
+  "properties": {
+    "extends": {
+      "const": "@sargonpiraev/tsconfig/base.json"
+    }
+  }
+}

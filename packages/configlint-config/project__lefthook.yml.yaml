@@ -1,0 +1,17 @@
+# Clone-root lefthook.yml. Presence stays in fslint-config.
+# Pins live in templates/project__lefthook.yml.schema.json.
+version: 1
+
+rules:
+  - id: project__lefthook.yml
+    kind: for_each_file
+    select: lefthook.yml
+    when_iter: 'iter.path == "lefthook.yml"'
+    level: error
+    message: 'clone-root lefthook.yml must pull shared remotes'
+    require:
+      - {
+          paths: '{path}',
+          kind: json_schema_passes,
+          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__lefthook.yml.schema.json,
+        }

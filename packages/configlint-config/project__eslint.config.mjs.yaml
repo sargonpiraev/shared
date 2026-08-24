@@ -1,0 +1,18 @@
+# Clone-root eslint.config.mjs. Presence stays in fslint-config.
+# Flat ESLint config is JavaScript — cannot migrate to JSON/YAML.
+# Meta uses /project-meta; do not extend this leaf from meta.
+version: 1
+
+rules:
+  - id: project__eslint.config.mjs
+    kind: for_each_file
+    select: eslint.config.mjs
+    when_iter: 'iter.path == "eslint.config.mjs"'
+    level: error
+    message: 'clone-root eslint.config.mjs must spread @sargonpiraev/eslint-config/project'
+    require:
+      - {
+          paths: '{path}',
+          kind: file_content_matches,
+          pattern: '@sargonpiraev/eslint-config/project',
+        }

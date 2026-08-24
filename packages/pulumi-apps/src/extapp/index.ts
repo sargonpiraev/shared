@@ -7,4 +7,4 @@ export {
   requireCwsItemId,
   requireCwsItemSlug,
   type ExtappArgs,
-} from "./extapp.js";
+} from './extapp.js'

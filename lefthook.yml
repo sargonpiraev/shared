@@ -3,7 +3,7 @@ remotes:
   - git_url: https://github.com/sargonpiraev/shared
     ref: main
     configs:
-      - ci/lefthook.yml
+      - packages/lefthook-config/lefthook.yml
 
 # Audit stays in CI on-push-main (parity with workflow skip-audit).
 # exclude_tags must live under the hook — remotes merge keeps it; root-level does not.

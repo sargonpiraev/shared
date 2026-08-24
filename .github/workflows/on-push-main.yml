@@ -20,6 +20,20 @@ permissions:
   contents: read
 
 jobs:
+  fslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - run: npm run test:fslint
+
+  configlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - run: npm run test:configlint
+
   lint:
     runs-on: ubuntu-latest
     steps:

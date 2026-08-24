@@ -1,0 +1,92 @@
+# apps/webapp + optional repo-root playwright.config.ts (flat webapp).
+# Skipped when the file/dir is absent. Presence of the file stays in fslint-config.
+version: 1
+
+rules:
+  - id: webapp-playwright
+    kind: for_each_dir
+    select: ["apps/webapp"]
+    level: error
+    message: "apps/webapp/playwright.config.ts is missing required Playwright projects"
+    require:
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']functional[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']seo[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "seo\\.spec\\.ts" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']analytics[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "analytics\\.spec\\.ts" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']cwv[\"']" }
+      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "cwv\\.spec\\.ts" }
+
+  - id: root-playwright-functional
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "name:\\s*[\"']functional[\"']"
+  - id: root-playwright-functional-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "functional\\.spec\\.ts"
+  - id: root-playwright-seo
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "name:\\s*[\"']seo[\"']"
+  - id: root-playwright-seo-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "seo\\.spec\\.ts"
+  - id: root-playwright-analytics
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "name:\\s*[\"']analytics[\"']"
+  - id: root-playwright-analytics-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "analytics\\.spec\\.ts"
+  - id: root-playwright-visual
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "name:\\s*[\"']visual[\"']"
+  - id: root-playwright-visual-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "visual\\.spec\\.ts"
+  - id: root-playwright-cwv
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "name:\\s*[\"']cwv[\"']"
+  - id: root-playwright-cwv-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: playwright.config.ts
+      exclude: ["**/apps/**"]
+    pattern: "cwv\\.spec\\.ts"
