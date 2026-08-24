@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\"",
     "generate": "turbo run generate",
     "lint": "turbo run lint",
-    "prepare": "lefthook install",
+    "prepare": "lefthook install && npm run build -w @sargonpiraev/eslint-config",
     "pulumi:preview": "npm --prefix pulumi run preview",
     "pulumi:up": "npm --prefix pulumi run up",
     "release": "multi-semantic-release",
