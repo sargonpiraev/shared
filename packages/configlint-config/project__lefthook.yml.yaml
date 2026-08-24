@@ -15,3 +15,21 @@ rules:
           kind: json_schema_passes,
           schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__lefthook.yml.schema.json,
         }
+      - {
+          paths: '{path}',
+          kind: file_content_forbidden,
+          pattern: 'skip:\\s*true',
+        }
+
+  - id: project__on-push-main-reusable
+    kind: for_each_file
+    select: .github/workflows/on-push-main.yml
+    when_iter: 'iter.path == ".github/workflows/on-push-main.yml"'
+    level: error
+    message: 'on-push-main.yml must call shared reusable workflow or be that reusable (workflow_call)'
+    require:
+      - {
+          paths: '{path}',
+          kind: file_content_matches,
+          pattern: 'sargonpiraev/shared/.github/workflows/on-push-main\\.yml|workflow_call',
+        }

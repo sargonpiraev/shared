@@ -23,9 +23,10 @@ Whole-file contracts use alint `cross_file` + `relation: identical` against a go
 | `project__.cursor__worktrees.json.yaml` | clone-root `.cursor/worktrees.json` byte-identical to `templates/.cursor__worktrees.json` |
 | `project__.alint.fslint.yaml.yaml` | clone-root `.alint.fslint.yaml` extends `fslint-config/project.yaml` |
 | `project__.alint.configlint.yaml.yaml` | clone-root `.alint.configlint.yaml` extends the product configlint leaves (names, not SRI) |
-| `webapp__playwright.yaml` | `apps/webapp` + optional root `playwright.config.ts` |
-| `docapp__playwright.yaml` | `apps/docapp/playwright.config.ts` |
-| `extapp__playwright.yaml` | `apps/extapp/playwright.config.ts` |
+| `webapp__playwright.yaml` | `apps/webapp` + optional root `playwright.config.ts`; CI must `npm run test:visual` / `test:cwv` (spec via job or `install-playwright`) |
+| `docapp__playwright.yaml` | `apps/docapp/playwright.config.ts`; CI must `npm run test:visual` / `test:cwv` / `test:spec` |
+| `extapp__playwright.yaml` | `apps/extapp/playwright.config.ts`; CI must `npm run test:visual` / `test:spec` |
+| `project__lefthook.yml.yaml` | remotes + no `skip: true`; `on-push-main.yml` calls reusable or is `workflow_call` |
 
 Do not extend product `project__package.json.yaml` / `project__project.json.yaml` / `project__eslint.config.mjs.yaml` / `project__turbo.json.yaml` / `project__.alint.fslint.yaml.yaml` / `project__.alint.configlint.yaml.yaml` from the meta repo.
 

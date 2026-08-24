@@ -21,3 +21,47 @@ extends:
   - ./packages/configlint-config/webapp__playwright.yaml
   - ./packages/configlint-config/docapp__playwright.yaml
   - ./packages/configlint-config/extapp__playwright.yaml
+
+rules:
+  - id: shared-reusable-on-push-main-fslint
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run test:fslint'
+  - id: shared-reusable-on-push-main-configlint
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run test:configlint'
+  - id: shared-reusable-on-push-main-eslint
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run test:eslint'
+  - id: shared-reusable-on-push-main-check-types
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run check-types'
+  - id: shared-reusable-on-push-main-build
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run build'
+  - id: shared-reusable-on-push-main-test
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run test'
+  - id: shared-reusable-on-push-main-audit
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm audit --audit-level=critical'

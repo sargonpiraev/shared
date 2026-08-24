@@ -8,13 +8,23 @@
     "scripts": {
       "type": "object",
       "required": [
+        "test",
         "test:fslint",
         "test:configlint",
         "test:eslint",
         "test:format",
-        "test:check-types"
+        "test:check-types",
+        "test:spec",
+        "test:visual"
       ],
       "properties": {
+        "test": {
+          "type": "string",
+          "minLength": 1,
+          "not": {
+            "pattern": "test:visual|test:cwv"
+          }
+        },
         "test:fslint": {
           "const": "alint check -c .alint.fslint.yaml"
         },
@@ -29,6 +39,14 @@
         },
         "test:check-types": {
           "const": "turbo run check-types"
+        },
+        "test:spec": {
+          "type": "string",
+          "minLength": 1
+        },
+        "test:visual": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }

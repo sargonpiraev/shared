@@ -19,6 +19,21 @@ rules:
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']cwv[\"']" }
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "cwv\\.spec\\.ts" }
+      - {
+          paths: ".github/workflows/on-push-main.yml",
+          kind: file_content_matches,
+          pattern: "npm run test:visual",
+        }
+      - {
+          paths: ".github/workflows/on-push-main.yml",
+          kind: file_content_matches,
+          pattern: "npm run test:cwv",
+        }
+      - {
+          paths: ".github/workflows/on-push-main.yml",
+          kind: file_content_matches,
+          pattern: "npm run test:spec|install-playwright:\\s*true",
+        }
 
   - id: root-playwright-functional
     kind: file_content_matches

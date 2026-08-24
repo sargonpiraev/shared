@@ -10,6 +10,10 @@ commit-msg:
 pre-push:
   parallel: false
   commands:
+    fslint:
+      run: npm run test:fslint
+    configlint:
+      run: npm run test:configlint
     lint:
       run: npm run test:eslint
     check-types:

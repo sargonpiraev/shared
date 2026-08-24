@@ -12,3 +12,13 @@ rules:
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
       - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
+      - {
+          paths: ".github/workflows/on-push-main.yml",
+          kind: file_content_matches,
+          pattern: "npm run test:visual",
+        }
+      - {
+          paths: ".github/workflows/on-push-main.yml",
+          kind: file_content_matches,
+          pattern: "npm run test:spec",
+        }

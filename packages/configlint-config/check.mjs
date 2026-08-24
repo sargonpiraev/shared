@@ -25,6 +25,7 @@ const ids = [
   ['project__eslint.config.mjs.yaml', 'id: project__eslint.config.mjs'],
   ['project__prettier.config.mjs.yaml', 'id: project__prettier.config.mjs'],
   ['project__lefthook.yml.yaml', 'id: project__lefthook.yml'],
+  ['project__lefthook.yml.yaml', 'id: project__on-push-main-reusable'],
   ['project__.cursor__worktrees.json.yaml', 'id: project__.cursor__worktrees.json'],
   ['project__.alint.fslint.yaml.yaml', 'id: project__.alint.fslint.yaml'],
   ['project__.alint.configlint.yaml.yaml', 'id: project__.alint.configlint.yaml'],
