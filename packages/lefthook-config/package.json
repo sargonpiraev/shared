@@ -1,6 +1,7 @@
 {
   "name": "@sargonpiraev/lefthook-config",
   "version": "0.0.0",
+  "private": true,
   "description": "Shared Lefthook remotes baseline for sargonpiraev products and packages",
   "keywords": [
     "lefthook",
