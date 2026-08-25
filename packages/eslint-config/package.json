@@ -34,6 +34,10 @@
     "./project-meta": {
       "types": "./build/project-meta.d.ts",
       "import": "./build/project-meta.js"
+    },
+    "./playwright-specs": {
+      "types": "./build/playwright-specs.d.ts",
+      "import": "./build/playwright-specs.js"
     }
   },
   "main": "./build/index.js",
@@ -47,7 +51,7 @@
     "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .ts",
-    "test": "node -e \"console.log('noop test'); process.exit(0)\""
+    "test": "npm run build && node --test test/playwright-specs.test.mjs"
   },
   "dependencies": {
     "@eslint/js": "^9.26.0",
