@@ -1,107 +1,76 @@
 # apps/webapp + optional repo-root playwright.config.ts (flat webapp).
 # Skipped when the file/dir is absent. Presence of the file stays in fslint-config.
+# Lanes are npm scripts + Playwright tags (--grep @seokit), not one project per suite.
+# Playwright projects are viewports: desktop + mobile.
+# CI still runs npm run test:spec:visual / test:spec:perf.
 version: 1
 
 rules:
   - id: webapp-playwright
     kind: for_each_dir
-    select: ["apps/webapp"]
+    select: ['apps/webapp']
     level: error
-    message: "apps/webapp/playwright.config.ts is missing required Playwright projects"
+    message: 'apps/webapp Playwright contract: desktop/mobile projects and tagged npm lanes'
     require:
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']functional[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']seo[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "seo\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']analytics[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "analytics\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']cwv[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "cwv\\.spec\\.ts" }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '{path}/playwright.config.ts',
           kind: file_content_matches,
-          pattern: "npm run test:visual",
+          pattern: "name:\\s*[\"']desktop[\"']",
         }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '{path}/playwright.config.ts',
           kind: file_content_matches,
-          pattern: "npm run test:cwv",
+          pattern: "name:\\s*[\"']mobile[\"']",
+        }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @feat' }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @seokit' }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @analytics' }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @visual' }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @perf' }
+      - {
+          paths: '{path}/package.json',
+          kind: file_content_matches,
+          pattern: "@feat\\|@seokit\\|@analytics",
         }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '.github/workflows/on-push-main.yml',
+          kind: file_content_matches,
+          pattern: 'npm run test:spec:visual',
+        }
+      - {
+          paths: '.github/workflows/on-push-main.yml',
+          kind: file_content_matches,
+          pattern: 'npm run test:spec:perf',
+        }
+      - {
+          paths: '.github/workflows/on-push-main.yml',
           kind: file_content_matches,
           pattern: "npm run test:spec|install-playwright:\\s*true",
         }
 
-  - id: root-playwright-functional
+  - id: webapp-page-spec-tags
+    kind: for_each_file
+    select: ['apps/webapp/**/page.spec.ts']
+    level: error
+    message: 'each apps/webapp page.spec.ts must declare @feat @seokit @analytics @visual @perf tags'
+    require:
+      - { paths: '{path}', kind: file_content_matches, pattern: '@feat' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '@seokit' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '@analytics' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '@visual' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '@perf' }
+
+  - id: root-playwright-desktop
     kind: file_content_matches
     level: error
     paths:
       include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "name:\\s*[\"']functional[\"']"
-  - id: root-playwright-functional-spec
+      exclude: ['**/apps/**']
+    pattern: "name:\\s*[\"']desktop[\"']"
+  - id: root-playwright-mobile
     kind: file_content_matches
     level: error
     paths:
       include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "functional\\.spec\\.ts"
-  - id: root-playwright-seo
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "name:\\s*[\"']seo[\"']"
-  - id: root-playwright-seo-spec
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "seo\\.spec\\.ts"
-  - id: root-playwright-analytics
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "name:\\s*[\"']analytics[\"']"
-  - id: root-playwright-analytics-spec
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "analytics\\.spec\\.ts"
-  - id: root-playwright-visual
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "name:\\s*[\"']visual[\"']"
-  - id: root-playwright-visual-spec
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "visual\\.spec\\.ts"
-  - id: root-playwright-cwv
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "name:\\s*[\"']cwv[\"']"
-  - id: root-playwright-cwv-spec
-    kind: file_content_matches
-    level: error
-    paths:
-      include: playwright.config.ts
-      exclude: ["**/apps/**"]
-    pattern: "cwv\\.spec\\.ts"
+      exclude: ['**/apps/**']
+    pattern: "name:\\s*[\"']mobile[\"']"

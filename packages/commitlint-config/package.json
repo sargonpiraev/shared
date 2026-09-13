@@ -30,11 +30,19 @@
   "scripts": {
     "build": "node -e \"console.log('noop build'); process.exit(0)\"",
     "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
+    "commit": "cz",
     "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
-    "test": "node -e \"const c=require('./index.js'); if(!Array.isArray(c.extends)||!c.extends.includes('@commitlint/config-conventional')) process.exit(1)\""
+    "test": "node -e \"const c=require('./index.js'); const p=require('./package.json'); if(!Array.isArray(c.extends)||!c.extends.includes('@commitlint/config-conventional')) process.exit(1); if(p.config.commitizen.path!=='cz-conventional-changelog') process.exit(1)\""
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^21.2.0"
+    "@commitlint/config-conventional": "^21.2.0",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0"
   },
   "peerDependencies": {
     "@commitlint/cli": ">=19.0.0"

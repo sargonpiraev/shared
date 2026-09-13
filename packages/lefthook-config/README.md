@@ -1,21 +1,28 @@
 # `@sargonpiraev/lefthook-config`
 
-Shared Lefthook baseline (`commit-msg` + `pre-push` mirroring `on-push-main`).
+Shared Lefthook baseline. Consumers load it via Lefthook **`extends`** from the installed package (local `npm run link` → symlink). Not git `remotes:`.
 
-Consumers do **not** import this over npm for hooks. Lefthook `remotes:` clone `sargonpiraev/shared` and load this file from the repo:
+| Hook         | Commands                                                                                                 |
+| ------------ | -------------------------------------------------------------------------------------------------------- |
+| `pre-commit` | `test:format`, `test:fslint`, `test:configlint`, `test:eslint`                                           |
+| `commit-msg` | commitlint                                                                                               |
+| `pre-push`   | those four + `check-types`, `build`, `test`, `npm audit --audit-level=critical` (mirrors `on-push-main`) |
+
+Do **not** add interactive Commitizen on `prepare-commit-msg` — agents use `git commit -m`. Message shape: [`@sargonpiraev/commitlint-config`](../commitlint-config/) + Conventional Commits.
 
 ```yaml
-# lefthook.yml (repo root overlay)
-remotes:
-  - git_url: https://github.com/sargonpiraev/shared
-    ref: main
-    configs:
-      - packages/lefthook-config/lefthook.yml
+# lefthook.yml (clone / meta)
+extends:
+  - ./node_modules/@sargonpiraev/lefthook-config/lefthook.yml
 ```
 
-Shared itself is also a remotes consumer of this path. No nested `extends:` — one provider file.
+```yaml
+# lefthook.yml (shared monorepo)
+extends:
+  - ./packages/lefthook-config/lefthook.yml
+```
 
-Skip local `npm audit` with `pre-push.exclude_tags: [audit]` under the hook in the overlay (parity with CI `skip-audit`).
+Add `@sargonpiraev/lefthook-config` as a root `devDependency`. Keep overlays thin (`extends` only). Do not set `remotes:` — they override `extends`.
 
 ## License
 

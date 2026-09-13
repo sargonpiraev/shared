@@ -8,6 +8,16 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['node_modules/', 'build/', 'dist/', 'coverage/', 'src/generated/**', 'bin/'],
+    ignores: [
+      'node_modules/',
+      'build/',
+      'dist/',
+      'coverage/',
+      'src/generated/**',
+      'bin/',
+      'src/webapp/report-fn/node_modules/',
+      'src/webapp/report-fn/lib/',
+      'src/webapp/report-fn/deploy/',
+    ],
   },
 ]

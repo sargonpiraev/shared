@@ -1,0 +1,34 @@
+# packages/*-scrape-client — skipped when no matching dir (for_each_dir).
+# Nested require paths need `{path}/…` (not bare basenames).
+# Canon: `{service}-scrape-client` (HTML scrape). No OpenAPI spec required.
+# Page objects: `src/$page.page.ts` + sibling `$page.page.html` (committed fixture)
+# + `$page.page.test.ts` (unit contract test). Empty glob = pass.
+# pair (not for_each_file + file_exists): interpolated `{dir}` is globbed, so
+# `[param]`-style folders never match a real sibling path.
+# Does not match leftover `*-api-client` names until renamed.
+version: 1
+
+rules:
+  - id: scrape-client
+    kind: for_each_dir
+    select: ['packages/**/*-scrape-client']
+    level: error
+    message: 'packages/*-scrape-client is missing required files or dirs'
+    require:
+      - { paths: '{path}/package.json', kind: file_exists }
+      - { paths: '{path}/src', kind: dir_exists }
+      - { paths: '{path}/src/mock.ts', kind: file_exists }
+
+  - id: scrape-client-page-html
+    kind: pair
+    primary: 'packages/**/*-scrape-client/src/**/*.page.ts'
+    partner: '{dir}/{stem}.html'
+    level: error
+    message: 'each scrape-client *.page.ts must have a sibling *.page.html fixture'
+
+  - id: scrape-client-page-test
+    kind: pair
+    primary: 'packages/**/*-scrape-client/src/**/*.page.ts'
+    partner: '{dir}/{stem}.test.ts'
+    level: error
+    message: 'each scrape-client *.page.ts must have a sibling *.page.test.ts contract test'

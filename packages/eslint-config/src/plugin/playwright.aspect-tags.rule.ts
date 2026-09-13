@@ -9,7 +9,7 @@ import {
   readTagLiterals,
   reportFilename,
   requiredTagsForFile,
-} from '../playwright-ast.js'
+} from './playwright.ast.js'
 
 type Options = {
   allowedTags?: string[]
@@ -21,7 +21,7 @@ const aspectTagsRule: Rule.RuleModule = {
     type: 'problem',
     docs: {
       description:
-        'Require Playwright spec files to use a file-level whitelist of aspect tags, with required tags present on at least one test()',
+        'Require page.spec.ts to cover the full aspect-tag whitelist on test() or test.describe()',
     },
     schema: [
       {
@@ -42,7 +42,7 @@ const aspectTagsRule: Rule.RuleModule = {
     messages: {
       unknownTag: "Playwright tag '{{tag}}' is not in the allowed aspect whitelist ({{allowed}}).",
       missingTag:
-        "Playwright spec must include tag '{{tag}}' on at least one test() (file-level aspect coverage).",
+        "page.spec.ts must include tag '{{tag}}' on at least one test() or test.describe().",
     },
   },
   create(context) {
@@ -81,7 +81,9 @@ const aspectTagsRule: Rule.RuleModule = {
     return {
       CallExpression(node) {
         if (isDescribeCall(node)) {
-          tagStack.push(tagsFromCall(node))
+          const tags = tagsFromCall(node)
+          tagStack.push(tags)
+          for (const tag of tags) covered.add(tag)
           return
         }
         if (!isTestCall(node)) return

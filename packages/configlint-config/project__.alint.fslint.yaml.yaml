@@ -9,7 +9,7 @@ rules:
     select: .alint.fslint.yaml
     when_iter: 'iter.path == ".alint.fslint.yaml"'
     level: error
-    message: 'clone-root .alint.fslint.yaml must extend fslint-config/project.yaml'
+    message: 'clone-root .alint.fslint.yaml must extend fslint-config project + project__apps__* + project__packages__*-client leaves'
     require:
       - {
           paths: '{path}',

@@ -1,6 +1,0 @@
-export { default as project } from './project.js'
-export { default as projectMeta } from './project-meta.js'
-export { default } from './project.js'
-export { playwrightSpecsConfig } from './playwright-specs.js'
-export { playwrightSpecsPlugin } from './plugin.js'
-export { WEBAPP_ASPECT_TAGS } from './playwright-ast.js'

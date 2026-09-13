@@ -1,0 +1,17 @@
+# packages/*-db-client — skipped when no matching dir (for_each_dir).
+# Nested require paths need `{path}/…` (not bare basenames).
+# Canon: `{service}-db-client` (Prisma). Schema at schema.prisma or prisma/schema.prisma.
+# Does not match leftover `@repo/database` until renamed.
+version: 1
+
+rules:
+  - id: db-client
+    kind: for_each_dir
+    select: ['packages/**/*-db-client']
+    level: error
+    message: 'packages/*-db-client is missing required files or dirs'
+    require:
+      - { paths: '{path}/package.json', kind: file_exists }
+      - { paths: '{path}/src', kind: dir_exists }
+      - { paths: '{path}/src/mock.ts', kind: file_exists }
+      - { paths: ['{path}/schema.prisma', '{path}/prisma/schema.prisma'], kind: file_exists }

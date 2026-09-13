@@ -15,14 +15,15 @@
         "test:format",
         "test:check-types",
         "test:spec",
-        "test:visual"
+        "test:spec:visual",
+        "format"
       ],
       "properties": {
         "test": {
           "type": "string",
           "minLength": 1,
           "not": {
-            "pattern": "test:visual|test:cwv"
+            "pattern": "test:spec:visual|test:spec:perf"
           }
         },
         "test:fslint": {
@@ -44,9 +45,12 @@
           "type": "string",
           "minLength": 1
         },
-        "test:visual": {
+        "test:spec:visual": {
           "type": "string",
           "minLength": 1
+        },
+        "format": {
+          "const": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""
         }
       }
     }

@@ -15,27 +15,21 @@ const TEST_ID = 'test'
 const TEST_FN_MODIFIERS = new Set(['skip', 'only', 'fixme'])
 const DESCRIBE_MODIFIERS = new Set(['skip', 'only', 'fixme', 'serial', 'parallel'])
 
-export const WEBAPP_ASPECT_TAGS = ['@functional', '@seo', '@analytics', '@visual', '@cwv'] as const
+export const WEBAPP_ASPECT_TAGS = ['@feat', '@seokit', '@analytics', '@visual', '@perf'] as const
 
-const ASPECT_SUFFIX = /\.(functional|seo|analytics|visual|cwv)\.spec\.[cm]?[jt]sx?$/
-const PAGE_SPEC = /(^|\/)page\.spec\.[cm]?[jt]sx?$/
+const PAGE_SPEC = /(^|\/)apps\/(?:webapp|docapp)\/src\/app\/(?:.*\/)?page\.spec\.(?:ts|tsx|js|mjs)$/
 
 export function normalizeFilename(filename: string): string {
   return filename.replaceAll('\\', '/')
 }
 
-export function isPlaywrightSpecFile(filename: string, source: string): boolean {
-  const path = normalizeFilename(filename)
-  if (ASPECT_SUFFIX.test(path) || PAGE_SPEC.test(path)) return true
-  if (/(^|\/)e2e\//.test(path)) return true
-  return source.includes('@playwright/test')
+export function isPlaywrightSpecFile(filename: string, _source: string): boolean {
+  return PAGE_SPEC.test(normalizeFilename(filename))
 }
 
+/** `page.spec.ts` must cover the full aspect whitelist via tagged `test` / `describe`. */
 export function requiredTagsForFile(filename: string, requiredTags: readonly string[]): string[] {
-  const path = normalizeFilename(filename)
-  if (PAGE_SPEC.test(path)) return [...requiredTags]
-  const match = path.match(ASPECT_SUFFIX)
-  if (match?.[1]) return [`@${match[1]}`]
+  if (PAGE_SPEC.test(normalizeFilename(filename))) return [...requiredTags]
   return []
 }
 

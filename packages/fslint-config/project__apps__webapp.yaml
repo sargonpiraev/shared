@@ -1,0 +1,61 @@
+# apps/webapp — skipped when the dir is absent (for_each_dir).
+# Nested require paths need `{path}/…` (not bare basenames).
+# Canon: anidex/apps/webapp — Next App Router under `src/app` (not root `app/`,
+# not Pages Router), next-intl, Jest, sitemap index + chunk routes.
+# Playwright: `playwright.config.ts` + `e2e/`. Jest: `jest.config.*` + `jest.setup.ts`.
+# `.env.example` is the app env contract (keys only).
+# `pulumi.ts` + repo-root stack (`Pulumi.yaml`, `pulumi/index.ts`). `new Webapp(` is configlint.
+# `next.config.ts` or `next.config.mjs` (alint file_exists paths array = any-of).
+# App Router pages: sibling page.spec.ts next to each page.tsx / page.jsx.
+# Does not apply to layout.tsx, loading.tsx, error.tsx, route.ts, template.tsx.
+version: 1
+
+rules:
+  - id: webapp
+    kind: for_each_dir
+    select: ['apps/webapp']
+    level: error
+    message: 'apps/webapp is missing required files or dirs'
+    require:
+      - { paths: '{path}/src', kind: dir_exists }
+      - { paths: '{path}/src/app', kind: dir_exists }
+      - { paths: ['{path}/src/app/layout.tsx', '{path}/src/app/layout.jsx'], kind: file_exists }
+      - { paths: ['{path}/src/app/page.tsx', '{path}/src/app/page.jsx'], kind: file_exists }
+      - { paths: '{path}/src/app/globals.css', kind: file_exists }
+      - { paths: '{path}/src/env.ts', kind: file_exists }
+      - { paths: '{path}/src/middleware.ts', kind: file_exists }
+      - { paths: '{path}/src/i18n', kind: dir_exists }
+      - { paths: '{path}/src/i18n/request.ts', kind: file_exists }
+      - { paths: '{path}/src/i18n/routing.ts', kind: file_exists }
+      - { paths: '{path}/src/i18n/navigation.ts', kind: file_exists }
+      - { paths: '{path}/messages', kind: dir_exists }
+      - { paths: '{path}/public', kind: dir_exists }
+      - { paths: '{path}/e2e', kind: dir_exists }
+      - { paths: '{path}/package.json', kind: file_exists }
+      - { paths: '{path}/tsconfig.json', kind: file_exists }
+      - { paths: '{path}/eslint.config.mjs', kind: file_exists }
+      - { paths: '{path}/postcss.config.mjs', kind: file_exists }
+      - { paths: '{path}/next-env.d.ts', kind: file_exists }
+      - { paths: ['{path}/next.config.ts', '{path}/next.config.mjs'], kind: file_exists }
+      - { paths: '{path}/playwright.config.ts', kind: file_exists }
+      - {
+          paths: ['{path}/jest.config.mjs', '{path}/jest.config.ts', '{path}/jest.config.js'],
+          kind: file_exists,
+        }
+      - { paths: '{path}/jest.setup.ts', kind: file_exists }
+      - { paths: '{path}/.env.example', kind: file_exists }
+      - { paths: '{path}/pulumi.ts', kind: file_exists }
+      - { paths: '{path}/src/app/sitemapindex.xml/route.ts', kind: file_exists }
+      - { paths: '{path}/src/app/sitemap/[[]id]/route.ts', kind: file_exists }
+      - { paths: pulumi, kind: dir_exists, root_only: true }
+      - { paths: pulumi/Pulumi.yaml, kind: file_exists }
+      - { paths: ['pulumi/index.ts', 'pulumi/src/index.ts'], kind: file_exists }
+
+  # pair (not for_each_file + file_exists): interpolated `{dir}` is globbed, so
+  # Next.js `[param]` folders never match a real sibling path.
+  - id: webapp-page-spec
+    kind: pair
+    primary: 'apps/webapp/**/page.{tsx,jsx}'
+    partner: '{dir}/{stem}.spec.ts'
+    level: error
+    message: 'each App Router page.tsx must have a sibling page.spec.ts'

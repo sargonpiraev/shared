@@ -19,29 +19,25 @@ function repoHasApp(appType: string): boolean {
 describe('pulumi/index.ts app-type clusters', () => {
   it('instantiates Webapp/Extapp/Mobapp when the matching apps/ dir exists', () => {
     const src = stripTsComments(indexSource)
-    const deferWebapp = (() => {
-      const marker = path.join(__dirname, 'defer-webapp-cluster')
-      return fs.existsSync(marker) && fs.readFileSync(marker, 'utf8').trim().length > 0
-    })()
-    if ((repoHasApp('webapp') || repoHasApp('docapp')) && !deferWebapp) {
+    if (repoHasApp('webapp') || repoHasApp('docapp')) {
       assert.match(
         src,
-        /\b(?:createWebappProductAnalytics|new\s+Webapp)\s*\(/,
-        'apps/webapp (or apps/docapp) requires createWebappProductAnalytics(...) or new Webapp(...) in pulumi/index.ts'
+        /\bnew\s+Webapp\s*\(/,
+        'apps/webapp (or apps/docapp) requires new Webapp(...) in pulumi/index.ts'
       )
     }
     if (repoHasApp('extapp')) {
       assert.match(
         src,
-        /\b(?:createExtappProductAnalytics|new\s+Extapp)\s*\(/,
-        'apps/extapp requires createExtappProductAnalytics(...) or new Extapp(...) in pulumi/index.ts'
+        /\bnew\s+Extapp\s*\(/,
+        'apps/extapp requires new Extapp(...) in pulumi/index.ts'
       )
     }
     if (repoHasApp('mobapp')) {
       assert.match(
         src,
-        /\b(?:createMobappProductAnalytics|new\s+Mobapp)\s*\(/,
-        'apps/mobapp requires createMobappProductAnalytics(...) or new Mobapp(...) in pulumi/index.ts'
+        /\bnew\s+Mobapp\s*\(/,
+        'apps/mobapp requires new Mobapp(...) in pulumi/index.ts'
       )
     }
   })

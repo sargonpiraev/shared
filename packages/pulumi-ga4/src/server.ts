@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module'
-import { main } from '@pulumi/pulumi/provider/server'
+import { main } from '@pulumi/pulumi/provider/server.js'
 import type {
   Provider,
   CreateResult,

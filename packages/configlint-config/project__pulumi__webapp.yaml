@@ -1,0 +1,20 @@
+# apps/webapp ⇒ apps/webapp/pulumi.ts must construct Webapp in this file (not a helper, not pulumi/index.ts).
+# Skipped when the dir is absent (for_each_dir).
+# Greps apps/webapp/pulumi.ts only. Do not encode BQ table names or GA/GSC ids.
+version: 1
+
+rules:
+  - id: pulumi-webapp
+    kind: for_each_dir
+    select: ['apps/webapp']
+    level: error
+    message: 'apps/webapp/pulumi.ts must contain new Webapp('
+    require:
+      - { paths: '{path}/pulumi.ts', kind: file_content_matches, pattern: "new\\s+Webapp\\s*\\(" }
+  - id: pulumi-webapp-not-index
+    kind: for_each_dir
+    select: ['apps/webapp']
+    level: error
+    message: 'new Webapp( belongs in apps/webapp/pulumi.ts, not pulumi/index.ts'
+    require:
+      - { paths: pulumi/index.ts, kind: file_content_forbidden, pattern: "new\\s+Webapp\\s*\\(" }

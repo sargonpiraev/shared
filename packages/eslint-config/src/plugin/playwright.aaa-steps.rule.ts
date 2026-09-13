@@ -1,11 +1,6 @@
 import type { Rule } from 'eslint'
 import type { CallExpression } from 'estree'
-import {
-  isPlaywrightSpecFile,
-  isTestCall,
-  readStepName,
-  reportFilename,
-} from '../playwright-ast.js'
+import { isPlaywrightSpecFile, isTestCall, readStepName, reportFilename } from './playwright.ast.js'
 
 const REQUIRED_STEPS = ['arrange', 'act', 'assert'] as const
 

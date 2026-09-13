@@ -1,16 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Meta root package.json",
   "description": "Required scripts and commitlint tooling for the meta-repo root package.json. Checks use the test:* namespace; build and pulumi:* are separate. lint/check-types/build/test are meta-local (CI + lefthook parity with projects). use test:eslint (tool-named; never test:lint). Meta-local gates use test:<gate>; sibling fan-out uses nx:projects:*; meta+siblings use nx:test:<gate>. Global umbrella: nx:test. Project/shared sibling package.json files use @sargonpiraev/eslint-config schemas (SSOT under shared/packages/eslint-config/src/schemas).",
   "type": "object",
-  "required": ["scripts"],
   "properties": {
     "scripts": {
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "test:fslint": { "const": "alint check22" }
+        "test:fslint": {
+          "const": "alint check22"
+        }
       }
     }
-  }
+  },
+  "required": [
+    "scripts"
+  ],
+  "title": "Meta root package.json"
 }

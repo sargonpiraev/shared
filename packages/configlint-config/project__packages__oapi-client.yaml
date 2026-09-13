@@ -1,0 +1,18 @@
+# packages/*-oapi-client/package.json — skipped when no matching file (for_each_file).
+# Presence of the package tree stays in fslint-config.
+# Canon: `{service}-oapi-client`. Does not match leftover `*-api-client` names.
+# `exports["./mock"]` may be a string or a conditions object — require the key via file_content
+# (json_path_matches only accepts strings).
+# `scripts.test` must exist (contract tests in cheap `test`); do not pin generate/orval command strings.
+version: 1
+
+rules:
+  - id: oapi-client
+    kind: for_each_file
+    select: ['packages/**/*-oapi-client/package.json']
+    level: error
+    message: 'packages/*-oapi-client/package.json must be named *-oapi-client, export ./mock, and have scripts.test'
+    require:
+      - { paths: '{path}', kind: json_path_matches, path: '$.name', matches: '-oapi-client$' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '"\./mock"' }
+      - { paths: '{path}', kind: json_path_matches, path: '$.scripts.test', matches: '.+' }

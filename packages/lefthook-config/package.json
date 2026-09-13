@@ -1,8 +1,7 @@
 {
   "name": "@sargonpiraev/lefthook-config",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Shared Lefthook remotes baseline for sargonpiraev products and packages",
+  "version": "0.0.1",
+  "description": "Shared Lefthook baseline YAML for sargonpiraev products (npm extends, not git remotes)",
   "keywords": [
     "lefthook",
     "git-hooks"
@@ -33,7 +32,7 @@
     "build": "node -e \"console.log('noop build'); process.exit(0)\"",
     "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
     "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
-    "test": "node -e \"const t=require('fs').readFileSync('lefthook.yml','utf8'); if(!t.includes('commit-msg:')||!t.includes('pre-push:')) process.exit(1)\""
+    "test": "node -e \"const t=require('fs').readFileSync('lefthook.yml','utf8'); for (const s of ['pre-commit:','commit-msg:','pre-push:','test:format','test:fslint','test:configlint','test:eslint','npm audit']) { if(!t.includes(s)) process.exit(1) }\""
   },
   "engines": {
     "node": ">=22"

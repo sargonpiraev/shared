@@ -29,8 +29,8 @@ export type NeonFinopsEtlArgs = {
   gcpProjectId: pulumi.Input<string>
   location: pulumi.Input<string>
   region: pulumi.Input<string>
-  /** Existing `finops` dataset id. */
-  finopsDatasetId: pulumi.Input<string>
+  /** Existing dataset id for tables + CF (provider dataset, e.g. `neon`). */
+  datasetId: pulumi.Input<string>
   neonOrgId: pulumi.Input<string>
   neonApiKeySecretId: string
   loaderAccountId: string
@@ -50,7 +50,7 @@ export type NeonFinopsEtlArgs = {
 }
 
 /**
- * Resource-triggered: Neon consumption → BigQuery `finops`.
+ * Resource-triggered: Neon consumption → BigQuery `neon`.
  * Pattern from meta `pulumi/dwhapp/neon-finops-etl.ts`.
  */
 export class NeonFinopsEtl extends pulumi.ComponentResource {
@@ -119,7 +119,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       `${name}-usage`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         tableId: 'neon_usage_daily',
         description:
           'Neon consumption_history/v2 daily metrics (raw + billing units + estimated USD)',
@@ -144,6 +144,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       childOpts(this, aliases.usageTable, {
         provider: gcpProvider,
         dependsOn: [bigqueryApi],
+        retainOnDelete: true,
       })
     )
 
@@ -151,7 +152,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       `${name}-cost`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         tableId: 'neon_cost_daily',
         description:
           'Neon estimated daily cost by project (Launch/Scale rates + transfer/branch allowances)',
@@ -179,6 +180,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       childOpts(this, aliases.costTable, {
         provider: gcpProvider,
         dependsOn: [bigqueryApi],
+        retainOnDelete: true,
       })
     )
 
@@ -222,7 +224,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       `${name}-loader-data-editor`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         role: 'roles/bigquery.dataEditor',
         member: pulumi.interpolate`serviceAccount:${this.loaderSa.email}`,
       },
@@ -273,10 +275,10 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
     }
 
     const environmentVariables = pulumi
-      .all([args.gcpProjectId, args.finopsDatasetId, args.location, args.neonOrgId, lookbackDays])
+      .all([args.gcpProjectId, args.datasetId, args.location, args.neonOrgId, lookbackDays])
       .apply(([projectId, dataset, location, orgId, lookback]) => ({
         GOOGLE_CLOUD_PROJECT: projectId,
-        GCP_BQ_DATASET_FINOPS: dataset,
+        GCP_BQ_DATASET_NEON: dataset,
         GCP_BQ_LOCATION: location,
         NEON_ORG_ID: orgId,
         NEON_LOOKBACK_DAYS: lookback,
@@ -299,7 +301,7 @@ export class NeonFinopsEtl extends pulumi.ComponentResource {
       provider: gcpProvider,
       parent: this,
       functionName,
-      description: 'Pull Neon consumption/cost into BigQuery finops',
+      description: 'Pull Neon consumption/cost into BigQuery neon',
       entryPoint,
       availableMemoryMb: 512,
       timeoutSeconds: 300,

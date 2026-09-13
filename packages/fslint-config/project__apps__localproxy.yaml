@@ -1,0 +1,25 @@
+# LocalProxy env contract — skipped when the app dir is absent (for_each_dir).
+# Presence of `.env.example` only. PORT value is configlint (`project__apps__localproxy.yaml`).
+# Select = HTTP-ish turbo apps that typically expose `scripts.dev` (not cursor-worker).
+# Port space: 50000–59999 (see metadata.portBegins + meta test:localproxy-ports).
+version: 1
+
+rules:
+  - id: localproxy-env-example
+    kind: for_each_dir
+    select:
+      - apps/webapp
+      - apps/docapp
+      - apps/admapp
+      - apps/wuiapp
+      - apps/muiapp
+      - apps/extapp
+      - apps/studio
+      - apps/pgboss
+      - apps/imgapp
+      - apps/vidapp
+      - apps/jobapp
+    level: error
+    message: 'localproxy app is missing .env.example (PORT contract)'
+    require:
+      - { paths: '{path}/.env.example', kind: file_exists }

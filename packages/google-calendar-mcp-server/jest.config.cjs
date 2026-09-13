@@ -20,4 +20,4 @@ module.exports = {
   reporters: ['default', 'jest-junit'],
   coverageReporters: ['clover', 'json', 'lcov', 'text', 'cobertura'],
   testMatch: ['**/__tests__/**/*.test.ts'],
-};
+}

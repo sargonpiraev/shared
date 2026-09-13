@@ -29,8 +29,8 @@ export type VercelFinopsEtlArgs = {
   gcpProjectId: pulumi.Input<string>
   location: pulumi.Input<string>
   region: pulumi.Input<string>
-  /** Existing `finops` dataset id. */
-  finopsDatasetId: pulumi.Input<string>
+  /** Existing dataset id for tables + CF (provider dataset, e.g. `vercel`). */
+  datasetId: pulumi.Input<string>
   vercelTeamId: pulumi.Input<string>
   /** Secret Manager secret id holding VERCEL_API_TOKEN. */
   vercelApiTokenSecretId: string
@@ -51,9 +51,9 @@ export type VercelFinopsEtlArgs = {
 }
 
 /**
- * Resource-triggered: Vercel FOCUS billing → BigQuery `finops`.
+ * Resource-triggered: Vercel FOCUS billing → BigQuery `vercel`.
  * Pattern from meta `pulumi/dwhapp/vercel-billing-etl.ts`.
- * Expects an existing finops dataset (usually from GCP billing / meta stack).
+ * Expects an existing provider dataset (meta warehouse `vercel`).
  */
 export class VercelFinopsEtl extends pulumi.ComponentResource {
   public readonly chargesTable: gcp.bigquery.Table
@@ -123,7 +123,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       `${name}-charges`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         tableId: chargesTableId,
         description: 'Vercel FOCUS v1.3 billing charges (day grain, America/Los_Angeles)',
         timePartitioning: { type: 'DAY', field: 'date' },
@@ -158,6 +158,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       childOpts(this, aliases.chargesTable, {
         provider: gcpProvider,
         dependsOn: [bigqueryApi],
+        retainOnDelete: true,
       })
     )
 
@@ -165,7 +166,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       `${name}-domains`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         tableId: domainsTableId,
         description:
           'Vercel domain inventory + registrar renewal quotes (not historical billed domain fees)',
@@ -189,6 +190,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       childOpts(this, aliases.domainsTable, {
         provider: gcpProvider,
         dependsOn: [bigqueryApi],
+        retainOnDelete: true,
       })
     )
 
@@ -232,7 +234,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       `${name}-loader-data-editor`,
       {
         project: args.gcpProjectId,
-        datasetId: args.finopsDatasetId,
+        datasetId: args.datasetId,
         role: 'roles/bigquery.dataEditor',
         member: pulumi.interpolate`serviceAccount:${this.loaderSa.email}`,
       },
@@ -283,13 +285,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
     }
 
     const environmentVariables = pulumi
-      .all([
-        args.gcpProjectId,
-        args.finopsDatasetId,
-        args.location,
-        args.vercelTeamId,
-        lookbackDays,
-      ])
+      .all([args.gcpProjectId, args.datasetId, args.location, args.vercelTeamId, lookbackDays])
       .apply(([projectId, dataset, location, teamId, lookback]) => ({
         GCP_PROJECT: projectId,
         BQ_DATASET: dataset,
@@ -317,7 +313,7 @@ export class VercelFinopsEtl extends pulumi.ComponentResource {
       provider: gcpProvider,
       parent: this,
       functionName,
-      description: 'Fetch Vercel FOCUS billing charges into BigQuery finops',
+      description: 'Fetch Vercel FOCUS billing charges into BigQuery vercel',
       entryPoint,
       availableMemoryMb: 512,
       timeoutSeconds: 540,

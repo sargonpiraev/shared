@@ -1,0 +1,19 @@
+# apps/extapp ⇒ apps/extapp/pulumi.ts must construct Extapp in this file (not pulumi/index.ts).
+# Skipped when the dir is absent (for_each_dir).
+version: 1
+
+rules:
+  - id: pulumi-extapp
+    kind: for_each_dir
+    select: ['apps/extapp']
+    level: error
+    message: 'apps/extapp/pulumi.ts must contain new Extapp('
+    require:
+      - { paths: '{path}/pulumi.ts', kind: file_content_matches, pattern: "new\\s+Extapp\\s*\\(" }
+  - id: pulumi-extapp-not-index
+    kind: for_each_dir
+    select: ['apps/extapp']
+    level: error
+    message: 'new Extapp( belongs in apps/extapp/pulumi.ts, not pulumi/index.ts'
+    require:
+      - { paths: pulumi/index.ts, kind: file_content_forbidden, pattern: "new\\s+Extapp\\s*\\(" }

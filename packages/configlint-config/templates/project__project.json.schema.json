@@ -3,8 +3,21 @@
   "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__project.json.schema.json",
   "title": "Clone-root project.json portfolio targets",
   "type": "object",
-  "required": ["targets"],
+  "required": ["targets", "metadata"],
   "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["portBegins"],
+      "properties": {
+        "portBegins": {
+          "type": "integer",
+          "minimum": 50000,
+          "maximum": 59900,
+          "multipleOf": 100,
+          "description": "LocalProxy port space start for this clone (meta=50000; siblings step 100 alphabetically)"
+        }
+      }
+    },
     "targets": {
       "type": "object",
       "propertyNames": {
@@ -20,10 +33,11 @@
         "test:configlint",
         "test:check-types",
         "test:spec",
-        "test:visual",
+        "test:spec:visual",
         "test:format",
         "test:pulumi",
-        "build"
+        "build",
+        "format"
       ],
       "properties": {
         "test": {
@@ -61,10 +75,10 @@
           "required": ["command"],
           "properties": { "command": { "const": "npm run test:spec" } }
         },
-        "test:visual": {
+        "test:spec:visual": {
           "type": "object",
           "required": ["command"],
-          "properties": { "command": { "const": "npm run test:visual" } }
+          "properties": { "command": { "const": "npm run test:spec:visual" } }
         },
         "test:format": {
           "type": "object",
@@ -80,6 +94,11 @@
           "type": "object",
           "required": ["command"],
           "properties": { "command": { "const": "npm run build" } }
+        },
+        "format": {
+          "type": "object",
+          "required": ["command"],
+          "properties": { "command": { "const": "npm run format" } }
         }
       }
     }

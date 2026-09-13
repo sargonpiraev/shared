@@ -26,8 +26,12 @@ export type MobappArgs = {
   gcpProjectId: pulumi.Input<string>
   location: pulumi.Input<string>
   region: pulumi.Input<string>
-  /** Usually `product_appstore`. */
+  /** Usually `appstore`. */
   datasetId: pulumi.Input<string>
+  /** Tables + CF env. Defaults to `datasetId`. Use to write into a provider dataset while still managing a legacy dataset id. */
+  writeDatasetId?: pulumi.Input<string>
+  /** When false, do not create the dataset (meta warehouse already owns it). */
+  createDataset?: boolean
   appId: pulumi.Input<string>
   bundleId: pulumi.Input<string>
   appName: pulumi.Input<string>
@@ -59,13 +63,13 @@ export type MobappArgs = {
 
 /**
  * `apps/mobapp` product analytics:
- * BigQuery `product_appstore` dataset + tables + ASC Gen1 CF ETL + daily Scheduler.
+ * BigQuery `appstore` dataset + tables + ASC Gen1 CF ETL + daily Scheduler.
  *
  * Play Store path is intentionally omitted for now.
  * Function source stays in the consuming stack — pass `sourceArchive`.
  */
 export class Mobapp extends pulumi.ComponentResource {
-  public readonly dataset: gcp.bigquery.Dataset
+  public readonly dataset?: gcp.bigquery.Dataset
   public readonly salesTable: gcp.bigquery.Table
   public readonly analyticsTable: gcp.bigquery.Table
   public readonly loadLogTable: gcp.bigquery.Table
@@ -86,6 +90,7 @@ export class Mobapp extends pulumi.ComponentResource {
     )
 
     const adopt = args.adoptExisting === true
+    const createDataset = args.createDataset !== false
     const functionName = args.functionName ?? 'appstore-connect-etl'
     const entryPoint = args.entryPoint ?? 'loadAppStoreConnect'
     const schedulerJobName = args.schedulerJobName ?? 'appstore-connect-daily'
@@ -137,39 +142,61 @@ export class Mobapp extends pulumi.ComponentResource {
       childOpts(this, undefined, { provider: gcpProvider })
     )
 
-    this.dataset = new gcp.bigquery.Dataset(
-      `${name}-dataset`,
-      {
-        project: args.gcpProjectId,
-        datasetId: args.datasetId,
-        location: args.location,
-        description:
-          args.datasetDescription ?? `App Store Connect sales + analytics (${args.productLabel})`,
-        labels: {
-          domain: 'product',
-          source: 'appstore',
-          product: args.productLabel,
+    if (createDataset) {
+      this.dataset = new gcp.bigquery.Dataset(
+        `${name}-dataset`,
+        {
+          project: args.gcpProjectId,
+          datasetId: args.datasetId,
+          location: args.location,
+          deletionPolicy: 'ABANDON',
+          description:
+            args.datasetDescription ?? `App Store Connect sales + analytics (${args.productLabel})`,
+          labels: {
+            domain: 'product',
+            source: 'appstore',
+            product: args.productLabel,
+          },
         },
-      },
-      childOpts(this, undefined, {
-        provider: gcpProvider,
-        dependsOn: [bigqueryApi],
-        ...(adopt
-          ? {
-              protect: true,
-              ...(args.datasetImportId ? { import: args.datasetImportId } : {}),
-            }
-          : {}),
-      })
-    )
+        childOpts(this, undefined, {
+          provider: gcpProvider,
+          dependsOn: [bigqueryApi],
+          retainOnDelete: true,
+          ...(adopt
+            ? {
+                protect: true,
+                ignoreChanges: ['labels', 'description'],
+                ...(args.datasetImportId ? { import: args.datasetImportId } : {}),
+              }
+            : {}),
+        })
+      )
+    }
 
-    const tableAdoptOpts = adopt ? { protect: true, ignoreChanges: ['schema'] as string[] } : {}
+    const resolvedDatasetId = this.dataset?.datasetId ?? pulumi.output(args.datasetId)
+    const writeDatasetId = pulumi.output(args.writeDatasetId ?? args.datasetId)
+    const writeDatasetIdInput = args.writeDatasetId ?? args.datasetId
+    const tableImport = (tableId: string) =>
+      adopt && typeof args.gcpProjectId === 'string' && typeof writeDatasetIdInput === 'string'
+        ? `projects/${args.gcpProjectId}/datasets/${writeDatasetIdInput}/tables/${tableId}`
+        : undefined
+
+    const tableAdoptOpts = (tableId: string) => ({
+      retainOnDelete: true,
+      ...(adopt
+        ? {
+            protect: true,
+            ignoreChanges: ['schema'] as string[],
+            ...(tableImport(tableId) ? { import: tableImport(tableId) } : {}),
+          }
+        : {}),
+    })
 
     this.salesTable = new gcp.bigquery.Table(
       `${name}-sales-table`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         tableId: 'sales_summary_daily',
         description: 'ASC Sales and Trends SUMMARY / DAILY (units + proceeds)',
         timePartitioning: { type: 'DAY', field: 'report_date' },
@@ -199,8 +226,8 @@ export class Mobapp extends pulumi.ComponentResource {
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
-        ...tableAdoptOpts,
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
+        ...tableAdoptOpts('sales_summary_daily'),
       })
     )
 
@@ -208,7 +235,7 @@ export class Mobapp extends pulumi.ComponentResource {
       `${name}-analytics-table`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         tableId: 'analytics_daily',
         description:
           'ASC Analytics Reports (DAILY) — engagement impressions/page views, downloads, sessions, installs',
@@ -233,8 +260,8 @@ export class Mobapp extends pulumi.ComponentResource {
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
-        ...tableAdoptOpts,
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
+        ...tableAdoptOpts('analytics_daily'),
       })
     )
 
@@ -242,7 +269,7 @@ export class Mobapp extends pulumi.ComponentResource {
       `${name}-load-log`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         tableId: 'load_log',
         description: 'ASC ETL run log',
         schema: JSON.stringify([
@@ -269,8 +296,8 @@ export class Mobapp extends pulumi.ComponentResource {
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
-        ...tableAdoptOpts,
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
+        ...tableAdoptOpts('load_log'),
       })
     )
 
@@ -279,13 +306,13 @@ export class Mobapp extends pulumi.ComponentResource {
         `${name}-reader-viewer`,
         {
           project: args.gcpProjectId,
-          datasetId: this.dataset.datasetId,
+          datasetId: writeDatasetId,
           role: 'roles/bigquery.dataViewer',
           member: pulumi.interpolate`serviceAccount:${args.analyticsReaderEmail}`,
         },
         childOpts(this, undefined, {
           provider: gcpProvider,
-          dependsOn: [this.dataset],
+          dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
         })
       )
     }
@@ -330,13 +357,13 @@ export class Mobapp extends pulumi.ComponentResource {
       `${name}-loader-data-editor`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         role: 'roles/bigquery.dataEditor',
         member: pulumi.interpolate`serviceAccount:${this.loaderSa.email}`,
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
       })
     )
 
@@ -403,7 +430,7 @@ export class Mobapp extends pulumi.ComponentResource {
     const environmentVariables = pulumi
       .all([
         args.gcpProjectId,
-        args.datasetId,
+        writeDatasetId,
         args.location,
         args.appId,
         args.bundleId,
@@ -455,7 +482,7 @@ export class Mobapp extends pulumi.ComponentResource {
       provider: gcpProvider,
       parent: this,
       functionName,
-      description: pulumi.interpolate`Pull App Store Connect into ${args.datasetId}`,
+      description: pulumi.interpolate`Pull App Store Connect into ${writeDatasetId}`,
       entryPoint,
       availableMemoryMb: 512,
       timeoutSeconds: 540,
@@ -484,7 +511,7 @@ export class Mobapp extends pulumi.ComponentResource {
 
     this.functionUrl = etl.functionUrl
     this.scheduleJobName = etl.scheduleJob.name
-    this.datasetId = this.dataset.datasetId
+    this.datasetId = resolvedDatasetId
     this.appId = pulumi.output(args.appId)
 
     this.registerOutputs({

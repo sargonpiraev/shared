@@ -1,25 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-/** Load meta workspace `.env` (vault). Stack-local — not part of `@sargonpiraev/pulumi-apps`. */
-
-const META_MARKER = path.join("schema", "meta__package.json");
-
-export function findMetaWorkspaceRoot(fromDir: string = process.cwd()): string {
-  let dir = path.resolve(fromDir);
-  for (;;) {
-    if (fs.existsSync(path.join(dir, META_MARKER))) {
-      return dir;
-    }
-    const parent = path.dirname(dir);
-    if (parent === dir) {
-      throw new Error(
-        "meta workspace root not found (walked up without schema/meta__package.json)",
-      );
-    }
-    dir = parent;
-  }
-}
+/** Load in-repo `pulumi/.env` (symlink to the workspace vault after `npm run link:envs`). */
 
 export function readEnvFile(filePath: string): Record<string, string> {
   const out: Record<string, string> = {};
@@ -42,31 +24,20 @@ export function readEnvFile(filePath: string): Record<string, string> {
   return out;
 }
 
-function applyEnv(
-  parsed: Record<string, string>,
-  allow?: (key: string) => boolean,
-): void {
+function applyEnv(parsed: Record<string, string>): void {
   for (const [key, value] of Object.entries(parsed)) {
-    if (allow && !allow(key)) continue;
     process.env[key] = value;
   }
 }
 
-/** Load meta workspace `.env` (SaaS keys). Then optional local `pulumi/.env` `PULUMI_*` only. */
+/** Load `fromDir/.env` only — no walk to the meta root. */
 export function loadWorkspaceEnv(fromDir: string = process.cwd()): string {
-  const root = findMetaWorkspaceRoot(fromDir);
-  const envPath = path.join(root, ".env");
+  const envPath = path.join(path.resolve(fromDir), ".env");
   if (!fs.existsSync(envPath)) {
-    throw new Error(`workspace .env missing at ${envPath}`);
+    throw new Error(
+      `pulumi/.env missing at ${envPath} — run \`npm run link:envs\` from the meta workspace`,
+    );
   }
   applyEnv(readEnvFile(envPath));
-
-  const localEnv = path.join(path.resolve(fromDir), ".env");
-  if (
-    fs.existsSync(localEnv) &&
-    path.resolve(localEnv) !== path.resolve(envPath)
-  ) {
-    applyEnv(readEnvFile(localEnv), (key) => key.startsWith("PULUMI_"));
-  }
   return envPath;
 }

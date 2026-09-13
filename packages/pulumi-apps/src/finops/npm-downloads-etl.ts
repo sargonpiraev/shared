@@ -28,6 +28,12 @@ export type NpmDownloadsEtlArgs = {
   location: pulumi.Input<string>
   region: pulumi.Input<string>
   datasetId?: pulumi.Input<string>
+  /** Tables + CF env. Defaults to `datasetId`. Use to write into a provider dataset while still managing a legacy dataset id. */
+  writeDatasetId?: pulumi.Input<string>
+  /** When false, do not create the dataset (meta warehouse already owns `npm`). */
+  createDataset?: boolean
+  /** Pulumi import id for an existing table, e.g. `projects/sargonpiraev/datasets/npm/tables/package_downloads_daily`. */
+  tableImportId?: string
   tableId?: pulumi.Input<string>
   loaderAccountId: string
   gcpServiceAccountKeyB64: pulumi.Input<string>
@@ -46,11 +52,11 @@ export type NpmDownloadsEtlArgs = {
 }
 
 /**
- * Resource-triggered (not app-type): npm downloads → BigQuery `product_npm`.
- * Pattern from meta `pulumi/dwhapp/npm-downloads-etl.ts`.
+ * Resource-triggered (not app-type): npm downloads → BigQuery `npm`.
+ * Meta warehouse owns the dataset; this component owns the table + CF when `createDataset` is false.
  */
 export class NpmDownloadsEtl extends pulumi.ComponentResource {
-  public readonly dataset: gcp.bigquery.Dataset
+  public readonly dataset?: gcp.bigquery.Dataset
   public readonly table: gcp.bigquery.Table
   public readonly loaderSa: gcp.serviceaccount.Account
   public readonly functionUrl: pulumi.Output<string>
@@ -63,7 +69,9 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
     super(NPM_DOWNLOADS_ETL_TYPE, name, args, opts)
 
     const aliases = args.childAliases ?? {}
-    const datasetId = args.datasetId ?? 'product_npm'
+    const createDataset = args.createDataset !== false
+    const datasetId = args.datasetId ?? 'npm'
+    const writeDatasetId = args.writeDatasetId ?? datasetId
     const tableId = args.tableId ?? 'package_downloads_daily'
     const functionName = args.functionName ?? 'npm-downloads-etl'
     const entryPoint = args.entryPoint ?? 'loadNpmDownloads'
@@ -103,26 +111,28 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
       childOpts(this, aliases.schedulerApi, { provider: gcpProvider })
     )
 
-    this.dataset = new gcp.bigquery.Dataset(
-      `${name}-dataset`,
-      {
-        project: args.gcpProjectId,
-        datasetId,
-        location: args.location,
-        description: 'npm download stats for @sargonpiraev/* (product domain)',
-        labels: { domain: 'product', source: 'npm' },
-      },
-      childOpts(this, aliases.dataset, {
-        provider: gcpProvider,
-        dependsOn: [bigqueryApi],
-      })
-    )
+    if (createDataset) {
+      this.dataset = new gcp.bigquery.Dataset(
+        `${name}-dataset`,
+        {
+          project: args.gcpProjectId,
+          datasetId,
+          location: args.location,
+          description: 'npm download stats for @sargonpiraev/*',
+          labels: { domain: 'product', source: 'npm' },
+        },
+        childOpts(this, aliases.dataset, {
+          provider: gcpProvider,
+          dependsOn: [bigqueryApi],
+        })
+      )
+    }
 
     this.table = new gcp.bigquery.Table(
       `${name}-table`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         tableId,
         description: 'Daily npm download counts per package',
         timePartitioning: { type: 'DAY', field: 'date' },
@@ -131,13 +141,14 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
           { name: 'package', type: 'STRING', mode: 'REQUIRED' },
           { name: 'date', type: 'DATE', mode: 'REQUIRED' },
           { name: 'downloads', type: 'INTEGER', mode: 'REQUIRED' },
-          { name: 'ingested_at', type: 'TIMESTAMP', mode: 'REQUIRED' },
         ]),
         deletionProtection: false,
       },
       childOpts(this, aliases.table, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
+        retainOnDelete: true,
+        ...(args.tableImportId ? { import: args.tableImportId } : {}),
       })
     )
 
@@ -146,13 +157,13 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
         `${name}-reader-viewer`,
         {
           project: args.gcpProjectId,
-          datasetId: this.dataset.datasetId,
+          datasetId: writeDatasetId,
           role: 'roles/bigquery.dataViewer',
           member: pulumi.interpolate`serviceAccount:${args.analyticsReaderEmail}`,
         },
         childOpts(this, aliases.readerViewer, {
           provider: gcpProvider,
-          dependsOn: [this.dataset],
+          dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
         })
       )
     }
@@ -197,18 +208,18 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
       `${name}-loader-data-editor`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         role: 'roles/bigquery.dataEditor',
         member: pulumi.interpolate`serviceAccount:${this.loaderSa.email}`,
       },
       childOpts(this, aliases.loaderDataEditor, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
       })
     )
 
     const environmentVariables = pulumi
-      .all([args.gcpProjectId, datasetId, tableId, args.location, downloadsPeriod])
+      .all([args.gcpProjectId, writeDatasetId, tableId, args.location, downloadsPeriod])
       .apply(([projectId, ds, table, location, period]) => ({
         GCP_PROJECT: projectId,
         BQ_DATASET: ds,
@@ -225,7 +236,7 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
       provider: gcpProvider,
       parent: this,
       functionName,
-      description: 'Fetch npm daily download stats into BigQuery product_npm',
+      description: 'Fetch npm daily download stats into BigQuery npm',
       entryPoint,
       serviceAccountEmail: this.loaderSa.email,
       environmentVariables,
@@ -242,7 +253,7 @@ export class NpmDownloadsEtl extends pulumi.ComponentResource {
     })
 
     this.functionUrl = etl.functionUrl
-    this.datasetId = this.dataset.datasetId
+    this.datasetId = pulumi.output(writeDatasetId)
     this.tableId = this.table.tableId
     this.loaderSaEmail = this.loaderSa.email
     this.scheduleJobName = etl.scheduleJob.name

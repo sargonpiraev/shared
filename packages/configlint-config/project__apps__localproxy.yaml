@@ -1,0 +1,29 @@
+# LocalProxy PORT in apps/*/.env.example — skipped when the app dir is absent.
+# Presence of `.env.example` is fslint (`project__apps__localproxy.yaml`).
+# PORT must be an integer in 50000–59999 (deterministic LocalProxy space).
+# Exact PORT = metadata.portBegins + alphaIndex is enforced by meta `test:localproxy-ports`.
+version: 1
+
+rules:
+  - id: localproxy-port
+    kind: for_each_dir
+    select:
+      - apps/webapp
+      - apps/docapp
+      - apps/admapp
+      - apps/wuiapp
+      - apps/muiapp
+      - apps/extapp
+      - apps/studio
+      - apps/pgboss
+      - apps/imgapp
+      - apps/vidapp
+      - apps/jobapp
+    level: error
+    message: 'localproxy app .env.example must declare PORT=50000–59999'
+    require:
+      - {
+          paths: '{path}/.env.example',
+          kind: file_content_matches,
+          pattern: '(?m)^PORT=5[0-9]{4}$',
+        }

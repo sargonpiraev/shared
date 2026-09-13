@@ -1,24 +1,28 @@
 # apps/extapp playwright.config.ts — skipped when the dir is absent.
+# One extension viewport project (desktop). Lanes: --grep @feat / @visual.
 version: 1
 
 rules:
   - id: extapp-playwright
     kind: for_each_dir
-    select: ["apps/extapp"]
+    select: ['apps/extapp']
     level: error
-    message: "apps/extapp/playwright.config.ts is missing required Playwright projects"
+    message: 'apps/extapp Playwright contract: desktop project and tagged npm lanes'
     require:
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']functional[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '{path}/playwright.config.ts',
           kind: file_content_matches,
-          pattern: "npm run test:visual",
+          pattern: "name:\\s*[\"']desktop[\"']",
+        }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @feat' }
+      - { paths: '{path}/package.json', kind: file_content_matches, pattern: '--grep @visual' }
+      - {
+          paths: '.github/workflows/on-push-main.yml',
+          kind: file_content_matches,
+          pattern: 'npm run test:spec:visual',
         }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '.github/workflows/on-push-main.yml',
           kind: file_content_matches,
-          pattern: "npm run test:spec",
+          pattern: 'npm run test:spec',
         }

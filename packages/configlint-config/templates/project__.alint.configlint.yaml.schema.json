@@ -7,7 +7,7 @@
   "properties": {
     "extends": {
       "type": "array",
-      "minItems": 16,
+      "minItems": 23,
       "allOf": [
         {
           "contains": {
@@ -103,6 +103,48 @@
           "contains": {
             "type": "string",
             "pattern": "extapp__playwright\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__pulumi__webapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__pulumi__mobapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__pulumi__extapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__packages__oapi-client\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__packages__db-client\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__packages__scrape-client\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__apps__localproxy\\.yaml"
           }
         }
       ]

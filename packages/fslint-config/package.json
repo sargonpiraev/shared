@@ -23,17 +23,23 @@
   },
   "exports": {
     "./project.yaml": "./project.yaml",
-    "./webapp.yaml": "./webapp.yaml",
-    "./mobapp.yaml": "./mobapp.yaml",
-    "./extapp.yaml": "./extapp.yaml"
+    "./project__apps__webapp.yaml": "./project__apps__webapp.yaml",
+    "./project__apps__mobapp.yaml": "./project__apps__mobapp.yaml",
+    "./project__apps__extapp.yaml": "./project__apps__extapp.yaml",
+    "./project__apps__localproxy.yaml": "./project__apps__localproxy.yaml",
+    "./project__packages__oapi-client.yaml": "./project__packages__oapi-client.yaml",
+    "./project__packages__db-client.yaml": "./project__packages__db-client.yaml",
+    "./project__packages__scrape-client.yaml": "./project__packages__scrape-client.yaml"
   },
   "files": [
     "project.yaml",
-    "cursor.yaml",
-    "github.yaml",
-    "webapp.yaml",
-    "mobapp.yaml",
-    "extapp.yaml",
+    "project__apps__webapp.yaml",
+    "project__apps__mobapp.yaml",
+    "project__apps__extapp.yaml",
+    "project__apps__localproxy.yaml",
+    "project__packages__oapi-client.yaml",
+    "project__packages__db-client.yaml",
+    "project__packages__scrape-client.yaml",
     "README.md",
     "LICENSE"
   ],
@@ -41,7 +47,7 @@
     "build": "node -e \"console.log('noop build'); process.exit(0)\"",
     "check-types": "node -e \"console.log('noop check-types'); process.exit(0)\"",
     "lint": "node -e \"console.log('noop lint'); process.exit(0)\"",
-    "test": "node -e \"const fs=require('fs'); for (const [f,id] of [['project.yaml','id: project'],['webapp.yaml','id: webapp'],['mobapp.yaml','id: mobapp'],['extapp.yaml','id: extapp']]) { const t=fs.readFileSync(f,'utf8'); if(!t.includes(id)) process.exit(1) }\""
+    "test": "node -e \"const fs=require('fs'); for (const [f,id] of [['project.yaml','id: project'],['project.yaml','id: cursor-rules-mdc-only'],['project.yaml','pulumi/.env.example'],['project__apps__webapp.yaml','id: webapp-page-spec'],['project__apps__webapp.yaml','id: webapp'],['project__apps__webapp.yaml','.env.example'],['project__apps__webapp.yaml','globals.css'],['project__apps__webapp.yaml','eslint.config.mjs'],['project__apps__webapp.yaml','pulumi/Pulumi.yaml'],['project__apps__webapp.yaml','messages'],['project__apps__webapp.yaml','jest.config'],['project__apps__webapp.yaml','src/i18n/request.ts'],['project__apps__webapp.yaml','src/i18n/routing.ts'],['project__apps__webapp.yaml','src/i18n/navigation.ts'],['project__apps__webapp.yaml','jest.setup.ts'],['project__apps__webapp.yaml','src/middleware.ts'],['project__apps__webapp.yaml','src/app/page'],['project__apps__webapp.yaml','sitemapindex.xml'],['project__apps__webapp.yaml','sitemap/[[]id]'],['project__apps__mobapp.yaml','id: mobapp'],['project__apps__mobapp.yaml','pulumi.ts'],['project__apps__extapp.yaml','id: extapp'],['project__apps__extapp.yaml','wxt.config.ts'],['project__apps__localproxy.yaml','id: localproxy-env-example'],['project__packages__oapi-client.yaml','id: oapi-client'],['project__packages__db-client.yaml','id: db-client'],['project__packages__scrape-client.yaml','id: scrape-client'],['project__packages__scrape-client.yaml','id: scrape-client-page-html'],['project__packages__scrape-client.yaml','id: scrape-client-page-test']]) { const t=fs.readFileSync(f,'utf8'); if(!t.includes(id)) process.exit(1) }\""
   },
   "engines": {
     "node": ">=22"

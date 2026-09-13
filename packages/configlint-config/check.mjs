@@ -29,9 +29,17 @@ const ids = [
   ['project__.cursor__worktrees.json.yaml', 'id: project__.cursor__worktrees.json'],
   ['project__.alint.fslint.yaml.yaml', 'id: project__.alint.fslint.yaml'],
   ['project__.alint.configlint.yaml.yaml', 'id: project__.alint.configlint.yaml'],
+  ['project__packages__oapi-client.yaml', 'id: oapi-client'],
+  ['project__packages__db-client.yaml', 'id: db-client'],
+  ['project__packages__scrape-client.yaml', 'id: scrape-client'],
+  ['project__apps__localproxy.yaml', 'id: localproxy-port'],
   ['webapp__playwright.yaml', 'id: webapp-playwright'],
+  ['webapp__playwright.yaml', 'id: webapp-page-spec-tags'],
   ['docapp__playwright.yaml', 'id: docapp-playwright'],
   ['extapp__playwright.yaml', 'id: extapp-playwright'],
+  ['project__pulumi__webapp.yaml', 'id: pulumi-webapp'],
+  ['project__pulumi__mobapp.yaml', 'id: pulumi-mobapp'],
+  ['project__pulumi__extapp.yaml', 'id: pulumi-extapp'],
 ]
 
 for (const path of templates) {

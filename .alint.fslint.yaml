@@ -6,3 +6,10 @@ respect_gitignore: false
 
 extends:
   - ./packages/fslint-config/project.yaml
+  - ./packages/fslint-config/project__apps__webapp.yaml
+  - ./packages/fslint-config/project__apps__mobapp.yaml
+  - ./packages/fslint-config/project__apps__extapp.yaml
+  - ./packages/fslint-config/project__apps__localproxy.yaml
+  - ./packages/fslint-config/project__packages__oapi-client.yaml
+  - ./packages/fslint-config/project__packages__db-client.yaml
+  - ./packages/fslint-config/project__packages__scrape-client.yaml

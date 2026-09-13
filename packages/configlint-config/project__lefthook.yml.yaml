@@ -8,18 +8,14 @@ rules:
     select: lefthook.yml
     when_iter: 'iter.path == "lefthook.yml"'
     level: error
-    message: 'clone-root lefthook.yml must pull shared remotes'
+    message: 'clone-root lefthook.yml must extend @sargonpiraev/lefthook-config (not git remotes)'
     require:
       - {
           paths: '{path}',
           kind: json_schema_passes,
           schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__lefthook.yml.schema.json,
         }
-      - {
-          paths: '{path}',
-          kind: file_content_forbidden,
-          pattern: 'skip:\\s*true',
-        }
+      - { paths: '{path}', kind: file_content_forbidden, pattern: 'skip:\\s*true' }
 
   - id: project__on-push-main-reusable
     kind: for_each_file
@@ -31,5 +27,5 @@ rules:
       - {
           paths: '{path}',
           kind: file_content_matches,
-          pattern: 'sargonpiraev/shared/.github/workflows/on-push-main\\.yml|workflow_call',
+          pattern: 'sargonpiraev/shared/.github/workflows/on-push-main\.yml|workflow_call',
         }

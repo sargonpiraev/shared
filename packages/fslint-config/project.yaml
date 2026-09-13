@@ -6,26 +6,25 @@
 # MUST files: .alint.fslint.yaml, .alint.configlint.yaml, .npmrc, .nvmrc, AGENTS.md,
 #             .commitlintrc.yaml, eslint.config.mjs, lefthook.yml,
 #             package-lock.json, package.json, prettier.config.mjs, project.json,
-#             README.md, tsconfig.json, turbo.json
+#             README.md, tsconfig.json, turbo.json, pulumi/.env.example
+#             (gitignored pulumi/.env is a local symlink from `npm run link:envs` — not gated)
 #
 # Presence only (file_exists / dir_exists). Structured config → configlint-config.
+# Closed-world: .cursor/rules/ direct child files must be *.mdc (dir_only_contains;
+# subdirs such as anidex tools/ are not checked).
 # lefthook-local.yml is gitignored; do not file_absent it.
+# App-type leaves are separate files (project__apps__webapp.yaml, …) — no nested
+# extends so GitHub raw + SRI pins stay self-contained.
 version: 1
-
-extends:
-  - ./webapp.yaml
-  - ./mobapp.yaml
-  - ./extapp.yaml
 
 rules:
   - id: project
     kind: for_each_file
-    select: ["package.json"]
+    select: ['package.json']
     when_iter: 'iter.path == "package.json"'
     level: error
-    message: "Project root is missing required governance files or dirs"
+    message: 'Project root is missing required governance files or dirs'
     require:
-
       # dirs
       - { paths: .cursor, kind: dir_exists, root_only: true }
       - { paths: .cursor/worktrees.json, kind: file_exists }
@@ -35,6 +34,7 @@ rules:
       - { paths: apps, kind: dir_exists, root_only: true }
       - { paths: packages, kind: dir_exists, root_only: true }
       - { paths: pulumi, kind: dir_exists, root_only: true }
+      - { paths: pulumi/.env.example, kind: file_exists }
 
       # files
       - { paths: .alint.fslint.yaml, kind: file_exists, root_only: true }
@@ -52,3 +52,11 @@ rules:
       - { paths: README.md, kind: file_exists, root_only: true }
       - { paths: tsconfig.json, kind: file_exists, root_only: true }
       - { paths: turbo.json, kind: file_exists, root_only: true }
+
+  # additionalProperties:false analog for this directory — stray files fail.
+  - id: cursor-rules-mdc-only
+    kind: dir_only_contains
+    select: '.cursor/rules'
+    allow: ['*.mdc']
+    level: error
+    message: '.cursor/rules/ may only contain *.mdc files (direct children)'

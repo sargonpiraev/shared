@@ -1,21 +1,10 @@
 {
   "name": "shared",
   "projectType": "library",
-  "tags": [
-    "shared",
-    "type:lib",
-    "stack:npm",
-    "status:active"
-  ],
   "metadata": {
     "description": "Shared monorepo: public npm packages + reusable GitHub Actions / Lefthook baseline (merged from packages + ci)",
-    "technologies": [
-      "typescript",
-      "turbo",
-      "npm",
-      "github-actions",
-      "lefthook"
-    ]
+    "technologies": ["typescript", "turbo", "npm", "github-actions", "lefthook"],
+    "portBegins": 59900
   },
   "targets": {
     "lint": {
@@ -74,13 +63,6 @@
         "cwd": "shared"
       }
     },
-    "test:visual": {
-      "cache": false,
-      "command": "npm run test:visual",
-      "options": {
-        "cwd": "shared"
-      }
-    },
     "test:format": {
       "cache": false,
       "command": "npm run test:format",
@@ -112,6 +94,20 @@
     "test:pulumi": {
       "cache": false,
       "command": "npm run test:pulumi",
+      "options": {
+        "cwd": "shared"
+      }
+    },
+    "test:spec:visual": {
+      "cache": false,
+      "command": "npm run test:spec:visual",
+      "options": {
+        "cwd": "shared"
+      }
+    },
+    "format": {
+      "cache": false,
+      "command": "npm run format",
       "options": {
         "cwd": "shared"
       }

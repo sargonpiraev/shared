@@ -31,23 +31,43 @@
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
-      "import": "./build/index.js"
+      "import": "./build/index.js",
+      "default": "./build/index.js"
     },
     "./webapp": {
       "types": "./build/webapp/index.d.ts",
-      "import": "./build/webapp/index.js"
+      "import": "./build/webapp/index.js",
+      "default": "./build/webapp/index.js"
+    },
+    "./webapp/env": {
+      "types": "./build/webapp/env.d.ts",
+      "import": "./build/webapp/env.js",
+      "default": "./build/webapp/env.js"
     },
     "./extapp": {
       "types": "./build/extapp/index.d.ts",
-      "import": "./build/extapp/index.js"
+      "import": "./build/extapp/index.js",
+      "default": "./build/extapp/index.js"
+    },
+    "./extapp/env": {
+      "types": "./build/extapp/env.d.ts",
+      "import": "./build/extapp/env.js",
+      "default": "./build/extapp/env.js"
     },
     "./mobapp": {
       "types": "./build/mobapp/index.d.ts",
-      "import": "./build/mobapp/index.js"
+      "import": "./build/mobapp/index.js",
+      "default": "./build/mobapp/index.js"
+    },
+    "./mobapp/env": {
+      "types": "./build/mobapp/env.d.ts",
+      "import": "./build/mobapp/env.js",
+      "default": "./build/mobapp/env.js"
     },
     "./finops": {
       "types": "./build/finops/index.d.ts",
-      "import": "./build/finops/index.js"
+      "import": "./build/finops/index.js",
+      "default": "./build/finops/index.js"
     }
   },
   "main": "./build/index.js",
@@ -68,7 +88,8 @@
     "@pulumi/pulumi": "^3.0.0",
     "@pulumiverse/vercel": "^1.15.0",
     "@sargonpiraev/pulumi-ga4": "^0.2.0",
-    "@sargonpiraev/pulumi-gsc": "^0.3.0"
+    "@sargonpiraev/pulumi-gsc": "^0.3.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

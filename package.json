@@ -16,15 +16,15 @@
     "pulumi:up": "npm --prefix pulumi run up",
     "release": "multi-semantic-release",
     "test": "turbo run test && npm run test:pulumi",
-    "test:fslint": "alint check -c .alint.fslint.yaml",
-    "test:configlint": "alint check -c .alint.configlint.yaml",
     "test:check-types": "turbo run check-types",
+    "test:configlint": "alint check -c .alint.configlint.yaml",
     "test:eslint": "eslint .",
     "test:format": "prettier --check \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\"",
+    "test:fslint": "alint check -c .alint.fslint.yaml",
     "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi",
     "test:spec": "node -e \"console.log('noop test:spec — N/A'); process.exit(0)\"",
-    "test:unit": "turbo run test",
-    "test:visual": "node -e \"console.log('noop test:visual — N/A'); process.exit(0)\""
+    "test:spec:visual": "node -e \"console.log('noop test:spec:visual — N/A'); process.exit(0)\"",
+    "test:unit": "turbo run test"
   },
   "devDependencies": {
     "@asamarts/alint": "^0.14.2",

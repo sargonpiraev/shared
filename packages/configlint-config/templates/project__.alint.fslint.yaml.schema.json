@@ -1,17 +1,63 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__.alint.fslint.yaml.schema.json",
-  "title": "Clone-root .alint.fslint.yaml extends shared fslint project.yaml",
+  "title": "Clone-root .alint.fslint.yaml extends shared fslint project + app + client-package leaves",
   "type": "object",
   "required": ["extends"],
   "properties": {
     "extends": {
       "type": "array",
-      "minItems": 1,
-      "contains": {
-        "type": "string",
-        "pattern": "fslint-config/project\\.yaml"
-      }
+      "minItems": 8,
+      "allOf": [
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__apps__webapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__apps__mobapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__apps__extapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__apps__localproxy\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__packages__oapi-client\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__packages__db-client\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "fslint-config/project__packages__scrape-client\\.yaml"
+          }
+        }
+      ]
     }
   }
 }

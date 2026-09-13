@@ -28,8 +28,12 @@ export type ExtappArgs = {
   gcpProjectId: pulumi.Input<string>
   location: pulumi.Input<string>
   region: pulumi.Input<string>
-  /** Usually `product_cws`. */
+  /** Usually `cws`. */
   datasetId: pulumi.Input<string>
+  /** Tables + CF env. Defaults to `datasetId`. Use to write into a provider dataset while still managing a legacy dataset id. */
+  writeDatasetId?: pulumi.Input<string>
+  /** When false, do not create the dataset (meta warehouse already owns it). */
+  createDataset?: boolean
   /**
    * Chrome Web Store item id — stack code constant, not env.
    * Create the item in the Developer Dashboard first (API cannot create items).
@@ -74,7 +78,7 @@ const LISTING_TABLE_SCHEMA = JSON.stringify([
 
 /**
  * `apps/extapp` product analytics:
- * BigQuery `product_cws` dataset + listing table + Gen1 CF ETL + daily Scheduler.
+ * BigQuery `cws` dataset + listing table + Gen1 CF ETL + daily Scheduler.
  *
  * `cwsItemId` / `cwsItemSlug` must be non-empty strings in stack code (not env).
  * Empty id fails before any listing ETL is created — create the item in
@@ -84,7 +88,7 @@ const LISTING_TABLE_SCHEMA = JSON.stringify([
  * or a project copy) — pass `sourceArchive`.
  */
 export class Extapp extends pulumi.ComponentResource {
-  public readonly dataset: gcp.bigquery.Dataset
+  public readonly dataset?: gcp.bigquery.Dataset
   public readonly listingTable: gcp.bigquery.Table
   public readonly loaderSa: gcp.serviceaccount.Account
   public readonly functionUrl: pulumi.Output<string>
@@ -108,6 +112,7 @@ export class Extapp extends pulumi.ComponentResource {
     )
 
     const adopt = args.adoptExisting === true
+    const createDataset = args.createDataset !== false
     const functionName = args.functionName ?? 'cws-listing-etl'
     const entryPoint = args.entryPoint ?? 'loadCwsListingHttp'
     const schedulerJobName = args.schedulerJobName ?? 'cws-listing-daily'
@@ -149,37 +154,53 @@ export class Extapp extends pulumi.ComponentResource {
       childOpts(this, undefined, { provider: gcpProvider })
     )
 
-    this.dataset = new gcp.bigquery.Dataset(
-      `${name}-dataset`,
-      {
-        project: args.gcpProjectId,
-        datasetId: args.datasetId,
-        location: args.location,
-        description:
-          args.datasetDescription ?? `Chrome Web Store product analytics (${args.productLabel})`,
-        labels: {
-          domain: 'product',
-          source: 'cws',
-          product: args.productLabel,
+    if (createDataset) {
+      this.dataset = new gcp.bigquery.Dataset(
+        `${name}-dataset`,
+        {
+          project: args.gcpProjectId,
+          datasetId: args.datasetId,
+          location: args.location,
+          deletionPolicy: 'ABANDON',
+          description:
+            args.datasetDescription ?? `Chrome Web Store product analytics (${args.productLabel})`,
+          labels: {
+            domain: 'product',
+            source: 'cws',
+            product: args.productLabel,
+          },
         },
-      },
-      childOpts(this, undefined, {
-        provider: gcpProvider,
-        dependsOn: [bigqueryApi],
-        ...(adopt
-          ? {
-              protect: true,
-              ...(args.datasetImportId ? { import: args.datasetImportId } : {}),
-            }
-          : {}),
-      })
-    )
+        childOpts(this, undefined, {
+          provider: gcpProvider,
+          dependsOn: [bigqueryApi],
+          retainOnDelete: true,
+          ...(adopt
+            ? {
+                protect: true,
+                ignoreChanges: ['labels', 'description'],
+                ...(args.datasetImportId ? { import: args.datasetImportId } : {}),
+              }
+            : {}),
+        })
+      )
+    }
+
+    const resolvedDatasetId = this.dataset?.datasetId ?? pulumi.output(args.datasetId)
+    const writeDatasetId = pulumi.output(args.writeDatasetId ?? args.datasetId)
+    const writeDatasetIdInput = args.writeDatasetId ?? args.datasetId
+    const listingTableImport =
+      adopt &&
+      typeof args.gcpProjectId === 'string' &&
+      typeof writeDatasetIdInput === 'string' &&
+      typeof listingTableId === 'string'
+        ? `projects/${args.gcpProjectId}/datasets/${writeDatasetIdInput}/tables/${listingTableId}`
+        : undefined
 
     this.listingTable = new gcp.bigquery.Table(
       `${name}-listing-table`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         tableId: listingTableId,
         description: `Daily public CWS listing snapshot (${args.productLabel})`,
         schema: LISTING_TABLE_SCHEMA,
@@ -187,7 +208,15 @@ export class Extapp extends pulumi.ComponentResource {
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
+        retainOnDelete: true,
+        ...(adopt
+          ? {
+              protect: true,
+              ignoreChanges: ['schema'],
+              ...(listingTableImport ? { import: listingTableImport } : {}),
+            }
+          : {}),
       })
     )
 
@@ -231,18 +260,18 @@ export class Extapp extends pulumi.ComponentResource {
       `${name}-loader-data-editor`,
       {
         project: args.gcpProjectId,
-        datasetId: this.dataset.datasetId,
+        datasetId: writeDatasetId,
         role: 'roles/bigquery.dataEditor',
         member: pulumi.interpolate`serviceAccount:${this.loaderSa.email}`,
       },
       childOpts(this, undefined, {
         provider: gcpProvider,
-        dependsOn: [this.dataset],
+        dependsOn: this.dataset ? [this.dataset] : [bigqueryApi],
       })
     )
 
     const environmentVariables = pulumi
-      .all([args.gcpProjectId, args.datasetId, args.location, cwsItemId, cwsItemSlug])
+      .all([args.gcpProjectId, writeDatasetId, args.location, cwsItemId, cwsItemSlug])
       .apply(([projectId, datasetId, location, itemId, itemSlug]) => ({
         GOOGLE_CLOUD_PROJECT: projectId,
         GCP_BQ_CWS_DATASET: datasetId,
@@ -260,7 +289,7 @@ export class Extapp extends pulumi.ComponentResource {
       provider: gcpProvider,
       parent: this,
       functionName,
-      description: pulumi.interpolate`Daily CWS public listing snapshot → ${args.datasetId}`,
+      description: pulumi.interpolate`Daily CWS public listing snapshot → ${writeDatasetId}`,
       entryPoint,
       availableMemoryMb: 256,
       timeoutSeconds: 120,
@@ -279,7 +308,7 @@ export class Extapp extends pulumi.ComponentResource {
 
     this.functionUrl = etl.functionUrl
     this.scheduleJobName = etl.scheduleJob.name
-    this.datasetId = this.dataset.datasetId
+    this.datasetId = resolvedDatasetId
     this.cwsItemId = pulumi.output(cwsItemId)
     this.cwsDevConsoleUrl = pulumi.output(CWS_DEV_CONSOLE_URL)
     this.cwsListingUrl = pulumi.output(cwsPublicListingUrl(cwsItemSlug, cwsItemId))

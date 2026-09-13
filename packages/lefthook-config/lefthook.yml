@@ -1,6 +1,19 @@
-# Provider baseline for consumer lefthook remotes
+# Provider baseline for consumer Lefthook `extends`
 # (path: packages/lefthook-config/lefthook.yml).
-# Mirrors on-push-main baseline checks.
+# Cheap gates on pre-commit; full on-push-main set on pre-push (including audit).
+# Commitlint on commit-msg. No interactive Commitizen — agents use `git commit -m`.
+
+pre-commit:
+  parallel: false
+  commands:
+    format:
+      run: npm run test:format
+    fslint:
+      run: npm run test:fslint
+    configlint:
+      run: npm run test:configlint
+    lint:
+      run: npm run test:eslint
 
 commit-msg:
   commands:
@@ -16,6 +29,8 @@ pre-push:
       run: npm run test:configlint
     lint:
       run: npm run test:eslint
+    format:
+      run: npm run test:format
     check-types:
       run: npm run check-types
     build:
@@ -23,6 +38,4 @@ pre-push:
     test:
       run: npm run test
     audit:
-      tags:
-        - audit
       run: npm audit --audit-level=critical

@@ -17,7 +17,7 @@ describe('assertIndexInstantiatesAppClusters', () => {
     expect(() =>
       assertIndexInstantiatesAppClusters({
         repoRoot: tmpRepo(['webapp']),
-        indexSource: "createWebappProductAnalytics({\n  datasetId: 'x',\n})",
+        indexSource: "new Webapp({\n  datasetId: 'x',\n})",
       })
     ).not.toThrow()
   })
@@ -28,14 +28,23 @@ describe('assertIndexInstantiatesAppClusters', () => {
         repoRoot: tmpRepo(['webapp']),
         indexSource: 'export const x = 1',
       })
-    ).toThrow('createWebappProductAnalytics')
+    ).toThrow('new Webapp')
+  })
+
+  it('does not accept helper wrappers', () => {
+    expect(() =>
+      assertIndexInstantiatesAppClusters({
+        repoRoot: tmpRepo(['webapp']),
+        indexSource: 'createWebappProductAnalytics({})',
+      })
+    ).toThrow('new Webapp')
   })
 
   it('ignores commented-out constructors', () => {
     expect(() =>
       assertIndexInstantiatesAppClusters({
         repoRoot: tmpRepo(['webapp']),
-        indexSource: '// createWebappProductAnalytics()\n/* new Webapp( */',
+        indexSource: '// new Webapp()\n/* new Webapp( */',
       })
     ).toThrow('pulumi/index.ts')
   })
@@ -61,22 +70,19 @@ describe('assertIndexInstantiatesAppClusters', () => {
         repoRoot: tmpRepo(['extapp']),
         indexSource: 'export const x = 1',
       })
-    ).toThrow('createExtappProductAnalytics')
+    ).toThrow('new Extapp')
   })
 
-  it('skips Webapp when pulumi/defer-webapp-cluster is non-empty', () => {
+  it('does not skip Webapp for a defer marker file', () => {
     const root = tmpRepo(['webapp'])
     fs.mkdirSync(path.join(root, 'pulumi'))
-    fs.writeFileSync(
-      path.join(root, 'pulumi', 'defer-webapp-cluster'),
-      'parked: no live GSC URL yet\n'
-    )
+    fs.writeFileSync(path.join(root, 'pulumi', 'defer-webapp-cluster'), 'parked\n')
     expect(() =>
       assertIndexInstantiatesAppClusters({
         repoRoot: root,
         indexSource: 'export const x = 1',
       })
-    ).not.toThrow()
+    ).toThrow('new Webapp')
   })
 
   it('does not require a cluster when the app dir is absent', () => {

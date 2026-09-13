@@ -1,0 +1,17 @@
+# packages/*-oapi-client — skipped when no matching dir (for_each_dir).
+# Nested require paths need `{path}/…` (not bare basenames).
+# Canon: `{service}-oapi-client` (OpenAPI HTTP). Spec: `{path}/src/oapi.yaml` only.
+# Does not match `*-api-client` (e.g. jknapi-client) until renamed.
+version: 1
+
+rules:
+  - id: oapi-client
+    kind: for_each_dir
+    select: ['packages/**/*-oapi-client']
+    level: error
+    message: 'packages/*-oapi-client is missing required files or dirs'
+    require:
+      - { paths: '{path}/package.json', kind: file_exists }
+      - { paths: '{path}/src', kind: dir_exists }
+      - { paths: '{path}/src/mock.ts', kind: file_exists }
+      - { paths: '{path}/src/oapi.yaml', kind: file_exists }

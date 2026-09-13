@@ -21,6 +21,13 @@ extends:
   - ./packages/configlint-config/webapp__playwright.yaml
   - ./packages/configlint-config/docapp__playwright.yaml
   - ./packages/configlint-config/extapp__playwright.yaml
+  - ./packages/configlint-config/project__pulumi__webapp.yaml
+  - ./packages/configlint-config/project__pulumi__mobapp.yaml
+  - ./packages/configlint-config/project__pulumi__extapp.yaml
+  - ./packages/configlint-config/project__packages__oapi-client.yaml
+  - ./packages/configlint-config/project__packages__db-client.yaml
+  - ./packages/configlint-config/project__packages__scrape-client.yaml
+  - ./packages/configlint-config/project__apps__localproxy.yaml
 
 rules:
   - id: shared-reusable-on-push-main-fslint

@@ -1,0 +1,21 @@
+# apps/mobapp — skipped when the dir is absent (for_each_dir).
+# Nested require paths need `{path}/…` (not bare basenames).
+# `pulumi.ts` + repo-root stack (`Pulumi.yaml`, `pulumi/index.ts`). `new Mobapp(` is configlint.
+version: 1
+
+rules:
+  - id: mobapp
+    kind: for_each_dir
+    select: ['apps/mobapp']
+    level: error
+    message: 'apps/mobapp is missing required files or dirs'
+    require:
+      - { paths: '{path}/assets', kind: dir_exists }
+      - { paths: '{path}/src', kind: dir_exists }
+      - { paths: '{path}/app.json', kind: file_exists }
+      - { paths: '{path}/package.json', kind: file_exists }
+      - { paths: '{path}/tsconfig.json', kind: file_exists }
+      - { paths: '{path}/pulumi.ts', kind: file_exists }
+      - { paths: pulumi, kind: dir_exists, root_only: true }
+      - { paths: pulumi/Pulumi.yaml, kind: file_exists }
+      - { paths: ['pulumi/index.ts', 'pulumi/src/index.ts'], kind: file_exists }

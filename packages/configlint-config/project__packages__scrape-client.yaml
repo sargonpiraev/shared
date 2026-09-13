@@ -1,0 +1,18 @@
+# packages/*-scrape-client/package.json — skipped when no matching file (for_each_file).
+# Presence of the package tree stays in fslint-config.
+# Canon: `{service}-scrape-client`. Does not match leftover `*-api-client` names.
+# `exports["./mock"]` may be a string or a conditions object — require the key via file_content
+# (json_path_matches only accepts strings).
+# `scripts.test` must exist (fixture contract tests in cheap `test`, not live drift pulls).
+version: 1
+
+rules:
+  - id: scrape-client
+    kind: for_each_file
+    select: ['packages/**/*-scrape-client/package.json']
+    level: error
+    message: 'packages/*-scrape-client/package.json must be named *-scrape-client, export ./mock, and have scripts.test'
+    require:
+      - { paths: '{path}', kind: json_path_matches, path: '$.name', matches: '-scrape-client$' }
+      - { paths: '{path}', kind: file_content_matches, pattern: '"\./mock"' }
+      - { paths: '{path}', kind: json_path_matches, path: '$.scripts.test', matches: '.+' }

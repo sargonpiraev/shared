@@ -1,35 +1,37 @@
 # apps/docapp playwright.config.ts — skipped when the dir is absent.
+# Lanes: package.json --grep tags. Projects: desktop + mobile viewports.
+# CI still runs npm run test:spec:visual / test:spec:perf.
 version: 1
 
 rules:
   - id: docapp-playwright
     kind: for_each_dir
-    select: ["apps/docapp"]
+    select: ['apps/docapp']
     level: error
-    message: "apps/docapp/playwright.config.ts is missing required Playwright projects"
+    message: 'apps/docapp Playwright contract: desktop/mobile projects and tagged npm lanes'
     require:
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']functional[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "functional\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']seo[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "seo\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']analytics[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "analytics\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']visual[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "visual\\.spec\\.ts" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "name:\\s*[\"']cwv[\"']" }
-      - { paths: "{path}/playwright.config.ts", kind: file_content_matches, pattern: "cwv\\.spec\\.ts" }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '{path}/playwright.config.ts',
           kind: file_content_matches,
-          pattern: "npm run test:visual",
+          pattern: "name:\\s*[\"']desktop[\"']",
         }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '{path}/playwright.config.ts',
           kind: file_content_matches,
-          pattern: "npm run test:cwv",
+          pattern: "name:\\s*[\"']mobile[\"']",
         }
       - {
-          paths: ".github/workflows/on-push-main.yml",
+          paths: '.github/workflows/on-push-main.yml',
           kind: file_content_matches,
-          pattern: "npm run test:spec",
+          pattern: 'npm run test:spec:visual',
+        }
+      - {
+          paths: '.github/workflows/on-push-main.yml',
+          kind: file_content_matches,
+          pattern: 'npm run test:spec:perf',
+        }
+      - {
+          paths: '.github/workflows/on-push-main.yml',
+          kind: file_content_matches,
+          pattern: 'npm run test:spec',
         }

@@ -8,3 +8,5 @@ export {
   requireCwsItemSlug,
   type ExtappArgs,
 } from './extapp.js'
+
+export { parseExtappEnv, extappEnvSchema, type ExtappEnv } from './env.js'

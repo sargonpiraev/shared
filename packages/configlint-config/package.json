@@ -36,6 +36,10 @@
     "./project__.cursor__worktrees.json.yaml": "./project__.cursor__worktrees.json.yaml",
     "./project__.alint.fslint.yaml.yaml": "./project__.alint.fslint.yaml.yaml",
     "./project__.alint.configlint.yaml.yaml": "./project__.alint.configlint.yaml.yaml",
+    "./project__packages__oapi-client.yaml": "./project__packages__oapi-client.yaml",
+    "./project__packages__db-client.yaml": "./project__packages__db-client.yaml",
+    "./project__packages__scrape-client.yaml": "./project__packages__scrape-client.yaml",
+    "./project__apps__localproxy.yaml": "./project__apps__localproxy.yaml",
     "./templates/.cursor__worktrees.json": "./templates/.cursor__worktrees.json",
     "./templates/.nvmrc": "./templates/.nvmrc",
     "./templates/.npmrc": "./templates/.npmrc",
@@ -49,7 +53,10 @@
     "./templates/project__.alint.configlint.yaml.schema.json": "./templates/project__.alint.configlint.yaml.schema.json",
     "./webapp__playwright.yaml": "./webapp__playwright.yaml",
     "./docapp__playwright.yaml": "./docapp__playwright.yaml",
-    "./extapp__playwright.yaml": "./extapp__playwright.yaml"
+    "./extapp__playwright.yaml": "./extapp__playwright.yaml",
+    "./project__pulumi__webapp.yaml": "./project__pulumi__webapp.yaml",
+    "./project__pulumi__mobapp.yaml": "./project__pulumi__mobapp.yaml",
+    "./project__pulumi__extapp.yaml": "./project__pulumi__extapp.yaml"
   },
   "files": [
     "project__package.json.yaml",
@@ -65,6 +72,10 @@
     "project__.cursor__worktrees.json.yaml",
     "project__.alint.fslint.yaml.yaml",
     "project__.alint.configlint.yaml.yaml",
+    "project__packages__oapi-client.yaml",
+    "project__packages__db-client.yaml",
+    "project__packages__scrape-client.yaml",
+    "project__apps__localproxy.yaml",
     "templates/.cursor__worktrees.json",
     "templates/.nvmrc",
     "templates/.npmrc",
@@ -79,6 +90,9 @@
     "webapp__playwright.yaml",
     "docapp__playwright.yaml",
     "extapp__playwright.yaml",
+    "project__pulumi__webapp.yaml",
+    "project__pulumi__mobapp.yaml",
+    "project__pulumi__extapp.yaml",
     "README.md",
     "LICENSE"
   ],

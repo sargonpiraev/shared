@@ -31,7 +31,7 @@ Repo-specific jobs (example Playwright, npm publish, docs) live in that repo’s
 
 ### Playwright visual baselines (consumer tip)
 
-For `*.visual.spec.ts` screenshot gates, run the job in `mcr.microsoft.com/playwright:v{exact @playwright/test}-jammy` (or `noble`) and update baselines inside that same image locally — e.g. seokit’s `npm run test:visual:update` / `scripts/pw-visual-docker.sh`. Host macOS `*-darwin.png` will not match Linux CI.
+For `*.visual.spec.ts` screenshot gates, run the job in `mcr.microsoft.com/playwright:v{exact @playwright/test}-jammy` (or `noble`) and update baselines inside that same image locally — e.g. seokit’s `npm run test:spec:visual:update` / `scripts/pw-visual-docker.sh`. Host macOS `*-darwin.png` will not match Linux CI.
 
 ### `on-release.yml`
 
