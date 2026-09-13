@@ -81,7 +81,8 @@
     "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .ts",
-    "test": "jest --passWithNoTests --coverage"
+    "test": "jest --passWithNoTests --coverage",
+    "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
     "@pulumi/gcp": "^9.0.0",

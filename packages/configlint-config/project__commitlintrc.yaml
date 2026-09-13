@@ -1,17 +1,13 @@
 # Clone-root .commitlintrc.yaml. Presence stays in fslint-config.
 # Pins live in templates/project__commitlintrc.yaml.schema.json (`const`).
+# Top-level json_schema_passes so allow_out_of_root applies (not nested require:).
 version: 1
 
 rules:
   - id: project__commitlintrc.yaml
-    kind: for_each_file
-    select: .commitlintrc.yaml
-    when_iter: 'iter.path == ".commitlintrc.yaml"'
+    kind: json_schema_passes
+    paths:
+      include: .commitlintrc.yaml
+    schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__commitlintrc.yaml.schema.json
     level: error
     message: 'clone-root .commitlintrc.yaml must extend @sargonpiraev/commitlint-config'
-    require:
-      - {
-          paths: '{path}',
-          kind: json_schema_passes,
-          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__commitlintrc.yaml.schema.json,
-        }

@@ -13,10 +13,13 @@
         "test:configlint",
         "test:eslint",
         "test:format",
+        "test:build",
         "test:check-types",
+        "test:unit",
         "test:spec",
         "test:spec:visual",
-        "format"
+        "format",
+        "npm:install"
       ],
       "properties": {
         "test": {
@@ -38,8 +41,14 @@
         "test:format": {
           "const": "prettier --check \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""
         },
+        "test:build": {
+          "const": "npm run build"
+        },
         "test:check-types": {
           "const": "turbo run check-types"
+        },
+        "test:unit": {
+          "const": "turbo run test:unit"
         },
         "test:spec": {
           "type": "string",
@@ -51,6 +60,9 @@
         },
         "format": {
           "const": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""
+        },
+        "npm:install": {
+          "const": "npm install"
         }
       }
     }

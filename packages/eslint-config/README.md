@@ -45,8 +45,8 @@ Rules stay **warn** (existing aspect suites may still lack AAA / tags). Product 
 
 `/project` includes **error**-level `datawh-etl/extract-transform-load` on `**/gcp.cloudfunctions.Function/src/*.ts` (not `index.ts`, not `lib/` / `deploy/`).
 
-| Rule | What it checks |
-| --- | --- |
+| Rule                                | What it checks                                                                                                                                                                                                                                                                                                                       |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `datawh-etl/extract-transform-load` | Job file must declare `extract`, `transform`, and `load` (function declaration or `const` fn). Must `export async function main`. That export (or `run()` it awaits) must `await extract()`, `await transform(...)`, and `await load(...)` in that order. GCP `entryPoint` names are barrel re-exports in `index.ts`, not this file. |
 
 ## License

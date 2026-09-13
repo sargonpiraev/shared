@@ -19,15 +19,13 @@ export function createGscReportPerfByPageTypeView(
 ): gcp.bigquery.Table {
   const query = args.stub
     ? pulumi.output(STUB_GSC_REPORT_PERF_SQL)
-    : pulumi
-        .all([args.gcpProjectId, args.datasetId])
-        .apply(([project, datasetId]) =>
-          reportPerfByPageTypeGscSql({
-            projectId: project,
-            datasetId,
-            pageTypes: args.pageTypes,
-          })
-        )
+    : pulumi.all([args.gcpProjectId, args.datasetId]).apply(([project, datasetId]) =>
+        reportPerfByPageTypeGscSql({
+          projectId: project,
+          datasetId,
+          pageTypes: args.pageTypes,
+        })
+      )
 
   return new gcp.bigquery.Table(
     'searchconsole.report_perf_by_page_type',

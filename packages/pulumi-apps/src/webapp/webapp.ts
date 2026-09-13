@@ -129,9 +129,7 @@ export class Webapp extends pulumi.ComponentResource {
 
     const adoptImportId =
       args.datasetImportId ??
-      (adopt && gcpProjectIdStr
-        ? `projects/${gcpProjectIdStr}/datasets/${datasetId}`
-        : undefined)
+      (adopt && gcpProjectIdStr ? `projects/${gcpProjectIdStr}/datasets/${datasetId}` : undefined)
     if (adopt && !adoptImportId) {
       throw new Error('adoptExisting requires datasetImportId or a string gcpProjectId')
     }
@@ -247,7 +245,6 @@ export class Webapp extends pulumi.ComponentResource {
       )
     }
 
-    const analyticsDatasetId = this.ga4Property.id.apply(ga4ExportDatasetId)
     if (importAnalytics) {
       if (!gcpProjectIdStr) {
         throw new Error('importAnalyticsDataset requires a string gcpProjectId')
@@ -261,9 +258,7 @@ export class Webapp extends pulumi.ComponentResource {
         datasetId: analyticsId,
         location: args.location,
         provider: gcpProvider,
-        dependsOn: this.ga4BigQueryLink
-          ? [this.ga4BigQueryLink]
-          : [this.ga4Property],
+        dependsOn: this.ga4BigQueryLink ? [this.ga4BigQueryLink] : [this.ga4Property],
       })
 
       this.ga4PageTypeView = createGa4ReportPerfByPageTypeView(this, {

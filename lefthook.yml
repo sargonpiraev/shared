@@ -1,3 +1,2 @@
-# yaml-language-server: $schema=./node_modules/@sargonpiraev/eslint-config/build/schemas/project__lefthook.json
 extends:
-  - ./packages/lefthook-config/lefthook.yml
+  - ./node_modules/@sargonpiraev/lefthook-config/lefthook.yml

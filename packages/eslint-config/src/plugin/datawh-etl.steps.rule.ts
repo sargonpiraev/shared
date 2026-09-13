@@ -37,11 +37,7 @@ function functionName(node: Node): string | undefined {
   }
   if (node.type === 'VariableDeclarator' && node.id.type === 'Identifier') {
     const init = node.init
-    if (
-      init &&
-      (init.type === 'FunctionExpression' ||
-        init.type === 'ArrowFunctionExpression')
-    ) {
+    if (init && (init.type === 'FunctionExpression' || init.type === 'ArrowFunctionExpression')) {
       return node.id.name
     }
   }
@@ -53,8 +49,7 @@ function functionBody(node: Node): Node | undefined {
   if (
     node.type === 'VariableDeclarator' &&
     node.init &&
-    (node.init.type === 'FunctionExpression' ||
-      node.init.type === 'ArrowFunctionExpression')
+    (node.init.type === 'FunctionExpression' || node.init.type === 'ArrowFunctionExpression')
   ) {
     return node.init
   }
@@ -70,8 +65,7 @@ function isExported(node: Node, ancestors: Node[]): boolean {
     const declaration = ancestors.at(-1)
     const exported = ancestors.at(-2)
     return (
-      declaration?.type === 'VariableDeclaration' &&
-      exported?.type === 'ExportNamedDeclaration'
+      declaration?.type === 'VariableDeclaration' && exported?.type === 'ExportNamedDeclaration'
     )
   }
   return false
@@ -82,8 +76,7 @@ function isAsyncFunction(node: Node): boolean {
   if (
     node.type === 'VariableDeclarator' &&
     node.init &&
-    (node.init.type === 'FunctionExpression' ||
-      node.init.type === 'ArrowFunctionExpression')
+    (node.init.type === 'FunctionExpression' || node.init.type === 'ArrowFunctionExpression')
   ) {
     return node.init.async === true
   }
@@ -119,8 +112,7 @@ const datawhEtlStepsRule: Rule.RuleModule = {
     schema: [],
     messages: {
       missingStep: "Job file must declare a function named '{{step}}'.",
-      missingExport:
-        'Job file must export an async function named `main`.',
+      missingExport: 'Job file must export an async function named `main`.',
       missingPipeline:
         'Export `main` (or run() that it awaits) must `await extract()`, `await transform(...)`, and `await load(...)` in that order.',
       wrongOrder:
@@ -160,11 +152,7 @@ const datawhEtlStepsRule: Rule.RuleModule = {
       const entryCalls = awaitedCalleeNames(entryBody)
       let pipelineCalls = entryCalls
       const awaitsRun = entryCalls.some((call) => call.name === 'run')
-      if (
-        firstRange(entryCalls, 'extract') == null &&
-        awaitsRun &&
-        fnNodes.has('run')
-      ) {
+      if (firstRange(entryCalls, 'extract') == null && awaitsRun && fnNodes.has('run')) {
         const runBody = functionBody(fnNodes.get('run')!.node)
         if (runBody) pipelineCalls = awaitedCalleeNames(runBody)
       }

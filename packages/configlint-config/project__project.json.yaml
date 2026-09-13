@@ -1,17 +1,15 @@
 # Clone-root Nx project.json. Presence stays in fslint-config.
-# Pins live in templates/project__project.json.schema.json (`const`).
-# metadata.portBegins = LocalProxy port space (50000–59900, step 100) — required by schema.
+# metadata.portBegins = LocalProxy port space (50000–59900, step 100).
 # Do not extend this from meta.
+# Top-level json_schema_passes so allow_out_of_root applies (not nested require:).
 version: 1
 
 rules:
   - id: project__project.json
-    kind: for_each_file
-    select: project.json
-    when_iter: 'iter.path == "project.json"'
+    kind: json_schema_passes
+    paths:
+      include: project.json
+      exclude: ['**/apps/**', '**/packages/**', '**/pulumi/**']
+    schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__project.json.schema.json
     level: error
-    message: 'clone-root project.json targets do not match the portfolio contract'
-    require:
-      - paths: '{path}'
-        kind: json_schema_passes
-        schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__project.json.schema.json
+    message: 'clone-root project.json does not match the portfolio contract'

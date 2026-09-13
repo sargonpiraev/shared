@@ -38,7 +38,8 @@
     "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .ts",
-    "test": "jest --passWithNoTests --coverage"
+    "test": "jest --passWithNoTests --coverage",
+    "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.0",

@@ -1,14 +1,14 @@
 # Clone-root .nvmrc. Presence stays in fslint-config.
-# Whole-file pin: templates/.nvmrc
+# Pin is inline (no cross_file / templates/.nvmrc read) so a symlink'd
+# configlint-config does not escape the clone root.
 version: 1
 
 rules:
   - id: project__.nvmrc
-    kind: cross_file
-    source:
-      file: node_modules/@sargonpiraev/configlint-config/templates/.nvmrc
-    targets:
-      files: .nvmrc
-    relation: identical
+    kind: file_content_matches
+    paths:
+      include: .nvmrc
+      exclude: ['**/apps/**', '**/packages/**']
+    pattern: '(?s)\Av24\.18\.0\n\z'
     level: error
-    message: 'clone-root .nvmrc must be identical to the portfolio template'
+    message: 'clone-root .nvmrc must be exactly v24.18.0'

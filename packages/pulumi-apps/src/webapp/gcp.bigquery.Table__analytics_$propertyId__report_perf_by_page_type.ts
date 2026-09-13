@@ -19,15 +19,13 @@ export function createGa4ReportPerfByPageTypeView(
 ): gcp.bigquery.Table {
   const query = args.stub
     ? pulumi.output(STUB_GA4_REPORT_PERF_SQL)
-    : pulumi
-        .all([args.gcpProjectId, args.datasetId])
-        .apply(([project, datasetId]) =>
-          reportPerfByPageTypeGa4Sql({
-            projectId: project,
-            datasetId,
-            pageTypes: args.pageTypes,
-          })
-        )
+    : pulumi.all([args.gcpProjectId, args.datasetId]).apply(([project, datasetId]) =>
+        reportPerfByPageTypeGa4Sql({
+          projectId: project,
+          datasetId,
+          pageTypes: args.pageTypes,
+        })
+      )
 
   return new gcp.bigquery.Table(
     'analytics.report_perf_by_page_type',

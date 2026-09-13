@@ -39,7 +39,8 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .ts",
     "test": "jest --passWithNoTests --coverage",
-    "test:request": "tsx script/test-request.ts"
+    "test:request": "tsx script/test-request.ts",
+    "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
     "axios": "^1.9.0"

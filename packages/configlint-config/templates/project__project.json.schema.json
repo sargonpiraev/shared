@@ -3,11 +3,21 @@
   "$id": "https://github.com/sargonpiraev/shared/blob/main/packages/configlint-config/templates/project__project.json.schema.json",
   "title": "Clone-root project.json portfolio targets",
   "type": "object",
-  "required": ["targets", "metadata"],
+  "required": ["$schema", "metadata", "name"],
+  "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "./node_modules/@sargonpiraev/configlint-config/build/templates/project__project.json.schema.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
     "metadata": {
       "type": "object",
       "required": ["portBegins"],
+      "additionalProperties": false,
       "properties": {
         "portBegins": {
           "type": "integer",
@@ -15,90 +25,6 @@
           "maximum": 59900,
           "multipleOf": 100,
           "description": "LocalProxy port space start for this clone (meta=50000; siblings step 100 alphabetically)"
-        }
-      }
-    },
-    "targets": {
-      "type": "object",
-      "propertyNames": {
-        "not": {
-          "enum": ["test:lint", "test:alint", "test:conftest"]
-        }
-      },
-      "required": [
-        "test",
-        "test:unit",
-        "test:eslint",
-        "test:fslint",
-        "test:configlint",
-        "test:check-types",
-        "test:spec",
-        "test:spec:visual",
-        "test:format",
-        "test:pulumi",
-        "build",
-        "format"
-      ],
-      "properties": {
-        "test": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test" } }
-        },
-        "test:unit": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:unit" } }
-        },
-        "test:eslint": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:eslint" } }
-        },
-        "test:fslint": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:fslint" } }
-        },
-        "test:configlint": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:configlint" } }
-        },
-        "test:check-types": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:check-types" } }
-        },
-        "test:spec": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:spec" } }
-        },
-        "test:spec:visual": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:spec:visual" } }
-        },
-        "test:format": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:format" } }
-        },
-        "test:pulumi": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run test:pulumi" } }
-        },
-        "build": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run build" } }
-        },
-        "format": {
-          "type": "object",
-          "required": ["command"],
-          "properties": { "command": { "const": "npm run format" } }
         }
       }
     }

@@ -1,21 +1,26 @@
 # Clone-root lefthook.yml. Presence stays in fslint-config.
 # Pins live in templates/project__lefthook.yml.schema.json.
+# Top-level json_schema_passes so allow_out_of_root applies (not nested require:).
 version: 1
 
 rules:
   - id: project__lefthook.yml
-    kind: for_each_file
-    select: lefthook.yml
-    when_iter: 'iter.path == "lefthook.yml"'
+    kind: json_schema_passes
+    paths:
+      include: lefthook.yml
+      exclude: ['**/apps/**', '**/packages/**']
+    schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__lefthook.yml.schema.json
     level: error
-    message: 'clone-root lefthook.yml must extend @sargonpiraev/lefthook-config (not git remotes)'
-    require:
-      - {
-          paths: '{path}',
-          kind: json_schema_passes,
-          schema_path: node_modules/@sargonpiraev/configlint-config/templates/project__lefthook.yml.schema.json,
-        }
-      - { paths: '{path}', kind: file_content_forbidden, pattern: 'skip:\\s*true' }
+    message: 'clone-root lefthook.yml must be extends: ./node_modules/@sargonpiraev/lefthook-config/lefthook.yml'
+
+  - id: project__lefthook.yml-no-skip
+    kind: file_content_forbidden
+    paths:
+      include: lefthook.yml
+      exclude: ['**/apps/**', '**/packages/**']
+    pattern: 'skip:\\s*true'
+    level: error
+    message: 'clone-root lefthook.yml must not skip hooks'
 
   - id: project__on-push-main-reusable
     kind: for_each_file

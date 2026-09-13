@@ -14,14 +14,12 @@ export function createGa4SessionsView(
     dependsOn: pulumi.Resource[]
   }
 ): gcp.bigquery.Table {
-  const query = pulumi
-    .all([args.gcpProjectId, args.datasetId])
-    .apply(([project, datasetId]) =>
-      sessionsSql({
-        projectId: project,
-        datasetId,
-      })
-    )
+  const query = pulumi.all([args.gcpProjectId, args.datasetId]).apply(([project, datasetId]) =>
+    sessionsSql({
+      projectId: project,
+      datasetId,
+    })
+  )
 
   return new gcp.bigquery.Table(
     'analytics.sessions',

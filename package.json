@@ -11,11 +11,13 @@
     "format": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\"",
     "generate": "turbo run generate",
     "lint": "turbo run lint",
+    "npm:install": "npm install",
     "prepare": "lefthook install && npm run build -w @sargonpiraev/eslint-config",
     "pulumi:preview": "npm --prefix pulumi run preview",
     "pulumi:up": "npm --prefix pulumi run up",
     "release": "multi-semantic-release",
     "test": "turbo run test && npm run test:pulumi",
+    "test:build": "npm run build",
     "test:check-types": "turbo run check-types",
     "test:configlint": "alint check -c .alint.configlint.yaml",
     "test:eslint": "eslint .",
@@ -24,10 +26,10 @@
     "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi",
     "test:spec": "node -e \"console.log('noop test:spec — N/A'); process.exit(0)\"",
     "test:spec:visual": "node -e \"console.log('noop test:spec:visual — N/A'); process.exit(0)\"",
-    "test:unit": "turbo run test"
+    "test:unit": "turbo run test:unit"
   },
   "devDependencies": {
-    "@asamarts/alint": "^0.14.2",
+    "@asamarts/alint": "^0.15.2",
     "@commitlint/cli": "21.2.2",
     "@eslint/js": "^9.26.0",
     "@sargonpiraev/commitlint-config": "file:packages/commitlint-config",
@@ -61,6 +63,6 @@
     "node": ">=22"
   },
   "allowScripts": {
-    "@asamarts/alint@0.14.2": true
+    "@asamarts/alint@0.15.2": true
   }
 }

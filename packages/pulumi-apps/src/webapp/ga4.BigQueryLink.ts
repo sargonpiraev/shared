@@ -15,7 +15,10 @@ export function createGa4BigQueryLink(
     args,
     childOpts(parent, aliases.ga4BigQueryLink, {
       ...extra,
-      ignoreChanges: ['importExisting', ...((extra as pulumi.CustomResourceOptions | undefined)?.ignoreChanges ?? [])],
+      ignoreChanges: [
+        'importExisting',
+        ...((extra as pulumi.CustomResourceOptions | undefined)?.ignoreChanges ?? []),
+      ],
     })
   )
 }
