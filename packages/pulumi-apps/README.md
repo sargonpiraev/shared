@@ -6,14 +6,14 @@ One package, multiple modules — not one npm package per app type.
 
 ## Exports
 
-| Export            | Type token                          | Role                                                                                                                                                                                                                                                  |
-| ----------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Webapp`          | `sargonpiraev:apps:Webapp`          | Infra cluster for `apps/webapp`: **Vercel project** + GSC property + GSC BQ dataset + GA4 property + GA4 BigQuery link + `report_perf_by_page_type` VIEWs + GA4 VIEW `sessions` in `analytics_{propertyId}`. `pageTypes` + `productId` in stack code. |
-| `Extapp`          | `sargonpiraev:apps:Extapp`          | CWS listing → BQ `product_cws` + Gen1 CF + Scheduler. **`cwsItemId` / `cwsItemSlug` are required in code** (not env); empty id fails with [Developer Dashboard](https://chrome.google.com/webstore/devconsole) URL. API cannot create items.          |
-| `Mobapp`          | `sargonpiraev:apps:Mobapp`          | ASC → BQ `product_appstore` + Gen1 CF + Scheduler (Play later)                                                                                                                                                                                        |
-| `NpmDownloadsEtl` | `sargonpiraev:apps:NpmDownloadsEtl` | npm downloads → `product_npm`                                                                                                                                                                                                                         |
-| `VercelFinopsEtl` | `sargonpiraev:apps:VercelFinopsEtl` | Vercel FOCUS → `finops`                                                                                                                                                                                                                               |
-| `NeonFinopsEtl`   | `sargonpiraev:apps:NeonFinopsEtl`   | Neon consumption → `finops`                                                                                                                                                                                                                           |
+| Export            | Type token                          | Role                                                                                                                                                                                                                                                                    |
+| ----------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Webapp`          | `sargonpiraev:apps:Webapp`          | Infra cluster for `apps/webapp`: **Vercel project** + GSC property + GSC BQ dataset + GA4 property + GA4 BigQuery link + `report_perf_by_page_type` VIEWs + GA4 VIEW `sessions` in `analytics_{propertyId}`. `pageTypes` + `productId` in stack code.                   |
+| `Extapp`          | `sargonpiraev:apps:Extapp`          | CWS **item id/slug in code** + optional BQ dataset `cws`. Store metrics are meta chrome-vm Developer Dashboard scrape (not a public listing CF). Empty id fails with [Developer Dashboard](https://chrome.google.com/webstore/devconsole) URL. API cannot create items. |
+| `Mobapp`          | `sargonpiraev:apps:Mobapp`          | ASC → BQ `product_appstore` + Gen1 CF + Scheduler (Play later)                                                                                                                                                                                                          |
+| `NpmDownloadsEtl` | `sargonpiraev:apps:NpmDownloadsEtl` | npm downloads → `product_npm`                                                                                                                                                                                                                                           |
+| `VercelFinopsEtl` | `sargonpiraev:apps:VercelFinopsEtl` | Vercel FOCUS → `finops`                                                                                                                                                                                                                                                 |
+| `NeonFinopsEtl`   | `sargonpiraev:apps:NeonFinopsEtl`   | Neon consumption → `finops`                                                                                                                                                                                                                                             |
 
 Also: `repoHasWebapp` / `repoHasExtapp` / `repoHasMobapp` / `repoHasApp`, and the `*_TYPE` constants for `test:pulumi`.
 
@@ -61,15 +61,11 @@ new Webapp('webapp', {
 new Extapp('extapp', {
   gcpProjectId: 'sargonpiraev',
   location: 'EU',
-  region: 'europe-west1',
-  datasetId: 'product_cws',
+  datasetId: 'cws',
   cwsItemId: '…', // from Developer Dashboard — not env; empty throws
   cwsItemSlug: 'modreq',
   productLabel: 'modreq',
-  loaderAccountId: 'cws-etl-runner',
   gcpServiceAccountKeyB64: extappEnv.GCP_SERVICE_ACCOUNT_KEY,
-  sourceArchive: new pulumi.asset.FileArchive('../path/to/cws-listing/deploy'),
-  sourceBucketName: 'sargonpiraev-cws-listing-source',
 })
 
 void WEBAPP_TYPE
@@ -84,7 +80,7 @@ CF **source archives stay in the consuming stack** (meta `pulumi/dwhapp/function
 | Component                           | Status                                                                                                                       |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `Webapp`                            | **Fully wired** — successor of `@sargonpiraev/pulumi-webapp-analytics`                                                       |
-| `Extapp`                            | **Wired** — dataset + listing table + CF + Scheduler                                                                         |
+| `Extapp`                            | **Wired** — item id + optional dataset; metrics scrape is meta chrome-vm                                                     |
 | `Mobapp`                            | **Wired** — dataset + core tables + secrets IAM + CF + Scheduler                                                             |
 | `NpmDownloadsEtl`                   | **Wired** — dataset + table + CF + Scheduler; optional `childAliases` for meta wrap                                          |
 | `VercelFinopsEtl` / `NeonFinopsEtl` | **Wired** — tables + secrets IAM + CF + Scheduler (finops dataset must already exist); optional `childAliases` for meta wrap |

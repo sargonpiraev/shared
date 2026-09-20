@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 /**
  * Pulumi/SaaS keys for `Extapp`.
- * CWS item id/slug are stack code, not env. Listing ETL is scrape — no CWS API token.
+ * CWS item id/slug are stack code, not env. Store metrics are meta chrome-vm dashboard scrape.
  */
 export const extappEnvSchema = z.object({
   GCP_SERVICE_ACCOUNT_KEY: z.string().min(1),
