@@ -11,3 +11,14 @@ runs:
 
     - shell: bash
       run: npm ci
+
+    - name: Materialize apps/* .env from examples
+      shell: bash
+      run: |
+        set -euo pipefail
+        find ./apps -name '.env.example' -not -path '*/node_modules/*' | while IFS= read -r example; do
+          dest="${example%.example}"
+          if [ ! -f "$dest" ]; then
+            cp "$example" "$dest"
+          fi
+        done
