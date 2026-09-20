@@ -23,8 +23,9 @@ Baseline parallel checks:
 - `configlint` (`npm run test:configlint`)
 - `lint` (`npm run test:eslint`)
 - `check-types`
+- `test-unit` (`npm run test:unit`)
 - `build`
-- `test`
+- `test-spec` (`npm run test:spec`; Playwright Chromium when `install-playwright`)
 - `audit` (optional via `skip-audit` input)
 
 Repo-specific jobs (example Playwright, npm publish, docs) live in that repo’s own caller workflow, not here.
@@ -55,10 +56,10 @@ CI uses **Node.js 24**, `actions/checkout@v6`, `actions/setup-node@v6`.
 
 Provider baseline: [`../../packages/lefthook-config/lefthook.yml`](../../packages/lefthook-config/lefthook.yml) (mirrors `on-push-main.yml`).
 
-| Hook                  | Checks                                          |
-| --------------------- | ----------------------------------------------- |
-| `commit-msg`          | Conventional Commits via commitlint             |
-| `pre-push` (parallel) | `lint`, `check-types`, `build`, `test`, `audit` |
+| Hook                    | Checks                                                                   |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `commit-msg`            | Conventional Commits via commitlint                                      |
+| `pre-push` (sequential) | static gates + `check-types`, `test:unit`, `build`, `test:spec`, `audit` |
 
 In a consumer repo:
 

@@ -10,7 +10,7 @@ on:
       install-playwright:
         type: boolean
         default: false
-        description: Install Playwright Chromium before npm test
+        description: Install Playwright Chromium before npm run test:spec
     secrets:
       POSTGRES_URL:
         required: false
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
-      - run: npm run check-types
+      - run: npm run test:check-types
 
   build:
     runs-on: ubuntu-latest
@@ -60,7 +60,16 @@ jobs:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
         run: npm run build
 
-  test:
+  test-unit:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v6
+      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
+      - run: npm run test:unit
+
+  test-spec:
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max-old-space-size=4096
@@ -70,10 +79,10 @@ jobs:
       - name: Install Playwright Chromium
         if: ${{ inputs.install-playwright }}
         run: npx playwright install --with-deps chromium
-      - name: Run tests
+      - name: Run spec tests
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-        run: npm run test
+        run: npm run test:spec
 
   audit:
     if: ${{ !inputs.skip-audit }}

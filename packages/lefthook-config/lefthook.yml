@@ -1,19 +1,22 @@
 # Provider baseline for consumer Lefthook `extends`
 # (path: packages/lefthook-config/lefthook.yml).
 # Cheap gates on pre-commit; full on-push-main set on pre-push (including audit).
+# Do not run umbrella `npm run test` — it re-runs the static gates above.
 # Commitlint on commit-msg. No interactive Commitizen — agents use `git commit -m`.
 
 pre-commit:
   parallel: false
   commands:
-    format:
-      run: npm run test:format
     fslint:
       run: npm run test:fslint
     configlint:
       run: npm run test:configlint
+    format:
+      run: npm run test:format
     lint:
       run: npm run test:eslint
+    check-types:
+      run: npm run test:check-types
 
 commit-msg:
   commands:
@@ -27,15 +30,17 @@ pre-push:
       run: npm run test:fslint
     configlint:
       run: npm run test:configlint
-    lint:
-      run: npm run test:eslint
     format:
       run: npm run test:format
+    lint:
+      run: npm run test:eslint
     check-types:
-      run: npm run check-types
+      run: npm run test:check-types
+    unit:
+      run: npm run test:unit
     build:
       run: npm run build
-    test:
-      run: npm run test
+    spec:
+      run: npm run test:spec
     audit:
       run: npm audit --audit-level=critical

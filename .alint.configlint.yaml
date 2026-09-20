@@ -53,19 +53,25 @@ rules:
     level: error
     paths:
       include: .github/workflows/on-push-main.yml
-    pattern: 'npm run check-types'
+    pattern: 'npm run test:check-types'
   - id: shared-reusable-on-push-main-build
     kind: file_content_matches
     level: error
     paths:
       include: .github/workflows/on-push-main.yml
     pattern: 'npm run build'
-  - id: shared-reusable-on-push-main-test
+  - id: shared-reusable-on-push-main-test-unit
     kind: file_content_matches
     level: error
     paths:
       include: .github/workflows/on-push-main.yml
-    pattern: 'npm run test'
+    pattern: 'npm run test:unit'
+  - id: shared-reusable-on-push-main-test-spec
+    kind: file_content_matches
+    level: error
+    paths:
+      include: .github/workflows/on-push-main.yml
+    pattern: 'npm run test:spec'
   - id: shared-reusable-on-push-main-audit
     kind: file_content_matches
     level: error
