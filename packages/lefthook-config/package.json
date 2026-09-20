@@ -1,6 +1,7 @@
 {
   "name": "@sargonpiraev/lefthook-config",
   "version": "0.0.1",
+  "private": true,
   "description": "Shared Lefthook baseline YAML for sargonpiraev products (npm extends, not git remotes)",
   "keywords": [
     "lefthook",
