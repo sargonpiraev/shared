@@ -56,7 +56,8 @@
     "./extapp__playwright.yaml": "./extapp__playwright.yaml",
     "./project__pulumi__webapp.yaml": "./project__pulumi__webapp.yaml",
     "./project__pulumi__mobapp.yaml": "./project__pulumi__mobapp.yaml",
-    "./project__pulumi__extapp.yaml": "./project__pulumi__extapp.yaml"
+    "./project__pulumi__extapp.yaml": "./project__pulumi__extapp.yaml",
+    "./project__pulumi__github.Repository.yaml": "./project__pulumi__github.Repository.yaml"
   },
   "files": [
     "project__package.json.yaml",
@@ -93,6 +94,7 @@
     "project__pulumi__webapp.yaml",
     "project__pulumi__mobapp.yaml",
     "project__pulumi__extapp.yaml",
+    "project__pulumi__github.Repository.yaml",
     "README.md",
     "LICENSE"
   ],

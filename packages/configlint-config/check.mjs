@@ -41,6 +41,8 @@ const ids = [
   ['project__pulumi__webapp.yaml', 'id: pulumi-webapp'],
   ['project__pulumi__mobapp.yaml', 'id: pulumi-mobapp'],
   ['project__pulumi__extapp.yaml', 'id: pulumi-extapp'],
+  ['project__pulumi__github.Repository.yaml', 'id: pulumi-github-repository-protect'],
+  ['project__pulumi__github.Repository.yaml', 'id: pulumi-github-repository-import'],
 ]
 
 for (const path of templates) {

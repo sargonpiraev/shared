@@ -1,0 +1,4 @@
+{
+  "extends": "@sargonpiraev/semantic-release-config",
+  "$schema": "../../node_modules/@sargonpiraev/eslint-config/build/schemas/project__releaserc.json"
+}

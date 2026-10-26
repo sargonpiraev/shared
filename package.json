@@ -23,6 +23,7 @@
     "test:eslint": "eslint .",
     "test:format": "prettier --check \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\"",
     "test:fslint": "alint check -c .alint.fslint.yaml",
+    "test:github:ci": "node node_modules/@sargonpiraev/lefthook-config/scripts/test-github-ci.mjs",
     "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi",
     "test:spec": "node -e \"console.log('noop test:spec — N/A'); process.exit(0)\"",
     "test:spec:visual": "node -e \"console.log('noop test:spec:visual — N/A'); process.exit(0)\"",

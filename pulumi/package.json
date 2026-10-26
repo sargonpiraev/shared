@@ -10,6 +10,7 @@
     "test:pulumi": "tsx --test index-clusters.test.ts"
   },
   "dependencies": {
+    "@pulumi/github": "^6.0.0",
     "@pulumi/pulumi": "^3.0.0"
   },
   "devDependencies": {

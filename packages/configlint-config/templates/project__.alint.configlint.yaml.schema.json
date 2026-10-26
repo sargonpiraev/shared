@@ -7,7 +7,7 @@
   "properties": {
     "extends": {
       "type": "array",
-      "minItems": 23,
+      "minItems": 24,
       "allOf": [
         {
           "contains": {
@@ -121,6 +121,12 @@
           "contains": {
             "type": "string",
             "pattern": "project__pulumi__extapp\\.yaml"
+          }
+        },
+        {
+          "contains": {
+            "type": "string",
+            "pattern": "project__pulumi__github\\.Repository\\.yaml"
           }
         },
         {

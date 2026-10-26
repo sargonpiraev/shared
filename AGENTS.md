@@ -3,7 +3,7 @@
 Shared monorepo (former `packages` + `ci`).
 
 - **clients** — transport API clients (OpenAPI → TS when no official SDK)
-- **pulumi-*** — thin Pulumi providers over clients + ComponentResources (`pulumi-apps` preferred; legacy `pulumi-webapp-analytics`)
+- **pulumi-*** — thin Pulumi providers over clients + ComponentResources (`pulumi-apps` preferred; `pulumi-cursor` for Cloud Agents; legacy `pulumi-webapp-analytics`)
 - **mcp-*** — MCP servers over clients
 - **eslint-config** — shared project ESLint flat-config + inventory/harness JSON schemas (`@sargonpiraev/eslint-config`)
 - **prettier-config** — shared Prettier (`@sargonpiraev/prettier-config`)

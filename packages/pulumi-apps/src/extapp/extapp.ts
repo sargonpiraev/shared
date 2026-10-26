@@ -38,7 +38,7 @@ export type ExtappArgs = {
   productLabel: string
   /** Base64 SA key for `@pulumi/gcp`. */
   gcpServiceAccountKeyB64: pulumi.Input<string>
-  /** When false, do not create the dataset (meta warehouse already owns it). */
+  /** Opt-in only. Warehouse datasets (`cws`) stay in meta; product packs default skip. */
   createDataset?: boolean
   datasetDescription?: pulumi.Input<string>
   adoptExisting?: boolean
@@ -46,7 +46,7 @@ export type ExtappArgs = {
 }
 
 /**
- * `apps/extapp` product analytics: CWS item id in code + optional BQ dataset.
+ * `apps/extapp` product analytics: CWS item id in code. BQ `cws` dataset is meta warehouse.
  * Store metrics ingest is meta chrome-vm Developer Dashboard scrape, not a public listing CF.
  */
 export class Extapp extends pulumi.ComponentResource {
@@ -70,7 +70,7 @@ export class Extapp extends pulumi.ComponentResource {
     )
 
     const adopt = args.adoptExisting === true
-    const createDataset = args.createDataset !== false
+    const createDataset = args.createDataset === true
 
     const credentials = pulumi
       .output(args.gcpServiceAccountKeyB64)

@@ -1,0 +1,26 @@
+# pulumi/github.Repository.ts must adopt the existing GitHub repo (protect + import).
+# Presence is fslint (project.yaml). Do not require this in webapp app leaves.
+version: 1
+
+rules:
+  - id: pulumi-github-repository-protect
+    kind: file_content_matches
+    level: error
+    paths:
+      include: pulumi/github.Repository.ts
+    pattern: 'protect:\s*true'
+    message: 'pulumi/github.Repository.ts must set protect: true'
+  - id: pulumi-github-repository-import
+    kind: file_content_matches
+    level: error
+    paths:
+      include: pulumi/github.Repository.ts
+    pattern: '\bimport:'
+    message: 'pulumi/github.Repository.ts must set import:'
+  - id: pulumi-github-repository-no-autoinit
+    kind: file_content_forbidden
+    level: error
+    paths:
+      include: pulumi/github.Repository.ts
+    pattern: 'autoInit'
+    message: 'pulumi/github.Repository.ts must not create via autoInit'

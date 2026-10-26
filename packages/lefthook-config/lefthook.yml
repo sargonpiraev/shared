@@ -9,38 +9,66 @@ pre-commit:
   commands:
     fslint:
       run: npm run test:fslint
+      priority: 1
     configlint:
       run: npm run test:configlint
+      priority: 2
     format:
       run: npm run test:format
+      priority: 3
     lint:
       run: npm run test:eslint
+      priority: 4
     check-types:
       run: npm run test:check-types
+      priority: 5
 
 commit-msg:
+  parallel: false
   commands:
     commitlint:
       run: npx commitlint --edit {1}
+      priority: 1
 
 pre-push:
   parallel: false
   commands:
     fslint:
       run: npm run test:fslint
+      priority: 1
     configlint:
       run: npm run test:configlint
+      priority: 2
     format:
       run: npm run test:format
+      priority: 3
     lint:
       run: npm run test:eslint
+      priority: 4
     check-types:
       run: npm run test:check-types
+      priority: 5
     unit:
       run: npm run test:unit
+      priority: 6
     build:
       run: npm run build
+      priority: 7
     spec:
       run: npm run test:spec
+      priority: 8
     audit:
       run: npm audit --audit-level=critical
+      priority: 9
+
+# After a successful push: wait for GitHub Actions on HEAD.
+# Skip locally: lefthook-local.yml → post-push.exclude_tags: [github-ci]
+post-push:
+  parallel: false
+  commands:
+    github-ci:
+      tags: [github-ci]
+      run: npm run test:github:ci
+      priority: 1
+
+# TODO https://lefthook.dev/configuration/ai/

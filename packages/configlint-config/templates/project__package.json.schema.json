@@ -18,6 +18,7 @@
         "test:unit",
         "test:spec",
         "test:spec:visual",
+        "test:github:ci",
         "format",
         "npm:install"
       ],
@@ -57,6 +58,9 @@
         "test:spec:visual": {
           "type": "string",
           "minLength": 1
+        },
+        "test:github:ci": {
+          "const": "node node_modules/@sargonpiraev/lefthook-config/scripts/test-github-ci.mjs"
         },
         "format": {
           "const": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""

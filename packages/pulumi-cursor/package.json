@@ -1,0 +1,59 @@
+{
+  "name": "@sargonpiraev/pulumi-cursor",
+  "version": "0.0.0",
+  "description": "Pulumi provider for Cursor Cloud Agents (v1 durable agent + runs)",
+  "keywords": [
+    "pulumi",
+    "provider",
+    "cursor",
+    "cloud-agents",
+    "infrastructure"
+  ],
+  "homepage": "https://github.com/sargonpiraev/shared/tree/main/packages/pulumi-cursor#readme",
+  "bugs": {
+    "url": "https://github.com/sargonpiraev/shared/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sargonpiraev/shared.git",
+    "directory": "packages/pulumi-cursor"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Sargon Piraev",
+    "email": "sargonpiraev@gmail.com"
+  },
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "bin": {
+    "pulumi-resource-cursor": "./bin/pulumi-resource-cursor.js"
+  },
+  "files": [
+    "build",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint ./src --ext .ts",
+    "test": "jest --passWithNoTests --coverage",
+    "test:unit": "jest --passWithNoTests --coverage"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

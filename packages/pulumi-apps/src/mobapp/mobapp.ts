@@ -30,7 +30,7 @@ export type MobappArgs = {
   datasetId: pulumi.Input<string>
   /** Tables + CF env. Defaults to `datasetId`. Use to write into a provider dataset while still managing a legacy dataset id. */
   writeDatasetId?: pulumi.Input<string>
-  /** When false, do not create the dataset (meta warehouse already owns it). */
+  /** Opt-in only. Warehouse datasets (`appstore`) stay in meta; product packs default skip. */
   createDataset?: boolean
   appId: pulumi.Input<string>
   bundleId: pulumi.Input<string>
@@ -63,7 +63,7 @@ export type MobappArgs = {
 
 /**
  * `apps/mobapp` product analytics:
- * BigQuery `appstore` dataset + tables + ASC Gen1 CF ETL + daily Scheduler.
+ * ASC tables + Gen1 CF ETL + daily Scheduler. BQ `appstore` dataset is meta warehouse.
  *
  * Play Store path is intentionally omitted for now.
  * Function source stays in the consuming stack — pass `sourceArchive`.
@@ -90,7 +90,7 @@ export class Mobapp extends pulumi.ComponentResource {
     )
 
     const adopt = args.adoptExisting === true
-    const createDataset = args.createDataset !== false
+    const createDataset = args.createDataset === true
     const functionName = args.functionName ?? 'appstore-connect-etl'
     const entryPoint = args.entryPoint ?? 'loadAppStoreConnect'
     const schedulerJobName = args.schedulerJobName ?? 'appstore-connect-daily'
