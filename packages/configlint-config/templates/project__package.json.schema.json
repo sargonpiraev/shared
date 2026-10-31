@@ -60,7 +60,7 @@
           "minLength": 1
         },
         "test:github:ci": {
-          "const": "node node_modules/@sargonpiraev/lefthook-config/scripts/test-github-ci.mjs"
+          "const": "bash -c 'sha=$(git rev-parse HEAD); id=$(gh run list --commit \"$sha\" --limit 1 --json databaseId --jq \".[0].databaseId\"); gh run watch \"$id\" --exit-status || { gh run view \"$id\"; exit 1; }'"
         },
         "format": {
           "const": "prettier --write \"**/*.{mjs,cjs,js,ts,tsx,md,json,yaml,yml}\""

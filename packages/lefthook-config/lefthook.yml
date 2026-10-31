@@ -7,19 +7,19 @@
 pre-commit:
   parallel: false
   commands:
-    fslint:
+    test-fslint:
       run: npm run test:fslint
       priority: 1
-    configlint:
+    test-configlint:
       run: npm run test:configlint
       priority: 2
-    format:
+    test-format:
       run: npm run test:format
       priority: 3
-    lint:
+    test-lint:
       run: npm run test:eslint
       priority: 4
-    check-types:
+    test-check-types:
       run: npm run test:check-types
       priority: 5
 
@@ -33,31 +33,31 @@ commit-msg:
 pre-push:
   parallel: false
   commands:
-    fslint:
+    test-fslint:
       run: npm run test:fslint
       priority: 1
-    configlint:
+    test-configlint:
       run: npm run test:configlint
       priority: 2
-    format:
+    test-format:
       run: npm run test:format
       priority: 3
-    lint:
+    test-lint:
       run: npm run test:eslint
       priority: 4
-    check-types:
+    test-check-types:
       run: npm run test:check-types
       priority: 5
-    unit:
+    test-unit:
       run: npm run test:unit
       priority: 6
-    build:
+    test-build:
       run: npm run build
       priority: 7
-    spec:
+    test-spec:
       run: npm run test:spec
       priority: 8
-    audit:
+    test-audit:
       run: npm audit --audit-level=critical
       priority: 9
 
@@ -66,9 +66,13 @@ pre-push:
 post-push:
   parallel: false
   commands:
-    github-ci:
-      tags: [github-ci]
-      run: npm run test:github:ci
+    test-ci:
+      tags:
+        - github-ci
+      run: |
+        sha=$(git rev-parse HEAD)
+        id=$(gh run list --commit "$sha" --limit 1 --json databaseId --jq '.[0].databaseId')
+        gh run watch "$id" --exit-status || { gh run view "$id"; exit 1; }
       priority: 1
 
 # TODO https://lefthook.dev/configuration/ai/
