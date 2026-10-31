@@ -102,7 +102,7 @@ mcpServer.tool(
   'set-banner',
   `Update announcement banner configuration`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -141,7 +141,7 @@ mcpServer.tool(
     issueTypeId: z.string().optional(),
     startAt: z.string().optional(),
     maxResults: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -174,7 +174,7 @@ mcpServer.tool(
   `Update custom fields`,
   {
     generateChangelog: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -247,7 +247,7 @@ mcpServer.tool(
   `Update custom field configurations`,
   {
     fieldIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -282,7 +282,7 @@ mcpServer.tool(
   {
     fieldIdOrKey: z.string(),
     generateChangelog: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -375,7 +375,7 @@ mcpServer.tool(
   `Set application property`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -768,7 +768,7 @@ mcpServer.tool(
   'submit-bulk-delete',
   `Bulk delete issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -835,7 +835,7 @@ mcpServer.tool(
   'submit-bulk-edit',
   `Bulk edit issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -867,7 +867,7 @@ mcpServer.tool(
   'submit-bulk-move',
   `Bulk move issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -933,7 +933,7 @@ mcpServer.tool(
   'submit-bulk-transition',
   `Bulk transition issue statuses`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -965,7 +965,7 @@ mcpServer.tool(
   'submit-bulk-unwatch',
   `Bulk unwatch issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -997,7 +997,7 @@ mcpServer.tool(
   'submit-bulk-watch',
   `Bulk watch issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1062,7 +1062,7 @@ mcpServer.tool(
   'get-bulk-changelogs',
   `Bulk fetch changelogs`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1128,7 +1128,7 @@ mcpServer.tool(
   `Get comments by IDs`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1331,7 +1331,7 @@ mcpServer.tool(
   'create-component',
   `Create component`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1431,7 +1431,7 @@ mcpServer.tool(
   `Update component`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1552,7 +1552,7 @@ mcpServer.tool(
   'select-time-tracking-implementation',
   `Select time tracking provider`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1644,7 +1644,7 @@ mcpServer.tool(
   'set-shared-time-tracking-configuration',
   `Set time tracking settings`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1744,7 +1744,7 @@ mcpServer.tool(
   `Create dashboard`,
   {
     extendAdminPermissions: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1776,7 +1776,7 @@ mcpServer.tool(
   'bulk-edit-dashboards',
   `Bulk edit dashboards`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1917,7 +1917,7 @@ mcpServer.tool(
   `Add gadget to dashboard`,
   {
     dashboardId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1986,7 +1986,7 @@ mcpServer.tool(
   {
     dashboardId: z.string(),
     gadgetId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2226,7 +2226,7 @@ mcpServer.tool(
   {
     id: z.string(),
     extendAdminPermissions: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2261,7 +2261,7 @@ mcpServer.tool(
   {
     id: z.string(),
     extendAdminPermissions: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2377,7 +2377,7 @@ mcpServer.tool(
   `Analyse Jira expression`,
   {
     check: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2410,7 +2410,7 @@ mcpServer.tool(
   `Currently being removed. Evaluate Jira expression`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2443,7 +2443,7 @@ mcpServer.tool(
   `Evaluate Jira expression using enhanced search API`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2500,7 +2500,7 @@ mcpServer.tool(
   'create-custom-field',
   `Create custom field`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2532,7 +2532,7 @@ mcpServer.tool(
   'remove-associations',
   `Remove associations`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2564,7 +2564,7 @@ mcpServer.tool(
   'create-associations',
   `Create associations`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2673,7 +2673,7 @@ mcpServer.tool(
   `Update custom field`,
   {
     fieldId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2745,7 +2745,7 @@ mcpServer.tool(
   `Create custom field context`,
   {
     fieldId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2815,7 +2815,7 @@ mcpServer.tool(
   `Set custom field contexts default values`,
   {
     fieldId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2887,7 +2887,7 @@ mcpServer.tool(
     fieldId: z.string(),
     startAt: z.string().optional(),
     maxResults: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2992,7 +2992,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3027,7 +3027,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3062,7 +3062,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3135,7 +3135,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3170,7 +3170,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3205,7 +3205,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3312,7 +3312,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3347,7 +3347,7 @@ mcpServer.tool(
   {
     fieldId: z.string(),
     contextId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3487,7 +3487,7 @@ mcpServer.tool(
   `Create issue field option`,
   {
     fieldKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3662,7 +3662,7 @@ mcpServer.tool(
   {
     fieldKey: z.string(),
     optionId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3868,7 +3868,7 @@ mcpServer.tool(
   'create-field-configuration',
   `Create field configuration`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3934,7 +3934,7 @@ mcpServer.tool(
   `Update field configuration`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4003,7 +4003,7 @@ mcpServer.tool(
   `Update field configuration items`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4070,7 +4070,7 @@ mcpServer.tool(
   'create-field-configuration-scheme',
   `Create field configuration scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4170,7 +4170,7 @@ mcpServer.tool(
   'assign-field-configuration-scheme-to-project',
   `Assign field configuration scheme to project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4236,7 +4236,7 @@ mcpServer.tool(
   `Update field configuration scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4270,7 +4270,7 @@ mcpServer.tool(
   `Assign issue types to field configurations`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4304,7 +4304,7 @@ mcpServer.tool(
   `Remove issue types from field configuration scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4339,7 +4339,7 @@ mcpServer.tool(
   {
     expand: z.string().optional(),
     overrideSharePermissions: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4396,7 +4396,7 @@ mcpServer.tool(
   'set-default-share-scope',
   `Set default share scope`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4608,7 +4608,7 @@ mcpServer.tool(
     id: z.string(),
     expand: z.string().optional(),
     overrideSharePermissions: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4708,7 +4708,7 @@ mcpServer.tool(
   `Set columns`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4810,7 +4810,7 @@ mcpServer.tool(
   `Change filter owner`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4877,7 +4877,7 @@ mcpServer.tool(
   `Add share permission`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5047,7 +5047,7 @@ mcpServer.tool(
   'create-group',
   `Create group`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5189,7 +5189,7 @@ mcpServer.tool(
   {
     groupname: z.string().optional(),
     groupId: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5325,7 +5325,7 @@ mcpServer.tool(
   `Create issue`,
   {
     updateHistory: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5357,7 +5357,7 @@ mcpServer.tool(
   'archive-issues-async',
   `Archive issue(s) by JQL`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5389,7 +5389,7 @@ mcpServer.tool(
   'archive-issues',
   `Archive issue(s) by issue ID/key`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5421,7 +5421,7 @@ mcpServer.tool(
   'create-issues',
   `Bulk create issue`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5453,7 +5453,7 @@ mcpServer.tool(
   'bulk-fetch-issues',
   `Bulk fetch issues`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5661,7 +5661,7 @@ mcpServer.tool(
   'bulk-set-issues-properties-list',
   `Bulk set issues properties by list`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5693,7 +5693,7 @@ mcpServer.tool(
   'bulk-set-issue-properties-by-issue',
   `Bulk set issue properties by issue`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5726,7 +5726,7 @@ mcpServer.tool(
   `Bulk delete issue property`,
   {
     propertyKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5760,7 +5760,7 @@ mcpServer.tool(
   `Bulk set issue property`,
   {
     propertyKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5793,7 +5793,7 @@ mcpServer.tool(
   'unarchive-issues',
   `Unarchive issue(s) by issue keys/ID`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5825,7 +5825,7 @@ mcpServer.tool(
   'get-is-watching-issue-bulk',
   `Get is watching issue bulk`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5936,7 +5936,7 @@ mcpServer.tool(
     overrideEditableFlag: z.string().optional(),
     returnIssue: z.string().optional(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5970,7 +5970,7 @@ mcpServer.tool(
   `Assign issue`,
   {
     issueIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6072,7 +6072,7 @@ mcpServer.tool(
   `Get changelogs by IDs`,
   {
     issueIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6144,7 +6144,7 @@ mcpServer.tool(
   {
     issueIdOrKey: z.string(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6251,7 +6251,7 @@ mcpServer.tool(
     notifyUsers: z.string().optional(),
     overrideEditableFlag: z.string().optional(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6320,7 +6320,7 @@ mcpServer.tool(
   `Send notification for issue`,
   {
     issueIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6557,7 +6557,7 @@ mcpServer.tool(
   `Create or update remote issue link`,
   {
     issueIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6660,7 +6660,7 @@ mcpServer.tool(
   {
     issueIdOrKey: z.string(),
     linkId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6732,7 +6732,7 @@ mcpServer.tool(
   `Transition issue`,
   {
     issueIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6968,7 +6968,7 @@ mcpServer.tool(
     issueIdOrKey: z.string(),
     adjustEstimate: z.string().optional(),
     overrideEditableFlag: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7046,7 +7046,7 @@ mcpServer.tool(
     reduceBy: z.string().optional(),
     expand: z.string().optional(),
     overrideEditableFlag: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7082,7 +7082,7 @@ mcpServer.tool(
     issueIdOrKey: z.string(),
     adjustEstimate: z.string().optional(),
     overrideEditableFlag: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7196,7 +7196,7 @@ mcpServer.tool(
     newEstimate: z.string().optional(),
     expand: z.string().optional(),
     overrideEditableFlag: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7368,7 +7368,7 @@ mcpServer.tool(
   'link-issues',
   `Create issue link`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7491,7 +7491,7 @@ mcpServer.tool(
   'create-issue-link-type',
   `Create issue link type`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7590,7 +7590,7 @@ mcpServer.tool(
   `Update issue link type`,
   {
     issueLinkTypeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7623,7 +7623,7 @@ mcpServer.tool(
   'export-archived-issues',
   `Export archived issue(s)`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7685,7 +7685,7 @@ mcpServer.tool(
   'create-issue-security-scheme',
   `Create issue security scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7753,7 +7753,7 @@ mcpServer.tool(
   'set-default-levels',
   `Set default issue security levels`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7857,7 +7857,7 @@ mcpServer.tool(
   'associate-schemes-to-projects',
   `Associate security scheme to project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -7958,7 +7958,7 @@ mcpServer.tool(
   `Update issue security scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8062,7 +8062,7 @@ mcpServer.tool(
   `Add issue security levels`,
   {
     schemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8132,7 +8132,7 @@ mcpServer.tool(
   {
     schemeId: z.string(),
     levelId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8167,7 +8167,7 @@ mcpServer.tool(
   {
     schemeId: z.string(),
     levelId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8260,7 +8260,7 @@ mcpServer.tool(
   'create-issue-type',
   `Create issue type`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8393,7 +8393,7 @@ mcpServer.tool(
   `Update issue type`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8667,7 +8667,7 @@ mcpServer.tool(
   'create-issue-type-scheme',
   `Create issue type scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8767,7 +8767,7 @@ mcpServer.tool(
   'assign-issue-type-scheme-to-project',
   `Assign issue type scheme to project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8833,7 +8833,7 @@ mcpServer.tool(
   `Update issue type scheme`,
   {
     issueTypeSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8867,7 +8867,7 @@ mcpServer.tool(
   `Add issue types to issue type scheme`,
   {
     issueTypeSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -8901,7 +8901,7 @@ mcpServer.tool(
   `Change order of issue types`,
   {
     issueTypeSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9005,7 +9005,7 @@ mcpServer.tool(
   'create-issue-type-screen-scheme',
   `Create issue type screen scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9105,7 +9105,7 @@ mcpServer.tool(
   'assign-issue-type-screen-scheme-to-project',
   `Assign issue type screen scheme to project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9171,7 +9171,7 @@ mcpServer.tool(
   `Update issue type screen scheme`,
   {
     issueTypeScreenSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9205,7 +9205,7 @@ mcpServer.tool(
   `Append mappings to issue type screen scheme`,
   {
     issueTypeScreenSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9239,7 +9239,7 @@ mcpServer.tool(
   `Update issue type screen scheme default screen scheme`,
   {
     issueTypeScreenSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9273,7 +9273,7 @@ mcpServer.tool(
   `Remove mappings from issue type screen scheme`,
   {
     issueTypeScreenSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9367,7 +9367,7 @@ mcpServer.tool(
   'get-auto-complete-post',
   `Get field reference data (POST)`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9470,7 +9470,7 @@ mcpServer.tool(
   `Update precomputations (apps)`,
   {
     skipNotFoundPrecomputations: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9503,7 +9503,7 @@ mcpServer.tool(
   `Get precomputations by ID (apps)`,
   {
     orderBy: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9535,7 +9535,7 @@ mcpServer.tool(
   'match-issues',
   `Check issues against JQL`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9568,7 +9568,7 @@ mcpServer.tool(
   `Parse JQL query`,
   {
     validation: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9600,7 +9600,7 @@ mcpServer.tool(
   'migrate-queries',
   `Convert user identifiers to account IDs in JQL queries`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9632,7 +9632,7 @@ mcpServer.tool(
   'sanitise-jql-queries',
   `Sanitize JQL queries`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9920,7 +9920,7 @@ mcpServer.tool(
   'set-locale',
   `Set locale`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10021,7 +10021,7 @@ mcpServer.tool(
   'create-notification-scheme',
   `Create notification scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10123,7 +10123,7 @@ mcpServer.tool(
   `Update notification scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10157,7 +10157,7 @@ mcpServer.tool(
   `Add notifications to notification scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10282,7 +10282,7 @@ mcpServer.tool(
   'get-bulk-permissions',
   `Get bulk permissions`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10314,7 +10314,7 @@ mcpServer.tool(
   'get-permitted-projects',
   `Get permitted projects`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10379,7 +10379,7 @@ mcpServer.tool(
   `Create permission scheme`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10480,7 +10480,7 @@ mcpServer.tool(
   {
     schemeId: z.string(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10549,7 +10549,7 @@ mcpServer.tool(
   {
     schemeId: z.string(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10687,7 +10687,7 @@ mcpServer.tool(
   `Create plan`,
   {
     useGroupId: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10821,7 +10821,7 @@ mcpServer.tool(
   `Duplicate plan`,
   {
     planId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10890,7 +10890,7 @@ mcpServer.tool(
   `Add Atlassian team to plan`,
   {
     planId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11026,7 +11026,7 @@ mcpServer.tool(
   `Create plan-only team`,
   {
     planId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11219,7 +11219,7 @@ mcpServer.tool(
   'create-priority',
   `Create priority`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11251,7 +11251,7 @@ mcpServer.tool(
   'set-default-priority',
   `Set default priority`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11283,7 +11283,7 @@ mcpServer.tool(
   'move-priorities',
   `Move priorities`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11420,7 +11420,7 @@ mcpServer.tool(
   `Update priority`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11492,7 +11492,7 @@ mcpServer.tool(
   'create-priority-scheme',
   `Create priority scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11524,7 +11524,7 @@ mcpServer.tool(
   'suggested-priorities-for-mappings',
   `Suggested priorities for mappings`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11626,7 +11626,7 @@ mcpServer.tool(
   `Update priority scheme`,
   {
     schemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11765,7 +11765,7 @@ mcpServer.tool(
   'create-project',
   `Create project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11797,7 +11797,7 @@ mcpServer.tool(
   'create-project-with-custom-template',
   `Create custom project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11829,7 +11829,7 @@ mcpServer.tool(
   'edit-template',
   `Edit a custom project template`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -11926,7 +11926,7 @@ mcpServer.tool(
   'save-template',
   `Save a custom project template`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12227,7 +12227,7 @@ mcpServer.tool(
   {
     projectIdOrKey: z.string(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12294,7 +12294,7 @@ mcpServer.tool(
   `Set project avatar`,
   {
     projectIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12497,7 +12497,7 @@ mcpServer.tool(
   `Update the default data classification level of a project`,
   {
     projectIdOrKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12670,7 +12670,7 @@ mcpServer.tool(
   {
     projectIdOrKey: z.string(),
     featureKey: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12978,7 +12978,7 @@ mcpServer.tool(
   {
     projectIdOrKey: z.string(),
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13013,7 +13013,7 @@ mcpServer.tool(
   {
     projectIdOrKey: z.string(),
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13221,7 +13221,7 @@ mcpServer.tool(
   `Set project&#x27;s sender email`,
   {
     projectId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13390,7 +13390,7 @@ mcpServer.tool(
   {
     projectKeyOrId: z.string(),
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13486,7 +13486,7 @@ mcpServer.tool(
   'create-project-category',
   `Create project category`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13585,7 +13585,7 @@ mcpServer.tool(
   `Update project category`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13714,7 +13714,7 @@ mcpServer.tool(
   'redact',
   `Redact`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13804,7 +13804,7 @@ mcpServer.tool(
   'create-resolution',
   `Create resolution`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13836,7 +13836,7 @@ mcpServer.tool(
   'set-default-resolution',
   `Set default resolution`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -13868,7 +13868,7 @@ mcpServer.tool(
   'move-resolutions',
   `Move resolutions`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14003,7 +14003,7 @@ mcpServer.tool(
   `Update resolution`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14061,7 +14061,7 @@ mcpServer.tool(
   'create-project-role',
   `Create project role`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14161,7 +14161,7 @@ mcpServer.tool(
   `Partial update project role`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14195,7 +14195,7 @@ mcpServer.tool(
   `Fully update project role`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14298,7 +14298,7 @@ mcpServer.tool(
   `Add default actors to project role`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14368,7 +14368,7 @@ mcpServer.tool(
   'create-screen',
   `Create screen`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14502,7 +14502,7 @@ mcpServer.tool(
   `Update screen`,
   {
     screenId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14603,7 +14603,7 @@ mcpServer.tool(
   `Create screen tab`,
   {
     screenId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14672,7 +14672,7 @@ mcpServer.tool(
   {
     screenId: z.string(),
     tabId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14742,7 +14742,7 @@ mcpServer.tool(
   {
     screenId: z.string(),
     tabId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14813,7 +14813,7 @@ mcpServer.tool(
     screenId: z.string(),
     tabId: z.string(),
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14918,7 +14918,7 @@ mcpServer.tool(
   'create-screen-scheme',
   `Create screen scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -14984,7 +14984,7 @@ mcpServer.tool(
   `Update screen scheme`,
   {
     screenSchemeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15057,7 +15057,7 @@ mcpServer.tool(
   'search-for-issues-using-jql-post',
   `Currently being removed. Search for issues using JQL (POST)`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15089,7 +15089,7 @@ mcpServer.tool(
   'count-issues',
   `Count issues using JQL`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15161,7 +15161,7 @@ mcpServer.tool(
   'search-and-reconsile-issues-using-jql-post',
   `Search for issues using JQL enhanced search (POST)`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15492,7 +15492,7 @@ mcpServer.tool(
   'create-statuses',
   `Bulk create statuses`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15524,7 +15524,7 @@ mcpServer.tool(
   'update-statuses',
   `Bulk update statuses`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15799,7 +15799,7 @@ mcpServer.tool(
   'create-ui-modification',
   `Create UI modification`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -15865,7 +15865,7 @@ mcpServer.tool(
   `Update UI modification`,
   {
     uiModificationId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -16180,7 +16180,7 @@ mcpServer.tool(
   'create-user',
   `Create user`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17054,7 +17054,7 @@ mcpServer.tool(
   'create-version',
   `Create version`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17156,7 +17156,7 @@ mcpServer.tool(
   `Update version`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17224,7 +17224,7 @@ mcpServer.tool(
   `Move version`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17324,7 +17324,7 @@ mcpServer.tool(
   `Create related work`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17358,7 +17358,7 @@ mcpServer.tool(
   `Update related work`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17392,7 +17392,7 @@ mcpServer.tool(
   `Delete and replace version`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17492,7 +17492,7 @@ mcpServer.tool(
   'delete-webhook-by-id',
   `Delete webhooks by ID`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17557,7 +17557,7 @@ mcpServer.tool(
   'register-dynamic-webhooks',
   `Register dynamic webhooks`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17622,7 +17622,7 @@ mcpServer.tool(
   'refresh-webhooks',
   `Extend webhook life`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17686,7 +17686,7 @@ mcpServer.tool(
   'create-workflow',
   `Create workflow`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17757,7 +17757,7 @@ mcpServer.tool(
   'update-workflow-transition-rule-configurations',
   `Update workflow transition rule configurations`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17789,7 +17789,7 @@ mcpServer.tool(
   'delete-workflow-transition-rule-configurations',
   `Delete workflow transition rule configurations`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17936,7 +17936,7 @@ mcpServer.tool(
     key: z.string(),
     workflowName: z.string(),
     workflowMode: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17973,7 +17973,7 @@ mcpServer.tool(
     key: z.string(),
     workflowName: z.string(),
     workflowMode: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18147,7 +18147,7 @@ mcpServer.tool(
   {
     expand: z.string().optional(),
     useApprovalConfiguration: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18213,7 +18213,7 @@ mcpServer.tool(
   'create-workflows',
   `Bulk create workflows`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18245,7 +18245,7 @@ mcpServer.tool(
   'validate-create-workflows',
   `Validate create workflows`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18346,7 +18346,7 @@ mcpServer.tool(
   `Bulk update workflows`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18378,7 +18378,7 @@ mcpServer.tool(
   'validate-update-workflows',
   `Validate update workflows`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18443,7 +18443,7 @@ mcpServer.tool(
   'create-workflow-scheme',
   `Create workflow scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18507,7 +18507,7 @@ mcpServer.tool(
   'assign-scheme-to-project',
   `Assign workflow scheme to project`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18540,7 +18540,7 @@ mcpServer.tool(
   `Bulk get workflow schemes`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18572,7 +18572,7 @@ mcpServer.tool(
   'update-schemes',
   `Update workflow scheme`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18604,7 +18604,7 @@ mcpServer.tool(
   'update-workflow-scheme-mappings',
   `Get required status mappings for workflow scheme update`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18704,7 +18704,7 @@ mcpServer.tool(
   `Classic update workflow scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18839,7 +18839,7 @@ mcpServer.tool(
   `Update default workflow`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -18939,7 +18939,7 @@ mcpServer.tool(
   `Update draft workflow scheme`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19039,7 +19039,7 @@ mcpServer.tool(
   `Update draft default workflow`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19142,7 +19142,7 @@ mcpServer.tool(
   {
     id: z.string(),
     issueType: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19177,7 +19177,7 @@ mcpServer.tool(
   {
     id: z.string(),
     validateOnly: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19280,7 +19280,7 @@ mcpServer.tool(
   {
     id: z.string(),
     workflowName: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19385,7 +19385,7 @@ mcpServer.tool(
   {
     id: z.string(),
     issueType: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19490,7 +19490,7 @@ mcpServer.tool(
   {
     id: z.string(),
     workflowName: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19591,7 +19591,7 @@ mcpServer.tool(
   `Get worklogs`,
   {
     expand: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19853,7 +19853,7 @@ mcpServer.tool(
   'dynamic-modules-resource.register-modules_post',
   `Register modules`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19885,7 +19885,7 @@ mcpServer.tool(
   'app-issue-field-value-update-resource.update-issue-fields_put',
   `Bulk update custom field value`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -19950,7 +19950,7 @@ mcpServer.tool(
   'migration-resource.workflow-rule-search_post',
   `Get workflow transition rule configurations`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

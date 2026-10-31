@@ -42,10 +42,11 @@
     "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
     "@modelcontextprotocol/sdk": "^1.11.0",
     "@slack/web-api": "^6.9.0",
     "dotenv": "^16.3.1",
-    "zod": "^3.22.4"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

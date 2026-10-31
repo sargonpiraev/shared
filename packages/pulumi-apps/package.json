@@ -85,12 +85,13 @@
     "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
     "@pulumi/gcp": "^9.0.0",
     "@pulumi/pulumi": "^3.0.0",
     "@pulumiverse/vercel": "^1.15.0",
     "@sargonpiraev/pulumi-ga4": "^0.2.0",
     "@sargonpiraev/pulumi-gsc": "^0.3.0",
-    "zod": "^3.24.3"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

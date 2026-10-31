@@ -133,7 +133,7 @@ mcpServer.tool(
   `Add a habit log`,
   {
     habitId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -399,7 +399,7 @@ mcpServer.tool(
   'add-mood',
   `Add mood entry`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -472,7 +472,7 @@ mcpServer.tool(
   'add-note',
   `Add note`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

@@ -49,7 +49,7 @@
           "const": "turbo run check-types"
         },
         "test:unit": {
-          "const": "turbo run test:unit"
+          "const": "turbo run test:unit -- --passWithNoTests"
         },
         "test:spec": {
           "type": "string",

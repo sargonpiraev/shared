@@ -399,7 +399,7 @@ mcpServer.tool(
   `Create content property for attachment`,
   {
     attachmentId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -480,7 +480,7 @@ mcpServer.tool(
   {
     attachmentId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1149,7 +1149,7 @@ mcpServer.tool(
   `Create content property for blog post`,
   {
     blogpostId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1230,7 +1230,7 @@ mcpServer.tool(
   {
     blogpostId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1858,7 +1858,7 @@ mcpServer.tool(
   `Create content property for custom content`,
   {
     customContentId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1939,7 +1939,7 @@ mcpServer.tool(
   {
     customContentId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2701,7 +2701,7 @@ mcpServer.tool(
   `Create content property for page`,
   {
     pageId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -2782,7 +2782,7 @@ mcpServer.tool(
   {
     pageId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3161,7 +3161,7 @@ mcpServer.tool(
   `Create content property for whiteboard`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3238,7 +3238,7 @@ mcpServer.tool(
   {
     whiteboardId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3616,7 +3616,7 @@ mcpServer.tool(
   `Create content property for database`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -3693,7 +3693,7 @@ mcpServer.tool(
   {
     databaseId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4069,7 +4069,7 @@ mcpServer.tool(
   `Create content property for Smart Link in the content tree`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4146,7 +4146,7 @@ mcpServer.tool(
   {
     embedId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4517,7 +4517,7 @@ mcpServer.tool(
   `Create content property for folder`,
   {
     id: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4594,7 +4594,7 @@ mcpServer.tool(
   {
     folderId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5373,7 +5373,7 @@ mcpServer.tool(
   `Create space property in space`,
   {
     spaceId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5454,7 +5454,7 @@ mcpServer.tool(
   {
     spaceId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5996,7 +5996,7 @@ mcpServer.tool(
   'create-footer-comment',
   `Create footer comment`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6430,7 +6430,7 @@ mcpServer.tool(
   'create-inline-comment',
   `Create inline comment`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6531,7 +6531,7 @@ mcpServer.tool(
   `Update inline comment`,
   {
     commentId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6868,7 +6868,7 @@ mcpServer.tool(
   `Create content property for comment`,
   {
     commentId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6949,7 +6949,7 @@ mcpServer.tool(
   {
     commentId: z.string(),
     propertyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

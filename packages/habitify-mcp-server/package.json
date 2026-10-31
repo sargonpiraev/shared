@@ -42,12 +42,13 @@
     "test:unit": "jest --passWithNoTests --coverage"
   },
   "dependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
     "@modelcontextprotocol/sdk": "^1.11.0",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.18.2",
-    "zod": "^3.24.3"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

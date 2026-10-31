@@ -116,7 +116,7 @@ mcpServer.tool(
   {
     calendarId: z.string(),
     sendNotifications: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -186,7 +186,7 @@ mcpServer.tool(
     calendarId: z.string(),
     ruleId: z.string(),
     sendNotifications: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -222,7 +222,7 @@ mcpServer.tool(
     calendarId: z.string(),
     ruleId: z.string(),
     sendNotifications: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -294,7 +294,7 @@ mcpServer.tool(
     pageToken: z.string().optional(),
     showDeleted: z.string().optional(),
     syncToken: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -365,7 +365,7 @@ mcpServer.tool(
   `Insert calendar into calendar list`,
   {
     colorRgbFormat: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -432,7 +432,7 @@ mcpServer.tool(
   {
     calendarId: z.string(),
     colorRgbFormat: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -467,7 +467,7 @@ mcpServer.tool(
   {
     calendarId: z.string(),
     colorRgbFormat: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -539,7 +539,7 @@ mcpServer.tool(
     showDeleted: z.string().optional(),
     showHidden: z.string().optional(),
     syncToken: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -571,7 +571,7 @@ mcpServer.tool(
   'insert-calendar',
   `Create calendar`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -637,7 +637,7 @@ mcpServer.tool(
   `Update calendar`,
   {
     calendarId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -671,7 +671,7 @@ mcpServer.tool(
   `Patch calendar`,
   {
     calendarId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -827,7 +827,7 @@ mcpServer.tool(
     sendNotifications: z.string().optional(),
     sendUpdates: z.string().optional(),
     supportsAttachments: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -905,7 +905,7 @@ mcpServer.tool(
     sendNotifications: z.string().optional(),
     sendUpdates: z.string().optional(),
     supportsAttachments: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -946,7 +946,7 @@ mcpServer.tool(
     sendNotifications: z.string().optional(),
     sendUpdates: z.string().optional(),
     supportsAttachments: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1098,7 +1098,7 @@ mcpServer.tool(
     calendarId: z.string(),
     conferenceDataVersion: z.string().optional(),
     supportsAttachments: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1186,7 +1186,7 @@ mcpServer.tool(
     timeMin: z.string().optional(),
     timeZone: z.string().optional(),
     updatedMin: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1219,7 +1219,7 @@ mcpServer.tool(
   'query-freebusy',
   `Query free/busy information`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1346,7 +1346,7 @@ mcpServer.tool(
     maxResults: z.string().optional(),
     pageToken: z.string().optional(),
     syncToken: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1378,7 +1378,7 @@ mcpServer.tool(
   'stop-channel',
   `Stop watching resources`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

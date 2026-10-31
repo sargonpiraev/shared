@@ -4422,7 +4422,7 @@ mcpServer.tool(
   `Set the customization template for an OIDC subject claim for an organization`,
   {
     org: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4712,7 +4712,7 @@ mcpServer.tool(
   `Set allowed actions and reusable workflows for an organization`,
   {
     org: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4779,7 +4779,7 @@ mcpServer.tool(
   `Set default workflow permissions for an organization`,
   {
     org: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -9925,7 +9925,7 @@ mcpServer.tool(
   `Set interaction restrictions for an organization`,
   {
     org: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10185,7 +10185,7 @@ mcpServer.tool(
   `Create issue type for an organization`,
   {
     org: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -10220,7 +10220,7 @@ mcpServer.tool(
   {
     org: z.string(),
     issueTypeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -12567,7 +12567,7 @@ mcpServer.tool(
   {
     org: z.string(),
     customPropertyName: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17135,7 +17135,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17204,7 +17204,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -17273,7 +17273,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -21681,7 +21681,7 @@ mcpServer.tool(
     owner: z.string(),
     repo: z.string(),
     alertNumber: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -22160,7 +22160,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -24270,7 +24270,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -24876,7 +24876,7 @@ mcpServer.tool(
     owner: z.string(),
     repo: z.string(),
     environmentName: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -24961,7 +24961,7 @@ mcpServer.tool(
     repo: z.string(),
     environmentName: z.string(),
     branchPolicyId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -27165,7 +27165,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -33056,7 +33056,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -33091,7 +33091,7 @@ mcpServer.tool(
   {
     owner: z.string(),
     repo: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -33166,7 +33166,7 @@ mcpServer.tool(
     owner: z.string(),
     repo: z.string(),
     ghsaId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -37569,7 +37569,7 @@ mcpServer.tool(
   'interactions/set-restrictions-for-authenticated-user',
   `Set interaction restrictions for your public repositories`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

@@ -110,7 +110,7 @@ mcpServer.tool(
   'insert-task-list',
   `Create task list`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -176,7 +176,7 @@ mcpServer.tool(
   `Update task list`,
   {
     tasklist: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -210,7 +210,7 @@ mcpServer.tool(
   `Patch task list`,
   {
     tasklist: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -323,7 +323,7 @@ mcpServer.tool(
     tasklist: z.string(),
     parent: z.string().optional(),
     previous: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -392,7 +392,7 @@ mcpServer.tool(
   {
     tasklist: z.string(),
     task: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -427,7 +427,7 @@ mcpServer.tool(
   {
     tasklist: z.string(),
     task: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {

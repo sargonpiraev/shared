@@ -299,7 +299,7 @@ mcpServer.tool(
   `Adding a manager`,
   {
     employerId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -479,7 +479,7 @@ mcpServer.tool(
   {
     employerId: z.string(),
     managerId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1209,7 +1209,7 @@ mcpServer.tool(
   `Обновление резюме-профиля соискателя`,
   {
     resumeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1246,7 +1246,7 @@ mcpServer.tool(
   'create-resume-profile',
   `Создание резюме-профиля соискателя`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1643,7 +1643,7 @@ mcpServer.tool(
     vacancyId: z.string(),
     ignoreDuplicates: z.string().optional(),
     ignoreReplacementWarning: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -1714,7 +1714,7 @@ mcpServer.tool(
   `Publishing job vacancies`,
   {
     ignoreDuplicates: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4387,7 +4387,7 @@ mcpServer.tool(
   `Editing a vacancy draft`,
   {
     draftId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4535,7 +4535,7 @@ mcpServer.tool(
   'create-vacancy-draft',
   `Creating vacancy draft`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4641,7 +4641,7 @@ mcpServer.tool(
   `Change a subscription on notifications`,
   {
     subscriptionId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -4715,7 +4715,7 @@ mcpServer.tool(
   'post-webhook-subscription',
   `Subscription to notifications`,
   {
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -5517,7 +5517,7 @@ mcpServer.tool(
   `Resume creating`,
   {
     sourceResumeId: z.string().optional(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6055,7 +6055,7 @@ mcpServer.tool(
   `Resume updating`,
   {
     resumeId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6508,7 +6508,7 @@ mcpServer.tool(
   {
     employerId: z.string(),
     templateId: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
@@ -6933,7 +6933,7 @@ mcpServer.tool(
   {
     resumeId: z.string(),
     listType: z.string(),
-    requestData: z.record(z.any()).optional(),
+    requestData: z.record(z.string(), z.any()).optional(),
   },
   async (args, extra) => {
     try {
