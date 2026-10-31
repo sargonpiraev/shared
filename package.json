@@ -15,7 +15,7 @@
     "prepare": "lefthook install && npm run build -w @sargonpiraev/eslint-config",
     "pulumi:preview": "npm --prefix pulumi run preview",
     "pulumi:up": "npm --prefix pulumi run up",
-    "release": "multi-semantic-release",
+    "release": "multi-semantic-release --ignore-packages=packages/pulumi-cursor/**",
     "test": "turbo run test && npm run test:pulumi",
     "test:build": "npm run build",
     "test:check-types": "turbo run check-types",
