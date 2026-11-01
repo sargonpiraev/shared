@@ -41,6 +41,20 @@ test('playwright-specs/aspect-tags', () => {
           test('c', { tag: '@perf' }, ${aaa})
         `,
       },
+      {
+        filename: 'apps/webapp/src/app/page.spec.ts',
+        code: `
+          test.describe('feat', { tag: '@feat' }, () => { test('lists', ${aaa}) })
+          requestTest.describe('seokit', { tag: '@seokit' }, () => { requestTest('meta', async () => {
+            await requestTest.step('arrange', async () => {})
+            await requestTest.step('act', async () => {})
+            await requestTest.step('assert', async () => {})
+          }) })
+          test.describe('analytics', { tag: '@analytics' }, () => { test('ga', ${aaa}) })
+          test.describe('visual', { tag: '@visual' }, () => { test('shot', ${aaa}) })
+          test.describe('perf', { tag: '@perf' }, () => { test('lcp', ${aaa}) })
+        `,
+      },
     ],
     invalid: [
       {

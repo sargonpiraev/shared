@@ -25,23 +25,24 @@ rules:
     level: error
     message: 'Project root is missing required governance files or dirs'
     require:
-      # dirs
       - { paths: .cursor, kind: dir_exists, root_only: true }
       - { paths: .cursor/worktrees.json, kind: file_exists }
+
       - { paths: .github, kind: dir_exists, root_only: true }
       - { paths: .github/workflows, kind: dir_exists }
       - { paths: .github/workflows/on-push-main.yml, kind: file_exists }
+
       - { paths: apps, kind: dir_exists, root_only: true }
+
       - { paths: packages, kind: dir_exists, root_only: true }
+
       - { paths: pulumi, kind: dir_exists, root_only: true }
-      - { paths: pulumi/.env.example, kind: file_exists }
       - { paths: pulumi/Pulumi.yaml, kind: file_exists }
-      - { paths: pulumi/index.ts, kind: file_exists }
+      - { paths: ['pulumi/main.ts', 'pulumi/index.ts'], kind: file_exists }
       - { paths: pulumi/github.Repository.ts, kind: file_exists }
       - { paths: pulumi/package.json, kind: file_exists }
       - { paths: pulumi/tsconfig.json, kind: file_exists }
 
-      # files
       - { paths: .alint.fslint.yaml, kind: file_exists, root_only: true }
       - { paths: .alint.configlint.yaml, kind: file_exists, root_only: true }
       - { paths: .npmrc, kind: file_exists, root_only: true }

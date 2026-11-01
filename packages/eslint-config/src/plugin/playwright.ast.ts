@@ -11,7 +11,7 @@ import type {
   Super,
 } from 'estree'
 
-const TEST_ID = 'test'
+const TEST_IDS = new Set(['test', 'requestTest'])
 const TEST_FN_MODIFIERS = new Set(['skip', 'only', 'fixme'])
 const DESCRIBE_MODIFIERS = new Set(['skip', 'only', 'fixme', 'serial', 'parallel'])
 
@@ -35,7 +35,7 @@ export function requiredTagsForFile(filename: string, requiredTags: readonly str
 
 function calleePath(callee: Expression | Super): string[] | null {
   if (callee.type === 'Identifier') {
-    return callee.name === TEST_ID ? [] : null
+    return TEST_IDS.has(callee.name) ? [] : null
   }
   if (callee.type !== 'MemberExpression' || callee.computed) return null
   const parts: string[] = []
@@ -45,7 +45,7 @@ function calleePath(callee: Expression | Super): string[] | null {
     parts.unshift(current.property.name)
     current = current.object
   }
-  if (current.type !== 'Identifier' || current.name !== TEST_ID) return null
+  if (current.type !== 'Identifier' || !TEST_IDS.has(current.name)) return null
   return parts
 }
 
